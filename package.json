@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ionic/react": "^7.8.3",
+    "bootstrap": "^5.3.3",
+    "ionicons": "^7.3.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
@@ -22,6 +26,8 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "react-router-dom": "^6.22.3",
+    "ts-standard": "^12.0.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }

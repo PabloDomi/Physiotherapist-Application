@@ -1,0 +1,56 @@
+.btn-light {
+    background-color: #FFF;
+    border-color: #FFF;
+    border-radius: 35px 35px 35px 35px;
+}
+
+.btn-dark {
+    background-color: #333;
+    border-color: #333;
+    border-radius: 35px 35px 35px 35px;
+}
+
+.btn-dark, .btn-light {
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s linear;
+}
+
+.toggle-button-light-to-dark, .toggle-button-dark-to-light {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.moon, .sunny {
+    transition: opacity 0.3s;
+}
+
+.icon-hidden {
+    opacity: 0;
+}
+
+.icon-visible {
+    opacity: 1;
+}
+
+.toggle-button-dark-to-light:hover {
+    background-color: #ccc;
+    color: #555;
+}
+
+.toggle-button-light-to-dark:hover {
+    background-color: #555;
+    color: #ccc;
+}
+
+.toggle-button-dark-to-light:hover .icon-hidden, .toggle-button-light-to-dark:hover .icon-hidden {
+    opacity: 1;
+}
+
+.toggle-button-dark-to-light:hover .icon-visible, .toggle-button-light-to-dark:hover .icon-visible {
+    opacity: 0;
+}

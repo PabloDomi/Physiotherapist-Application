@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+}
+
+.stats {
+    flex: 2;
+    padding: 20px;
+}
+
+.search {
+    flex: 1;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+}
