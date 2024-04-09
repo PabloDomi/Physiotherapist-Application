@@ -14,33 +14,33 @@ function App() {
 
   // Context for Theme in App
   const { theme, toggleTheme } = useContext(ThemeContext)
-  
+
   return (
     <>
-      <div>
+      <div className='main-container'>
         <NavBar
-          styledClassName={theme === 'light' 
-          ? "navbar-light bg-white shadow"
-          : "navbar-dark bg-dark shadow" 
-          } 
+          styledClassName={theme === 'light'
+            ? "navbar-light bg-white shadow"
+            : "navbar-dark bg-dark shadow"
+          }
           brandName={BrandName}
           imageSrcPath={imagePath}
         />
         <Routes>
-          <Route path='/' element={<Estadisticas theme={theme}/>} />
+          <Route path='/' element={<Estadisticas theme={theme} />} />
           <Route path='/rutinas' element={<Rutinas />} />
           <Route path='/ejercicios' element={<Ejercicios />} />
         </Routes>
 
         <footer className={theme === 'light'
-          ? 'footer-light'
-          : 'footer-dark'
+          ? 'footer-dark'
+          : 'footer-light'
         }>
           <div className='footer-container'>
-            <p>Derechos de autor © 2024</p>
+            <p className='footer-text font-tilt-neon'>Derechos de autor © 2024</p>
           </div>
         </footer>
-        <ButtonToggleTheme toggleTheme={toggleTheme} theme={theme} /> 
+        <ButtonToggleTheme toggleTheme={toggleTheme} theme={theme} />
       </div>
     </>
   )

@@ -1,8 +1,13 @@
 .brand-label {
   color: #749c74;
   opacity: 0.8;
+  font-family: "Tilt Neon";
 }
 
 .color-green {
-  color: rgb(116, 156, 116);
+  color: #749c74;
+}
+
+.font-tilt-neon {
+  font-family: "Tilt Neon";
 }

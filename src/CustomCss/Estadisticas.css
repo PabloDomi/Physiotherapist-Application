@@ -1,9 +1,22 @@
+/*
+    PALETA DE COLORES GRADIENTE DE MÁS CLARO A MÁS OSCURO
+
+    #ABE8AB
+    #749C74
+    #568D75
+    #3F7C75
+    #326B70
+    #2F5966
+    #2F4858
+*/
+
 .container {
     display: flex;
+    align-items: center;
 }
 
 .stats {
-    flex: 2;
+    flex: 5;
     padding: 20px;
 }
 
@@ -13,5 +26,30 @@
 }
 
 .title {
-    text-align: center;
+    margin-top: auto;
+    font-family: "Tilt Neon";
+    color:#568D75
 }
+
+.input-light {
+    background-color: #f4f4f4;
+    border: 1px solid #568D75;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.input-dark {
+    background-color: #333;
+    border: 1px solid #568D75;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+    width: 100%;
+    font-size: 1rem;
+    color: #fff;
+}
+.card {
+    margin-right: 100px;
+}   
