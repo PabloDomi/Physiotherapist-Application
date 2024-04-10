@@ -10,21 +10,11 @@ const ScrollableList = (props: ScrollableListProps) => {
 
     const { theme } = useContext(ThemeContext)
 
-    const styles: React.CSSProperties = {
-        overflowY: 'auto',
-        height: '54vh',
-        scrollbarWidth: 'thin',
-        scrollbarColor: `#568D75 ${theme === 'light'
-            ? '#fff'
-            : '#333'
-            }`,
-        scrollBehavior: 'smooth',
-        scrollbarGutter: 'stable',
-
-    }
-
     return (
-        <div className="scrollable" style={styles}>
+        <div className={theme === 'light'
+            ? 'scrollable-light'
+            : 'scrollable-dark'
+        }>
             {props.children}
         </div>
     );

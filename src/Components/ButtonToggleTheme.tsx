@@ -13,7 +13,7 @@ interface ButtonToggleThemeProps {
 export const ButtonToggleTheme = ({ toggleTheme, theme }: ButtonToggleThemeProps) => {
     return (
         <>
-            <Button onClick={toggleTheme} style={{ position: 'fixed', bottom: '10px', right: '10px' }}
+            <Button onClick={toggleTheme}
                 className={
                     theme === 'light'
                         ? 'btn-light toggle-button-light-to-dark'

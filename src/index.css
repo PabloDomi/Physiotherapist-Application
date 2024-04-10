@@ -67,7 +67,6 @@
     font-family: "Tilt Neon";
 }
 
-
 /* ================ CSS DE LA VIEW DE ESTADÍSTICAS ================ */ 
 
 
@@ -79,9 +78,9 @@
 
 .stats {
     padding: 20px;
+    padding-top: 30px;
     margin-right: auto;
     margin-left: auto;
-    align-content: center;
 }
 
 .search {
@@ -94,6 +93,7 @@
     font-family: "Tilt Neon";
     color:#568D75
 }
+
 
 .input-light {
     background-color: #f4f4f4;
@@ -112,14 +112,45 @@
     border: 1px solid #568D75;
     border-radius: 5px;
     padding: 5px;
-    margin: 5px 0;
     width: 100%;
     font-family: "Tilt Neon";
     font-size: 1rem;
+    min-width: 30vw;
+    max-width: 60vw;
     color: #fff;
 }
-.card {
-    margin-right: 100px;
+
+.scrollable-light, .scrollable-dark {
+    overflow-y: auto;
+    height: 54vh;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    scrollbar-gutter: auto;
+}
+
+.scrollable-light {
+    scrollbar-color: #568D75 #fff;
+}
+
+.scrollable-dark {
+    scrollbar-color: #568D75 #333;
+}
+
+.scrollable-light::-webkit-scrollbar, .scrollable-dark::-webkit-scrollbar {
+    width: 10px;
+}
+
+.card-name {
+    font-family: "Tilt Neon";
+    color: #3F7C75;
+}
+
+.card-age {
+    font-size: .9em;
+    margin-bottom: 0;
+    text-align: start;
+    font-family: "Tilt Neon";
+    color: #3F7C75;
 }
 
 /* ================ CSS PARA EL BOTÓN DE TOGGLE THEME ================ */
@@ -141,6 +172,9 @@
 }
 
 .toggle-button-light-to-dark, .toggle-button-dark-to-light {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
     transition: background-color 0.3s, color 0.3s;
 }
 

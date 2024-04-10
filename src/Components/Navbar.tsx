@@ -1,5 +1,6 @@
 import '../index.css'
 import { Container, Navbar, Nav } from "react-bootstrap"
+import chartSvg from '../Assets/stats-chart-outline.svg'
 
 interface NavbarProps {
     styledClassName: string // ClassName for the Navbar to set the style of darkTheme or lightTheme
@@ -27,13 +28,14 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                 <Navbar.Collapse id='responsive-navbar-nav'>
                     <Nav className="me-auto justify-content-end w-100">
-                        <Nav.Link href="/" className="active text-uppercase fw-bold px-3 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/" className="active text-uppercase fw-bold px-4 font-tilt-neon" style={{ color: '#749c74' }}>
                             Estadísticas
+                            <img src={chartSvg} alt='chartSvg' width='30' height='30' className='d-inline-block align-center pb-2 ps-1 color-green' />
                         </Nav.Link>
-                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-3 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4 font-tilt-neon" style={{ color: '#749c74' }}>
                             Rutinas
                         </Nav.Link>
-                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-3 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2 font-tilt-neon" style={{ color: '#749c74' }}>
                             Ejercicios
                         </Nav.Link>
                     </Nav>
