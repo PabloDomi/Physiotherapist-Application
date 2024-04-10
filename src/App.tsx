@@ -8,7 +8,7 @@ import imagePath from './assets/physiotherapist-logo.png'
 import { Rutinas } from './views/Rutinas'
 import { Ejercicios } from './views/Ejercicios'
 import { ButtonToggleTheme } from './Components/ButtonToggleTheme'
-import './App.css'
+import './index.css'
 
 function App() {
 
@@ -17,31 +17,29 @@ function App() {
 
   return (
     <>
-      <div className='main-container'>
-        <NavBar
-          styledClassName={theme === 'light'
-            ? "navbar-light bg-white shadow"
-            : "navbar-dark bg-dark shadow"
-          }
-          brandName={BrandName}
-          imageSrcPath={imagePath}
-        />
-        <Routes>
-          <Route path='/' element={<Estadisticas theme={theme} />} />
-          <Route path='/rutinas' element={<Rutinas />} />
-          <Route path='/ejercicios' element={<Ejercicios />} />
-        </Routes>
+      <NavBar
+        styledClassName={theme === 'light'
+          ? "navbar-light bg-white shadow"
+          : "navbar-dark bg-dark shadow"
+        }
+        brandName={BrandName}
+        imageSrcPath={imagePath}
+      />
+      <Routes>
+        <Route path='/' element={<Estadisticas theme={theme} />} />
+        <Route path='/rutinas' element={<Rutinas />} />
+        <Route path='/ejercicios' element={<Ejercicios />} />
+      </Routes>
 
-        <footer className={theme === 'light'
-          ? 'footer-dark'
-          : 'footer-light'
-        }>
-          <div className='footer-container'>
-            <p className='footer-text font-tilt-neon'>Derechos de autor © 2024</p>
-          </div>
-        </footer>
-        <ButtonToggleTheme toggleTheme={toggleTheme} theme={theme} />
-      </div>
+      <footer className={theme === 'light'
+        ? 'footer-dark'
+        : 'footer-light'
+      }>
+        <div className='footer-container'>
+          <p className='footer-text font-tilt-neon'>Derechos de autor © 2024</p>
+        </div>
+      </footer>
+      <ButtonToggleTheme toggleTheme={toggleTheme} theme={theme} />
     </>
   )
 }

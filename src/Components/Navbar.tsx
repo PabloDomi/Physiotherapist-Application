@@ -1,4 +1,4 @@
-import '../CustomCss/Navbar.css'
+import '../index.css'
 import { Container, Navbar, Nav } from "react-bootstrap"
 
 interface NavbarProps {

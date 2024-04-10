@@ -1,5 +1,5 @@
 import { Theme } from "../Utils/types"
-import '../CustomCss/Estadisticas.css'
+import '../index.css'
 import { mockUsers } from "../Utils/MockData"
 import Search from "../Components/Search"
 
@@ -12,7 +12,7 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
 
     return (
         <>
-            <main className="container mx-2">
+            <main className="container">
                 <section className="stats">
                     <h2 className="title">Estadísticas</h2>
                 </section>

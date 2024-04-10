@@ -1,6 +1,6 @@
 import { type User } from "../Utils/types";
 import React from "react";
-import '../CustomCss/Estadisticas.css'
+import '../index.css';
 
 
 type SearchCardProps = {
