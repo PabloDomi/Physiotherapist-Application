@@ -1,33 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useContext } from 'react'
+import { ThemeContext } from './services/themeProvider'
+import { Routes, Route } from 'react-router-dom'
+import { Estadisticas } from './views/Estadisticas'
+import { NavBar } from './Components/Navbar'
+import { BrandName } from './Utils/Constants'
+import imagePath from './assets/physiotherapist-logo.png'
+import { Rutinas } from './views/Rutinas'
+import { Ejercicios } from './views/Ejercicios'
+import { ButtonToggleTheme } from './Components/ButtonToggleTheme'
+import './index.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // Context for Theme in App
+  const { theme, toggleTheme } = useContext(ThemeContext)
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NavBar
+        styledClassName={theme === 'light'
+          ? "navbar-light bg-white shadow"
+          : "navbar-dark bg-dark shadow"
+        }
+        brandName={BrandName}
+        imageSrcPath={imagePath}
+      />
+      <Routes>
+        <Route path='/' element={<Estadisticas theme={theme} />} />
+        <Route path='/rutinas' element={<Rutinas />} />
+        <Route path='/ejercicios' element={<Ejercicios />} />
+      </Routes>
+
+      <footer className={theme === 'light'
+        ? 'footer-dark'
+        : 'footer-light'
+      }>
+        <div className='footer-container'>
+          <p className='footer-text font-tilt-neon'>Derechos de autor © 2024</p>
+        </div>
+      </footer>
+      <ButtonToggleTheme toggleTheme={toggleTheme} theme={theme} />
     </>
   )
 }
