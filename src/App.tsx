@@ -19,8 +19,8 @@ function App() {
     <>
       <NavBar
         styledClassName={theme === 'light'
-          ? "navbar-light bg-white shadow"
-          : "navbar-dark bg-dark shadow"
+          ? "navbar-light bg-white shadow pe-3"
+          : "navbar-dark bg-dark shadow pe-3"
         }
         brandName={BrandName}
         imageSrcPath={imagePath}
