@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import '../index.css'
-import { ThemeContext } from '../services/themeProvider'
+import { ThemeContext } from '../Services/themeProvider'
 
 interface ScrollableListProps {
     children: React.ReactNode
