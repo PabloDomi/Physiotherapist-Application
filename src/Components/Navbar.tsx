@@ -1,6 +1,10 @@
 import '../index.css'
-import { Container, Navbar, Nav } from "react-bootstrap"
-
+import { Container, Navbar, Nav, Button, Form } from "react-bootstrap"
+import { IonIcon } from '@ionic/react'
+import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
+import { useContext } from 'react'
+import ModalWindow from './Modal'
+import { ThemeContext } from '../Services/themeProvider'
 interface NavbarProps {
     styledClassName: string // ClassName for the Navbar to set the style of darkTheme or lightTheme
     brandName: string // Name of the brand to display in the Navbar
@@ -8,6 +12,39 @@ interface NavbarProps {
 }
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
+
+    const { theme, showModal, toggleModal } = useContext(ThemeContext)
+
+    const modalTitle = 'Cambio de Contraseña'
+
+    const modalContent =
+        <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label className={theme === 'dark' ? 'dark-modal' : ''}>Nueva Contraseña</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Al menos 8 caracteres"
+                    autoFocus
+                    className={theme === 'dark' ? 'dark-modal2' : ''}
+                />
+            </Form.Group>
+            <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput2"
+            >
+                <Form.Label>Repetir Nueva Contraseña</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Las contraseñas deben coincidir"
+                    className={theme === 'dark' ? 'dark-modal2' : ''}
+                />
+            </Form.Group>
+        </Form>
+
+    const handleClickChangePassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        toggleModal()
+    }
 
     return (
         <Navbar className={styledClassName} expand="lg">
@@ -27,31 +64,62 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                 <Navbar.Collapse id='responsive-navbar-nav'>
                     <Nav className="me-auto justify-content-end w-100">
-                        <Nav.Link href="/" className="active text-uppercase fw-bold px-3 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/" className="active text-uppercase fw-bold px-4 font-tilt-neon" style={{ color: '#749c74' }}>
                             Estadísticas
+                            <IonIcon icon={statsChart} color='#749c74' className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-3 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4 font-tilt-neon" style={{ color: '#749c74' }}>
                             Rutinas
+                            <IonIcon icon={bicycle} color='#749c74' className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-3 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2 font-tilt-neon" style={{ color: '#749c74' }}>
                             Ejercicios
+                            <IonIcon icon={barbell} color='#749c74' className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-                {/*
-                    <form className="d-flex mb-2 mb-md-0">
-                        <input
-                        className="form-control me-2"
-                        type="search"
-                        placeholder="Buscar"
-                        aria-label="Buscar"
-                        />
-                        <button className="btn btn-outline-success" type="submit">
-                        Buscar
-                        </button>
-                    </form>
-                    */}
+                <div className='dropdown'>
+                    <Button className='btn-options'>
+                        <IonIcon icon={options} id='main-color2' className='btn-options-image' />
+                    </Button>
+                    <ul className='dropdown-content'>
+                        <li className='dropdown-content-li dropdown-content-li-1'>
+                            <button className={theme === 'light'
+                                ? 'dropdown-content-button'
+                                : 'dropdown-content-button dropdown-content-button-dark'
+                            } >LogOut</button>
+                        </li>
+                        <li className='dropdown-content-li dropdown-content-li-2'>
+                            <button onClick={handleClickChangePassword}
+                                className={theme === 'light'
+                                    ? 'dropdown-content-button'
+                                    : 'dropdown-content-button dropdown-content-button-dark'
+                                } >Cambiar Contraseña
+                            </button>
+                            {showModal &&
+                                <ModalWindow
+                                    show={showModal}
+                                    title={modalTitle}
+                                    content={modalContent}
+                                >
+                                </ModalWindow>
+                            }
+                        </li>
+                        <li className='dropdown-content-li dropdown-content-li-3'>
+                            <button className={theme === 'light'
+                                ? 'dropdown-content-button'
+                                : 'dropdown-content-button dropdown-content-button-dark'
+                            } >Borrar Cuenta Administrador</button>
+                        </li>
+                        <li className='dropdown-content-li dropdown-content-li-4'>
+                            <button className={theme === 'light'
+                                ? 'dropdown-content-button'
+                                : 'dropdown-content-button dropdown-content-button-dark'
+                            } >Registrar Usuario</button>
+                        </li>
+                    </ul>
+                </div>
             </Container>
-        </Navbar>
+        </Navbar >
     )
 }

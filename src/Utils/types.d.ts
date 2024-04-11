@@ -1,3 +1,5 @@
+import React from "react";
+
 export type Theme = "light" | "dark";
 
 export type Id = number;
@@ -10,4 +12,12 @@ export interface User {
     name: Name
     age: Age
     gender: Gender
+}
+
+export type ModalType = boolean;
+
+export interface ModalProps {
+    show: boolean
+    title: string
+    content: React.ReactNode
 }
