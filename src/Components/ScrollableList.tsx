@@ -12,8 +12,8 @@ const ScrollableList = (props: ScrollableListProps) => {
 
     return (
         <div className={theme === 'light'
-            ? 'scrollable-light'
-            : 'scrollable-dark'
+            ? 'scrollable-light scrollable'
+            : 'scrollable-dark scrollable'
         }>
             {props.children}
         </div>

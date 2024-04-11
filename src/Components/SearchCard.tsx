@@ -9,12 +9,19 @@ type SearchCardProps = {
 }
 
 const SearchCard: React.FC<SearchCardProps> = ({ person }) => {
+
+  function handleClick() {
+    console.log(person.name + ' clicked');
+  }
+
+
+
   return (
-    <div className="text-center p-1 m-2 shadow overflow-y: auto position-relative">
-      <div>
-        <h6 className="card-name"><strong>{person.name}</strong></h6>
+    <div className="card-container shadow">
+      <button className="card-div-button" onClick={handleClick}>
+        <h6 className="card-name fw-bold">{person.name}</h6>
         <p className="ps-2 card-age">{person.age + ' años'}</p>
-      </div>
+      </button>
     </div>
   );
 }
