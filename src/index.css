@@ -49,8 +49,6 @@ body {
     left: 0;
 }
 
-
-
 /* ================ CSS DEL NAVBAR ================ */
 
 .brand-label {
@@ -113,6 +111,7 @@ body {
     backdrop-filter:blur(5px);
     border-radius: 20px;
     padding: 0.5em 0.1em;
+    z-index: 99;
 }
 
 .dropdown-content-li-1 {
@@ -166,6 +165,64 @@ body {
     box-shadow: 0 0 20px rgb(83, 83, 83);
     background-color: inherit;
     border-color: inherit;
+}
+
+.icon-modal {
+    color: #333;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 50%;
+}
+
+.icon-modal2 {
+    color: #749c74;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 50%;
+}
+
+.icon-modal:hover, .icon-modal2:hover {
+    transition: ease-in-out 0.3s;
+    background-color: #c96666;
+    box-shadow: 0 0 5px #c96666;
+    color: #fff
+}
+
+.save-modal {
+    background-color: #333;
+    color: #749c74;
+    border-color: #749c74;
+}
+
+.save-modal2 {
+    background-color: #749c74;
+    color: #333;
+    border-color: #333;
+}
+
+.save-modal:hover, .save-modal2:hover {
+    background-color: #568D75;
+    color: #FFF;
+    border-color: #568D75;
+}
+
+.dark-modal {
+    background-color: #333;
+    color: #749c74;
+}
+
+.body-modal {
+    border-bottom: 1px solid #749c74;
+}
+
+.footer-modal {
+    border-top: 1px solid #749c74;
+}
+
+.dark-modal2 {
+    background-color: #555;
+    color: #749c74;
+    border-color: #333;
 }
 
 /* ================ CSS DE LA VIEW DE ESTADÍSTICAS ================ */ 

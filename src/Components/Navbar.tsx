@@ -1,8 +1,9 @@
 import '../index.css'
-import { Container, Navbar, Nav, Button } from "react-bootstrap"
+import { Container, Navbar, Nav, Button, Form } from "react-bootstrap"
 import { IonIcon } from '@ionic/react'
 import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
 import { useContext } from 'react'
+import ModalWindow from './Modal'
 import { ThemeContext } from '../Services/themeProvider'
 interface NavbarProps {
     styledClassName: string // ClassName for the Navbar to set the style of darkTheme or lightTheme
@@ -12,7 +13,38 @@ interface NavbarProps {
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
-    const { theme } = useContext(ThemeContext)
+    const { theme, showModal, toggleModal } = useContext(ThemeContext)
+
+    const modalTitle = 'Cambio de Contraseña'
+
+    const modalContent =
+        <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label className={theme === 'dark' ? 'dark-modal' : ''}>Nueva Contraseña</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Al menos 8 caracteres"
+                    autoFocus
+                    className={theme === 'dark' ? 'dark-modal2' : ''}
+                />
+            </Form.Group>
+            <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput2"
+            >
+                <Form.Label>Repetir Nueva Contraseña</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Las contraseñas deben coincidir"
+                    className={theme === 'dark' ? 'dark-modal2' : ''}
+                />
+            </Form.Group>
+        </Form>
+
+    const handleClickChangePassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        toggleModal()
+    }
 
     return (
         <Navbar className={styledClassName} expand="lg">
@@ -58,10 +90,20 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                             } >LogOut</button>
                         </li>
                         <li className='dropdown-content-li dropdown-content-li-2'>
-                            <button className={theme === 'light'
-                                ? 'dropdown-content-button'
-                                : 'dropdown-content-button dropdown-content-button-dark'
-                            } >Cambiar Contraseña</button>
+                            <button onClick={handleClickChangePassword}
+                                className={theme === 'light'
+                                    ? 'dropdown-content-button'
+                                    : 'dropdown-content-button dropdown-content-button-dark'
+                                } >Cambiar Contraseña
+                            </button>
+                            {showModal &&
+                                <ModalWindow
+                                    show={showModal}
+                                    title={modalTitle}
+                                    content={modalContent}
+                                >
+                                </ModalWindow>
+                            }
                         </li>
                         <li className='dropdown-content-li dropdown-content-li-3'>
                             <button className={theme === 'light'
@@ -77,19 +119,6 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                         </li>
                     </ul>
                 </div>
-                {/*
-                    <form className="d-flex mb-2 mb-md-0">
-                        <input
-                        className="form-control me-2"
-                        type="search"
-                        placeholder="Buscar"
-                        aria-label="Buscar"
-                        />
-                        <button className="btn btn-outline-success" type="submit">
-                        Buscar
-                        </button>
-                    </form>
-                    */}
             </Container>
         </Navbar >
     )

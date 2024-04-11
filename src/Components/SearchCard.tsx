@@ -26,4 +26,4 @@ const SearchCard: React.FC<SearchCardProps> = ({ person }) => {
   );
 }
 
-export default SearchCard;
+export default SearchCard
