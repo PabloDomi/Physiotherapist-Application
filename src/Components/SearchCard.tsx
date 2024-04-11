@@ -11,7 +11,7 @@ type SearchCardProps = {
 const SearchCard: React.FC<SearchCardProps> = ({ person }) => {
 
   function handleClick() {
-    console.log(person.name + ' clicked');
+    console.log(person.name + ' tiene ' + person.age + ' años');
   }
 
 
