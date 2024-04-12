@@ -10,6 +10,7 @@ import { Ejercicios } from './Views/Ejercicios'
 import { ButtonToggleTheme } from './Components/ButtonToggleTheme'
 import './index.css'
 import { useGlobalState } from './Store/useGlobalState'
+import NotFound from './Components/NotFound'
 
 function App() {
 
@@ -47,7 +48,7 @@ function App() {
             <Route path='/home' element={<Estadisticas theme={theme} />} />
             <Route path='/rutinas' element={<Rutinas />} />
             <Route path='/ejercicios' element={<Ejercicios />} />
-            <Route path='*' element={<h1>Not Found!</h1>} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
 
           <footer className={theme === 'light'

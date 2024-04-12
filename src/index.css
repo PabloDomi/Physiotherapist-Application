@@ -387,3 +387,24 @@ body {
 .toggle-button-dark-to-light:hover .icon-visible, .toggle-button-light-to-dark:hover .icon-visible {
     opacity: 0;
 }
+
+/* ================ CSS PARA LA VIEW NOT FOUND ================ */
+
+.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 90vh;
+    font-family: "Tilt Neon";
+    color: #568D75;
+    box-sizing: border-box;
+}
+
+.not-found h1 {
+    align-self: center;
+}
+
+.not-found p {
+    font-size: 40px;
+    align-self: center;
+}
