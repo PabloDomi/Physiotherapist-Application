@@ -1,14 +1,10 @@
 import React, { useState, createContext } from "react";
 import { ModalType, Theme } from "../Utils/types";
+import { ThemeProviderProps } from '../Utils/types'
+import { type ThemeContextType } from "../Utils/types";
 
-interface ThemeProviderProps {
-  children: React.ReactNode;
-}
-
-type ThemeContext = { theme: Theme; toggleTheme: () => void; showModal: ModalType, toggleModal: () => void };
-
-export const ThemeContext = createContext<ThemeContext>(
-  {} as ThemeContext
+export const ThemeContext = createContext<ThemeContextType>(
+  {} as ThemeContextType
 );
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {

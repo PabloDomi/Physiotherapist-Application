@@ -1,12 +1,9 @@
-import { type User } from "../Utils/types";
+import { SearchCardProps } from "../Utils/types";
 import React from "react";
 import '../index.css';
 
 
-type SearchCardProps = {
-  key: number;
-  person: User;
-}
+
 
 const SearchCard: React.FC<SearchCardProps> = ({ person }) => {
 
