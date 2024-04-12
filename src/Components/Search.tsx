@@ -1,13 +1,8 @@
 import { useState } from "react";
 import ScrollableList from "./ScrollableList";
 import SearchList from "./SearchList";
-import { Theme, User } from "../Utils/types";
+import { SearchProps } from "../Utils/types";
 
-
-interface SearchProps {
-  details: User[]
-  theme: Theme
-}
 
 const Search = ({ details, theme }: SearchProps) => {
 

@@ -1,14 +1,9 @@
-import { type Theme } from "../Utils/types"
+import { ButtonToggleThemeProps } from '../Utils/types'
 import '../index.css'
 import { Button } from "react-bootstrap"
 import { IonIcon } from "@ionic/react"
 import { moon, sunny } from 'ionicons/icons'
 
-interface ButtonToggleThemeProps {
-    toggleTheme: () => void
-    theme: Theme
-
-}
 
 export const ButtonToggleTheme = ({ toggleTheme, theme }: ButtonToggleThemeProps) => {
     return (

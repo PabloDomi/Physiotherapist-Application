@@ -1,10 +1,8 @@
 import { useContext } from 'react'
 import '../index.css'
 import { ThemeContext } from '../Services/themeProvider'
+import { ScrollableListProps } from '../Utils/types'
 
-interface ScrollableListProps {
-    children: React.ReactNode
-}
 
 const ScrollableList = (props: ScrollableListProps) => {
 

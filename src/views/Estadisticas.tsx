@@ -1,12 +1,8 @@
-import { Theme } from "../Utils/types"
+import { EstadisticasProps } from "../Utils/types"
 import '../index.css'
 import { mockUsers } from "../Utils/MockData"
 import Search from "../Components/Search"
 
-
-interface EstadisticasProps {
-    theme: Theme
-}
 
 export const Estadisticas = ({ theme }: EstadisticasProps) => {
 

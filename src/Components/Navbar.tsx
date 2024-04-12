@@ -5,11 +5,7 @@ import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
 import { useContext } from 'react'
 import ModalWindow from './Modal'
 import { ThemeContext } from '../Services/themeProvider'
-interface NavbarProps {
-    styledClassName: string // ClassName for the Navbar to set the style of darkTheme or lightTheme
-    brandName: string // Name of the brand to display in the Navbar
-    imageSrcPath: string // Path of the image to display in the Navbar
-}
+import { NavbarProps } from '../Utils/types'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
