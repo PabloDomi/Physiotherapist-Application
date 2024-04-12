@@ -23,7 +23,7 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                     <section className="stats">
                         <h2 className="title">Estadísticas</h2>
                     </section>
-                    <aside className="search">
+                    <aside className="search mt-1">
                         <Search details={mockUsers} theme={theme} />
                     </aside>
                 </main>
