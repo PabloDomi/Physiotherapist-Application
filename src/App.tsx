@@ -1,23 +1,20 @@
-import { useContext, useEffect } from 'react'
-import { ThemeContext } from './Services/themeProvider'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { Estadisticas } from './Views/Estadisticas'
-import { NavBar } from './Components/Navbar'
-import { BrandName } from './Utils/Constants'
-import imagePath from './Assets/physiotherapist-logo.png'
 import { Rutinas } from './Views/Rutinas'
 import { Ejercicios } from './Views/Ejercicios'
-import { ButtonToggleTheme } from './Components/ButtonToggleTheme'
 import './index.css'
 import { useGlobalState } from './Store/useGlobalState'
 import NotFound from './Components/NotFound'
+import OutletWithNavBarAndFooter from './Services/OutletWithNavBarAndFooter'
+import { useContext, useEffect } from 'react'
+import { ThemeContext } from './Services/themeProvider'
 
 function App() {
 
   const location = useLocation()
 
-  // Context for Theme in App
-  const { theme, toggleTheme } = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext)
+
   const user = useGlobalState(state => state.user)
   const changeView = useGlobalState(state => state.changeView)
   const view = useGlobalState(state => state.view)
@@ -34,34 +31,17 @@ function App() {
     <>
       {!user
         ?
-        <>
-          <NavBar
-            styledClassName={theme === 'light'
-              ? "navbar-light bg-white shadow pe-3"
-              : "navbar-dark bg-dark shadow pe-3"
-            }
-            brandName={BrandName}
-            imageSrcPath={imagePath}
-          />
-          <Routes>
+        <Routes>
+          <Route element={<OutletWithNavBarAndFooter />} >
             <Route path='/' element={<Navigate to={'/home'} replace={true} />} />
-            <Route path='/home' element={<Estadisticas theme={theme} />} />
-            <Route path='/rutinas' element={<Rutinas />} />
-            <Route path='/ejercicios' element={<Ejercicios />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-
-          <footer className={theme === 'light'
-            ? 'footer-dark'
-            : 'footer-light'
-          }>
-            <div className='footer-container'>
-              <p className='footer-text font-tilt-neon'>Derechos de autor © 2024</p>
-            </div>
-          </footer>
-          <ButtonToggleTheme toggleTheme={toggleTheme} theme={theme} />
-        </>
-        : <Routes>
+            <Route path='home' element={<Estadisticas theme={theme} />} />
+            <Route path='rutinas' element={<Rutinas />} />
+            <Route path='ejercicios' element={<Ejercicios />} />
+          </Route>
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+        :
+        <Routes>
           <Route path='/' element={<h1>Landing</h1>} />
         </Routes>
       }
