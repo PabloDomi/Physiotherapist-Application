@@ -1,4 +1,4 @@
-import '../index.css'
+import '../Css/Navbar.css'
 import { Container, Navbar, Nav, Button, Form } from "react-bootstrap"
 import { IonIcon } from '@ionic/react'
 import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
@@ -21,7 +21,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                     type="password"
                     placeholder="Al menos 8 caracteres"
                     autoFocus
-                    className={theme === 'dark' ? 'dark-modal2' : ''}
+                    className={theme === 'dark' ? 'dark-modal2' : 'dark-modal3'}
                 />
             </Form.Group>
             <Form.Group
@@ -32,7 +32,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Form.Control
                     type="password"
                     placeholder="Las contraseñas deben coincidir"
-                    className={theme === 'dark' ? 'dark-modal2' : ''}
+                    className={theme === 'dark' ? 'dark-modal2' : 'dark-modal3'}
                 />
             </Form.Group>
         </Form>

@@ -1,0 +1,27 @@
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 100%;
+}
+
+.footer-light {
+    background-color: #333;
+    color: rgb(116, 156, 116);
+    padding: 20px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.footer-dark {
+    background-color: #FFF;
+    color: rgb(116, 156, 116);
+    padding: 20px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}

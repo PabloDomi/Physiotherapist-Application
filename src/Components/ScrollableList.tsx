@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import '../index.css'
+import '../Css/Estadisticas.css'
 import { ThemeContext } from '../Services/themeProvider'
 import { ScrollableListProps } from '../Utils/types'
 
