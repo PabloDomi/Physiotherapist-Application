@@ -14,6 +14,13 @@ export interface User {
     gender: Gender
 }
 
+export interface UserAdmin {
+    id: Id
+    name: Name
+    userName: string
+    email: string
+}
+
 export type ModalType = boolean;
 
 export interface ModalProps {
@@ -65,5 +72,11 @@ export type ThemeContextType = {
     showModal: ModalType, 
     toggleModal: () => void 
 };
+
+export interface GlobalState {
+    view: string
+    user: UserAdmin | null
+    changeView: (view: string) => void
+}
 
 
