@@ -1,6 +1,6 @@
 import { SearchCardProps } from "../Utils/types";
 import React from "react";
-import '../index.css';
+import '../Css/Estadisticas.css'
 
 
 

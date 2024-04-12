@@ -1,0 +1,145 @@
+/* ================ CSS DEL NAVBAR ================ */
+
+.brand-label {
+    color: #749c74;
+    opacity: 0.8;
+    font-family: "Tilt Neon";
+}
+  
+.color-green {
+    color: #749c74;
+}
+  
+.font-tilt-neon {
+    font-family: "Tilt Neon";
+}
+
+.btn-options {
+    border: 0px solid #749C74;
+    padding: 0px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: inherit;
+    border: 1px solid rgba(116, 156, 116,.3);
+    margin-left: auto;
+}
+
+.btn-options-image {
+    width: 20px;
+    height: 20px;
+    padding-top: 4px;
+}
+
+.dropdown {
+    max-width: 13em;
+    margin-left: auto;
+    position: relative;
+    width: 100%;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown-content {
+    list-style: none;
+    position: absolute;
+    top: 3.2em;
+    width: 100%;
+    visibility: hidden;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-content-li {
+    position: relative;
+    left: 100%;
+    transition: 0.5s;
+    backdrop-filter:blur(5px);
+    border-radius: 20px;
+    padding: 0.5em 0.1em;
+    z-index: 99;
+}
+
+.dropdown-content-li-1 {
+    --delay: 1;
+    transition-delay: calc(60ms * var(--delay));
+}
+
+.dropdown-content-li-2 {
+    --delay: 2;
+    transition-delay: calc(60ms * var(--delay));
+}
+
+.dropdown-content-li-3 {
+    --delay: 3;
+    transition-delay: calc(60ms * var(--delay));
+}
+
+.dropdown-content-li-4 {
+    --delay: 4;
+    transition-delay: calc(60ms * var(--delay));
+}
+
+.btn-options:focus-within + .dropdown-content li {
+    left: 0;
+}
+
+.btn-options:focus-within + .dropdown-content {
+    visibility: visible;
+} 
+
+.dropdown-content-button:hover {
+    outline: 2px solid #749C74;
+}
+
+.dropdown-content-button {
+    width: 100%;
+    padding: 0.7em 0.5em;
+    font-family: "Tilt Neon";
+    border-radius: 20px;
+    border: 1px solid transparent;
+    color: #749C74;
+    outline: 1px  #749C74;
+}
+
+.dropdown-content-button-dark {
+    background-color: #22242a;
+}
+
+.btn-options:hover {
+    transition: ease-in-out 0.3s;
+    box-shadow: 0 0 20px rgb(83, 83, 83);
+    background-color: inherit;
+    border-color: inherit;
+}
+
+.dark-modal2 {
+    background-color: #555;
+    color: #749c74;
+    border-color: #333;
+}
+
+.dark-modal3 {
+    background-color: #fff;
+    color: #749C74;
+    border-color: #749C74;
+}
+
+.dark-modal {
+    background-color: #333;
+    color: #749c74;
+}
+
+.dark-modal2:focus {
+    background-color: #555454;
+    box-shadow: 0 0 10px #749C74;
+    border-color: #749C74;
+}
+
+.dark-modal3:focus {
+    box-shadow: 0 0 10px #749C74;
+    border-color: #749C74;
+}

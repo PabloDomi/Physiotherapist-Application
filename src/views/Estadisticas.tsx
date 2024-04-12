@@ -1,5 +1,5 @@
 import { EstadisticasProps } from "../Utils/types"
-import '../index.css'
+import '../Css/Estadisticas.css'
 import { mockUsers } from "../Utils/MockData"
 import Search from "../Components/Search"
 
