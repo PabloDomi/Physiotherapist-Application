@@ -3,12 +3,16 @@ import '../Css/Estadisticas.css'
 import { mockUsers } from "../Utils/MockData"
 import Search from "../Components/Search"
 import { usePatients } from "../hooks/usePatients"
-import DefaultStatsChart from "../Components/StatsChart"
+import DefaultStatsChart from "../Components/DefaultStatsChart"
+import { useGlobalState } from "../Store/useGlobalState"
+import CustomStatsChart from "../Components/CustomStatsChart"
 
 
 export const Estadisticas = ({ theme }: EstadisticasProps) => {
 
     const { isLoading } = usePatients()
+
+    const customData = useGlobalState(state => state.customStatsData)
 
     return (
         <>
@@ -24,7 +28,8 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                     <section className="stats">
                         <h2 className="title">Estadísticas</h2>
                         <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
-                            <DefaultStatsChart />
+                            {!customData && <DefaultStatsChart />}
+                            {customData && <CustomStatsChart data={customData} />}
                         </div>
 
                     </section>

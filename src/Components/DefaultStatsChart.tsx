@@ -108,7 +108,7 @@ const DefaultStatsChart = () => {
 
     return (
         <>
-            <Chart options={options} series={series} type="area" height='100%' />
+            <Chart options={options} series={series} type="line" height='100%' />
         </>
     )
 

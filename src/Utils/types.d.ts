@@ -73,10 +73,21 @@ export type ThemeContextType = {
     toggleModal: () => void 
 };
 
-export interface GlobalState {
+interface GlobalState {
     view: string
     user: UserAdmin | null
     changeView: (view: string) => void
+    customStatsData: CustomStatsData | undefined
+    changeCustomStatsData: (newData: CustomStatsData) => void
+  }
+
+export interface CustomStatsData {
+    labels: string[]
+    titleChart: string
+    yaxisTitle: string
+    yaxisTitleOpposite: string
+    porcentualData: number[]
+    timeData: number[]
 }
 
 
