@@ -3,6 +3,7 @@ import '../Css/Estadisticas.css'
 import { mockUsers } from "../Utils/MockData"
 import Search from "../Components/Search"
 import { usePatients } from "../hooks/usePatients"
+import DefaultStatsChart from "../Components/StatsChart"
 
 
 export const Estadisticas = ({ theme }: EstadisticasProps) => {
@@ -22,6 +23,10 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                 <main className={theme === 'dark' ? 'stats-container background-stats-dark' : 'stats-container background-stats-light'}>
                     <section className="stats">
                         <h2 className="title">Estadísticas</h2>
+                        <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
+                            <DefaultStatsChart />
+                        </div>
+
                     </section>
                     <aside className="search mt-1">
                         <Search details={mockUsers} theme={theme} />
