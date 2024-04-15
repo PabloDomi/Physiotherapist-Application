@@ -25,8 +25,8 @@ const OutletWithNavBarAndFooter = () => {
             />
             <Outlet />
             <footer className={theme === 'light'
-                ? 'footer-dark'
-                : 'footer-light'
+                ? 'footer-dark footer-container background-light'
+                : 'footer-light footer-container background-dark'
             }>
                 <div className='footer-container'>
                     <p className='footer-text font-tilt-neon'>Derechos de autor © 2024</p>

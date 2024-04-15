@@ -19,7 +19,7 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                 </div>
             }
             {!isLoading &&
-                <main className="container">
+                <main className={theme === 'dark' ? 'stats-container background-stats-dark' : 'stats-container background-stats-light'}>
                     <section className="stats">
                         <h2 className="title">Estadísticas</h2>
                     </section>

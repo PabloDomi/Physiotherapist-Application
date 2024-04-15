@@ -1,13 +1,13 @@
 /* ================ CSS PARA EL BOTÓN DE TOGGLE THEME ================ */
 
 .btn-light {
-    background-color: #FFF;
-    border-color: #FFF;
+    background: #ABE8AB;
+    border-color: #ABE8AB;
     border-radius: 35px;
 }
 
 .btn-dark {
-    background-color: #333;
+    background: #333;
     border-color: #333;
     border-radius: 35px;
 }
@@ -18,7 +18,7 @@
 
 .toggle-button-light-to-dark, .toggle-button-dark-to-light {
     position: fixed;
-    bottom: 10px;
+    bottom: 6px;
     right: 10px;
     transition: background-color 0.3s, color 0.3s;
 }

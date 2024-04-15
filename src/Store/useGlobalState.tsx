@@ -5,7 +5,6 @@ export const useGlobalState = create<GlobalState>((set) => {
   return {
     view: '',
     user: null,
-
     changeView: (newView: string) => set({ view: newView }),
   }
 });

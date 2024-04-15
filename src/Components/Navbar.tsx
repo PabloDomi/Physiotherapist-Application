@@ -44,7 +44,6 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
     enlacesNavegacion.forEach(enlace => {
         if (view === enlace.getAttribute('href')) {
             enlace.id = 'text-active'
-            console.log(enlace.id)
         }
     })
 
