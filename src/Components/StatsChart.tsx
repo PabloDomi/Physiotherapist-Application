@@ -1,6 +1,7 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts'
 import '../Css/Estadisticas.css'
+import { mockStats } from "../Utils/MockData"
 
 const DefaultStatsChart = () => {
 
@@ -8,16 +9,29 @@ const DefaultStatsChart = () => {
     const azulChart = '#346ef1'
     const verdeChart = '#27ab28'
 
+    const data = mockStats[0]
+
     const options: ApexOptions = {
         chart: {
             height: 350,
             type: 'line',
+            fontFamily: 'Tilt Neon, Roboto, system-ui'
         },
         stroke: {
             width: [0, 4]
         },
+        theme: {
+            mode: 'light',
+            palette: 'palette1',
+            monochrome: {
+                enabled: false,
+                color: '#255aee',
+                shadeTo: 'light',
+                shadeIntensity: 0.65
+            }
+        },
         title: {
-            text: 'Traffic Sources',
+            text: data.titleChart,
             style: {
                 color: '#749c74' // Color del texto del título
             }
@@ -26,9 +40,9 @@ const DefaultStatsChart = () => {
             enabled: true,
             enabledOnSeries: [1]
         },
-        labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+        labels: data.labels,
         xaxis: {
-            type: 'datetime',
+            type: 'category',
             labels: {
                 style: {
                     colors: textColor // Color del texto en el eje x
@@ -37,12 +51,15 @@ const DefaultStatsChart = () => {
         },
         yaxis: [{
             title: {
-                text: 'Website Blog',
+                text: data.yaxisTitle,
                 style: {
                     color: textColor // Color del texto en el eje y
                 }
             },
             labels: {
+                formatter: function (val) {
+                    return val + "%";
+                },
                 style: {
                     colors: textColor // Color del texto en las etiquetas del eje y
                 }
@@ -50,7 +67,7 @@ const DefaultStatsChart = () => {
         }, {
             opposite: true,
             title: {
-                text: 'Social Media',
+                text: data.yaxisTitleOpposite,
                 style: {
                     color: textColor // Color del texto en el eje y (opuesto)
                 }
@@ -79,13 +96,13 @@ const DefaultStatsChart = () => {
 
     const series = [
         {
-            name: 'Website Blog',
+            name: data.yaxisTitle,
             type: 'column',
-            data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
+            data: data.porcentualData
         }, {
-            name: 'Social Media',
+            name: data.yaxisTitleOpposite,
             type: 'line',
-            data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+            data: data.timeData
         }
     ];
 

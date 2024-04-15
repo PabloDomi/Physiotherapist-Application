@@ -340,5 +340,14 @@ export const mockUsers = [
 ];
 
 export const mockStats = [
-    
+    {
+        labels: ['Michael Brown', 'Sarah Davis', 'Bob Williams', 'Alice Johnson', 'Jane Smith', 'John Doe', 'Hastings Iorns'],
+        titleChart: 'Progress of patients',
+        yaxisTitle: 'Exercises completed (%)',
+        yaxisTitleOpposite: 'Time used (minutes)',
+        porcentualData: [30, 50, 70, 40, 90, 10, 80],
+        timeData: [40, 60, 100, 150, 60, 250, 110]
+    }
 ]
+
+
