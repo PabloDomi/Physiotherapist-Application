@@ -338,3 +338,7 @@ export const mockUsers = [
         gender: "Male"
     }
 ];
+
+export const mockStats = [
+    
+]
