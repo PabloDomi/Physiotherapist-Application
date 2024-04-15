@@ -18,15 +18,11 @@ function App() {
 
   const user = useGlobalState(state => state.user)
   const changeView = useGlobalState(state => state.changeView)
-  const view = useGlobalState(state => state.view)
 
   useEffect(() => {
-    const newLocation = location.pathname.slice(1)
+    const newLocation = location.pathname
     changeView(newLocation)
   }, [changeView, location.pathname])
-
-  console.log('Estamos en: ' + view)
-
 
   return (
     <>

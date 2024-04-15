@@ -143,3 +143,15 @@
     box-shadow: 0 0 10px #749C74;
     border-color: #749C74;
 }
+
+#text-inactive {
+    color: #749C74;
+}
+
+.background-gradient-dark {
+    background: linear-gradient(90deg, #749C74, #333);
+}
+
+.background-gradient-light {
+    background: linear-gradient(270deg, #ABE8AB, #fff);
+}

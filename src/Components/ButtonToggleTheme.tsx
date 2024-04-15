@@ -6,9 +6,18 @@ import { moon, sunny } from 'ionicons/icons'
 
 
 export const ButtonToggleTheme = ({ toggleTheme, theme }: ButtonToggleThemeProps) => {
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+
+        localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
+
+        toggleTheme()
+    }
+
     return (
         <>
-            <Button onClick={toggleTheme}
+            <Button onClick={handleClick}
                 className={
                     theme === 'light'
                         ? 'btn-light toggle-button-light-to-dark'
