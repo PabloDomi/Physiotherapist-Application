@@ -6,10 +6,12 @@ import { useContext } from 'react'
 import ModalWindow from './Modal'
 import { ThemeContext } from '../Services/themeProvider'
 import { NavbarProps } from '../Utils/types'
+import { useGlobalState } from '../Store/useGlobalState'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
     const { theme, showModal, toggleModal } = useContext(ThemeContext)
+    const view = useGlobalState(state => state.view)
 
     const modalTitle = 'Cambio de Contraseña'
 
@@ -37,6 +39,16 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
             </Form.Group>
         </Form>
 
+
+    const enlacesNavegacion = document.querySelectorAll('#text-inactive')
+    enlacesNavegacion.forEach(enlace => {
+        if (view === enlace.getAttribute('href')) {
+            enlace.id = 'text-active'
+            console.log(enlace.id)
+        }
+    })
+
+
     const handleClickChangePassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
         toggleModal()
@@ -46,7 +58,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
         <Navbar className={styledClassName} expand="lg">
             <Container className="container-fluid">
                 <Navbar.Brand>
-                    <Nav.Link className="navbar-brand" href={'/'}>
+                    <Nav.Link className="navbar-brand" href={'/home'}>
                         <img
                             src={imageSrcPath}
                             width="80"
@@ -60,15 +72,15 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                 <Navbar.Collapse id='responsive-navbar-nav'>
                     <Nav className="me-auto justify-content-end w-100">
-                        <Nav.Link href="/" className="active text-uppercase fw-bold px-4 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/home" className="active text-uppercase fw-bold px-4 font-tilt-neon" id='text-inactive'>
                             Estadísticas
                             <IonIcon icon={statsChart} color='#749c74' className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4 font-tilt-neon" id='text-inactive'>
                             Rutinas
                             <IonIcon icon={bicycle} color='#749c74' className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2 font-tilt-neon" id='text-inactive'>
                             Ejercicios
                             <IonIcon icon={barbell} color='#749c74' className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>

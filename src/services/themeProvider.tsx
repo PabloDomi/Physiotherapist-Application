@@ -8,12 +8,22 @@ export const ThemeContext = createContext<ThemeContextType>(
 );
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>("light");
+
+  const storedTheme = localStorage.getItem("theme") as Theme;
+
+  const [theme, setTheme] = useState<Theme>('dark');
   const [showModal, setShowModal] = useState<ModalType>(false);
+
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
+
+
+  if (storedTheme !== undefined && storedTheme !== null && storedTheme !== theme) {
+    toggleTheme()
+  }
+
 
   const toggleModal = () => {
     setShowModal(!showModal);

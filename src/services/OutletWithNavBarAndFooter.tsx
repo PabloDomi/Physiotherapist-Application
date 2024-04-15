@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom"
 import { BrandName } from "../Utils/Constants"
 import imagePath from '../Assets/physiotherapist-logo.png'
 import { ButtonToggleTheme } from "../Components/ButtonToggleTheme"
+import '../Css/Navbar.css'
 
 
 const OutletWithNavBarAndFooter = () => {
@@ -16,8 +17,8 @@ const OutletWithNavBarAndFooter = () => {
         <>
             <NavBar
                 styledClassName={theme === 'light'
-                    ? "navbar-light bg-white shadow pe-3"
-                    : "navbar-dark bg-dark shadow pe-3"
+                    ? "navbar-light bg-white shadow pe-3 background-gradient-light"
+                    : "navbar-dark bg-dark shadow pe-3 background-gradient-dark"
                 }
                 brandName={BrandName}
                 imageSrcPath={imagePath}
