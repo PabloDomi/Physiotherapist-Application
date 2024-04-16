@@ -1,16 +1,16 @@
-import { useContext } from "react"
 import { NavBar } from "../Components/Navbar"
-import { ThemeContext } from "./themeProvider"
 import { Outlet } from "react-router-dom"
 import { BrandName } from "../Utils/Constants"
 import imagePath from '../Assets/physiotherapist-logo.png'
 import { ButtonToggleTheme } from "../Components/ButtonToggleTheme"
 import '../Css/Navbar.css'
+import { useGlobalState } from "../Store/useGlobalState"
 
 
 const OutletWithNavBarAndFooter = () => {
 
-    const { theme, toggleTheme } = useContext(ThemeContext)
+    const theme = useGlobalState(state => state.theme)
+    const toggleTheme = useGlobalState(state => state.toggleTheme)
 
 
     return (

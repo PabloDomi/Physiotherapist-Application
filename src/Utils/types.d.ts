@@ -1,4 +1,4 @@
-import React from "react";
+import {ReactNode} from "react";
 
 export type Theme = "light" | "dark";
 
@@ -26,7 +26,7 @@ export type ModalType = boolean;
 export interface ModalProps {
     show: boolean
     title: string
-    content: React.ReactNode
+    content: ReactNode
 }
 
 export interface ButtonToggleThemeProps {
@@ -41,7 +41,7 @@ export interface NavbarProps {
 }
 
 export interface ScrollableListProps {
-    children: React.ReactNode
+    children: ReactNode
 }
 
 export interface SearchProps {
@@ -53,10 +53,6 @@ export interface SearchListProps {
     filteredPersons: User[]
 }
 
-export interface ThemeProviderProps {
-    children: React.ReactNode;
-}
-
 export interface EstadisticasProps {
     theme: Theme
 }
@@ -66,13 +62,6 @@ export interface SearchCardProps {
     person: User;
 }
 
-export type ThemeContextType = { 
-    theme: Theme; 
-    toggleTheme: () => void; 
-    showModal: ModalType, 
-    toggleModal: () => void 
-};
-
 interface GlobalState {
     view: string
     user: UserAdmin | null
@@ -80,6 +69,10 @@ interface GlobalState {
     customStatsData: CustomStatsData | undefined
     changeCustomStatsData: (newData: CustomStatsData) => void
     setCustomStatsDataUndefined: () => void
+    theme: Theme
+    toggleTheme: () => void
+    showModal: ModalType
+    toggleModal: () => void
   }
 
 export interface CustomStatsData {

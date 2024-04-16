@@ -1,14 +1,14 @@
 import { type ModalProps } from "../Utils/types"
 import '../Css/Modal.css'
 import { Button, Modal } from 'react-bootstrap'
-import { useContext } from "react"
-import { ThemeContext } from "../Services/themeProvider"
 import { IonIcon } from "@ionic/react"
 import { close } from "ionicons/icons"
+import { useGlobalState } from "../Store/useGlobalState"
 
 const ModalWindow = ({ show, title, content }: ModalProps) => {
 
-    const { theme, toggleModal } = useContext(ThemeContext)
+    const theme = useGlobalState(state => state.theme)
+    const toggleModal = useGlobalState(state => state.toggleModal)
 
     const handleClose = () => {
 
