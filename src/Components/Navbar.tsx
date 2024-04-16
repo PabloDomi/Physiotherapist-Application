@@ -6,12 +6,10 @@ import { useContext } from 'react'
 import ModalWindow from './Modal'
 import { ThemeContext } from '../Services/themeProvider'
 import { NavbarProps } from '../Utils/types'
-import { useGlobalState } from '../Store/useGlobalState'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
     const { theme, showModal, toggleModal } = useContext(ThemeContext)
-    const view = useGlobalState(state => state.view)
 
     const modalTitle = 'Cambio de Contraseña'
 
@@ -40,14 +38,6 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
         </Form>
 
 
-    const enlacesNavegacion = document.querySelectorAll('#text-inactive')
-    enlacesNavegacion.forEach(enlace => {
-        if (view === enlace.getAttribute('href')) {
-            enlace.id = 'text-active'
-        }
-    })
-
-
     const handleClickChangePassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
         toggleModal()
@@ -71,23 +61,23 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                 <Navbar.Collapse id='responsive-navbar-nav'>
                     <Nav className="me-auto justify-content-end w-100">
-                        <Nav.Link href="/home" className="active text-uppercase fw-bold px-4 font-tilt-neon" id='text-inactive'>
+                        <Nav.Link href="/home" className="active text-uppercase fw-bold px-4 font-tilt-neon" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Estadísticas
-                            <IonIcon icon={statsChart} color='#749c74' className='ps-2 pb-1 align-bottom' />
+                            <IonIcon icon={statsChart} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4 font-tilt-neon" id='text-inactive'>
+                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4 font-tilt-neon" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Rutinas
-                            <IonIcon icon={bicycle} color='#749c74' className='ps-2 pb-1 align-bottom' />
+                            <IonIcon icon={bicycle} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2 font-tilt-neon" id='text-inactive'>
+                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2 font-tilt-neon" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Ejercicios
-                            <IonIcon icon={barbell} color='#749c74' className='ps-2 pb-1 align-bottom' />
+                            <IonIcon icon={barbell} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 <div className='dropdown'>
                     <Button className='btn-options'>
-                        <IonIcon icon={options} id='main-color2' className='btn-options-image' />
+                        <IonIcon icon={options} id='main-color7' className='btn-options-image' />
                     </Button>
                     <ul className='dropdown-content'>
                         <li className='dropdown-content-li dropdown-content-li-1'>

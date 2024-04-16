@@ -15,13 +15,12 @@
 }
 
 .btn-options {
-    border: 0px solid #749C74;
     padding: 0px;
     height: 40px;
     width: 40px;
     border-radius: 50%;
     background-color: inherit;
-    border: 1px solid rgba(116, 156, 116,.3);
+    border: 2px solid rgba(39, 171, 40, .5);;
     margin-left: auto;
 }
 
@@ -144,8 +143,64 @@
     border-color: #749C74;
 }
 
-#text-inactive {
+#text-inactive-dark {
     color: #749C74;
+    background-image: linear-gradient(
+    to right,
+    #81eb81,
+    #81eb81 50%,
+    #749c74 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    position: relative;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive {
+    color: rgba(39, 171, 40, 0.85);
+    background-image: linear-gradient(
+    to right,
+    #0d5517,
+    #0d5517 50%,
+    rgba(39, 171, 40, 0.85) 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    position: relative;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive:before, #text-inactive-dark:before {
+    color: #749C74;
+    background: #749C74;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive:hover, #text-inactive-dark:hover {
+    background-position: 0;
+}
+
+#text-inactive:hover::before, #text-inactive-dark:hover::before {
+    width: 100%;
+}
+
+#text-inactive:active {
+    text-decoration: underline;
 }
 
 .background-gradient-dark {
