@@ -3,7 +3,7 @@ import { NavBar } from "../Components/Navbar"
 import { ThemeContext } from "./themeProvider"
 import { Outlet } from "react-router-dom"
 import { BrandName } from "../Utils/Constants"
-import imagePath from '../Assets/physiotherapist-logo.png'
+import imagePath from '../assets/physiotherapist-logo.png'
 import { ButtonToggleTheme } from "../Components/ButtonToggleTheme"
 
 
