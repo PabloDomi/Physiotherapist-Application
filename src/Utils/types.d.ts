@@ -79,6 +79,7 @@ interface GlobalState {
     changeView: (view: string) => void
     customStatsData: CustomStatsData | undefined
     changeCustomStatsData: (newData: CustomStatsData) => void
+    setCustomStatsDataUndefined: () => void
   }
 
 export interface CustomStatsData {
