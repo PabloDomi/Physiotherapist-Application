@@ -84,4 +84,29 @@ export interface CustomStatsData {
     timeData: number[]
 }
 
+interface Exercise {
+    name: string;
+    description: string;
+}
+
+interface Data {
+    id: Id;
+    name: string;
+    description: string;
+    ejercicios: {
+        ej1: Exercise;
+        ej2: Exercise;
+        ej3: Exercise;
+    };
+    tiempoEstimado: number;
+}
+
+interface RoutineData {
+    routine: Data;
+}
+
+interface ListExpandProps {
+    key: number;
+    rutina: Data;
+}
 

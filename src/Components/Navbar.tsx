@@ -17,12 +17,12 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
     const modalContent =
         <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label className={theme === 'dark' ? 'dark-modal' : ''}>Nueva Contraseña</Form.Label>
+                <Form.Label>Nueva Contraseña</Form.Label>
                 <Form.Control
                     type="password"
                     placeholder="Al menos 8 caracteres"
                     autoFocus
-                    className={theme === 'dark' ? 'dark-modal2' : 'dark-modal3'}
+                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                 />
             </Form.Group>
             <Form.Group
@@ -33,7 +33,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Form.Control
                     type="password"
                     placeholder="Las contraseñas deben coincidir"
-                    className={theme === 'dark' ? 'dark-modal2' : 'dark-modal3'}
+                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                 />
             </Form.Group>
         </Form>
@@ -62,15 +62,15 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                 <Navbar.Collapse id='responsive-navbar-nav'>
                     <Nav className="me-auto justify-content-end w-100">
-                        <Nav.Link href="/home" className="active text-uppercase fw-bold px-4 font-tilt-neon" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
+                        <Nav.Link href="/home" className="active text-uppercase fw-bold px-4" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Estadísticas
                             <IonIcon icon={statsChart} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4 font-tilt-neon" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
+                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Rutinas
                             <IonIcon icon={bicycle} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2 font-tilt-neon" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
+                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Ejercicios
                             <IonIcon icon={barbell} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>

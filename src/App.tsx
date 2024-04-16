@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { Estadisticas } from './Views/Estadisticas'
 import { Rutinas } from './Views/Rutinas'
-import { Ejercicios } from './Views/Ejercicios'
+import Ejercicios from './Views/Ejercicios'
 import './index.css'
 import './App.css'
 import { useGlobalState } from './Store/useGlobalState'
