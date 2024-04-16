@@ -338,3 +338,100 @@ export const mockUsers = [
         gender: "Male"
     }
 ];
+
+export const mockStats = [
+    {
+        labels: ['Michael Brown', 'Sarah Davis', 'Bob Williams', 'Alice Johnson', 'Jane Smith', 'John Doe', 'Hastings Iorns'],
+        titleChart: 'Progress of patients',
+        yaxisTitle: 'Exercises completed (%)',
+        yaxisTitleOpposite: 'Time used (minutes)',
+        porcentualData: [30, 50, 70, 40, 90, 10, 80],
+        timeData: [40, 60, 100, 150, 60, 250, 110]
+    }
+]
+
+export const mockRoutines = 
+{
+    routine1Data: {
+        id: 1,
+        name: 'Rutina de Manuel',
+        description: 'Rutina para mejorar la fuerza en las piernas',
+        ejercicios: {
+            ej1: {
+                name: 'Sentadillas',
+                description: '3 series - 10 repeticiones'
+            },
+            ej2: {
+                name: 'Zancadas',
+                description: '3 series - 10 repeticiones'
+            },
+            ej3: {
+                name: 'Prensa de piernas',
+                description: '3 series - 10 repeticiones'
+            }
+        },
+        tiempoEstimado: 40
+    },
+    routine2Data: {
+        id: 2,
+        name: "Rutina de Ana",
+        description: "Rutina para mejorar la flexibilidad",
+        ejercicios: {
+            ej1: {
+                name: "Estiramientos de piernas",
+                description: "5 series - 15 segundos cada estiramiento"
+            },
+            ej2: {
+                name: "Estiramientos de brazos",
+                description: "4 series - 20 segundos cada estiramiento"
+            },
+            ej3: {
+                name: "Estiramientos de espalda",
+                description: "3 series - 30 segundos cada estiramiento"
+            }
+        },
+        "tiempoEstimado": 50
+    },
+    routine3Data: {
+        id: 3,
+        name: "Rutina de Javier",
+        description: "Rutina para mejorar la resistencia cardiovascular",
+        ejercicios: {
+            ej1: {
+                name: "Carrera continua",
+                description: "30 minutos de carrera a ritmo moderado"
+            },
+            ej2: {
+                name: "Saltos de cuerda",
+                description: "4 series - 1 minuto de saltos con 30 segundos de descanso"
+            },
+            ej3: {
+                name: "Ciclismo",
+                description: "1 hora de ciclismo en terreno plano"
+            }
+        },
+        tiempoEstimado: 90
+    },
+    routine4Data: {
+        id: 4,
+        name: "Rutina de María",
+        description: "Rutina para fortalecer el core",
+        ejercicios: {
+            ej1: {
+                name: "Planchas",
+                description: "3 series - 30 segundos cada serie"
+            },
+            ej2: {
+                name: "Elevación de piernas",
+                description: "4 series - 15 repeticiones cada serie"
+            },
+            ej3: {
+                name: "Giros rusos",
+                description: "3 series - 20 repeticiones cada serie"
+            }
+        },
+        tiempoEstimado: 75
+    } 
+}
+
+

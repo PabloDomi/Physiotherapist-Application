@@ -1,32 +1,27 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { Estadisticas } from './views/Estadisticas'
 import { Rutinas } from './views/Rutinas'
-import { Ejercicios } from './views/Ejercicios'
+import Ejercicios from './views/Ejercicios'
 import './index.css'
 import './App.css'
 import { useGlobalState } from './Store/useGlobalState'
 import NotFound from './Components/NotFound'
 import OutletWithNavBarAndFooter from './Services/OutletWithNavBarAndFooter'
-import { useContext, useEffect } from 'react'
-import { ThemeContext } from './Services/themeProvider'
+import { useEffect } from 'react'
+import Landing from './views/Landing'
 
 function App() {
 
   const location = useLocation()
 
-  const { theme } = useContext(ThemeContext)
-
+  const theme = useGlobalState(state => state.theme)
   const user = useGlobalState(state => state.user)
   const changeView = useGlobalState(state => state.changeView)
-  const view = useGlobalState(state => state.view)
 
   useEffect(() => {
-    const newLocation = location.pathname.slice(1)
+    const newLocation = location.pathname
     changeView(newLocation)
   }, [changeView, location.pathname])
-
-  console.log('Estamos en: ' + view)
-
 
   return (
     <>
@@ -43,7 +38,7 @@ function App() {
         </Routes>
         :
         <Routes>
-          <Route path='/' element={<h1>Landing</h1>} />
+          <Route path='/' element={<Landing />} />
         </Routes>
       }
     </>

@@ -1,10 +1,12 @@
 
 
-export const Ejercicios = () => {
+const Ejercicios = () => {
 
     return (
-        <div>
-            <h1>Ejercicios</h1>
-        </div>
+        <section>
+            <h1>Lista de Ejercicios</h1>
+        </section>
     )
 }
+
+export default Ejercicios

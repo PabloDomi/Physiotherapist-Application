@@ -5,23 +5,14 @@
     opacity: 0.8;
     font-family: "Tilt Neon";
 }
-  
-.color-green {
-    color: #749c74;
-}
-  
-.font-tilt-neon {
-    font-family: "Tilt Neon";
-}
 
 .btn-options {
-    border: 0px solid #749C74;
     padding: 0px;
     height: 40px;
     width: 40px;
     border-radius: 50%;
     background-color: inherit;
-    border: 1px solid rgba(116, 156, 116,.3);
+    border: 2px solid rgba(39, 171, 40, .5);;
     margin-left: auto;
 }
 
@@ -98,11 +89,10 @@
 .dropdown-content-button {
     width: 100%;
     padding: 0.7em 0.5em;
-    font-family: "Tilt Neon";
     border-radius: 20px;
     border: 1px solid transparent;
     color: #749C74;
-    outline: 1px  #749C74;
+    outline: 1px #749C74;
 }
 
 .dropdown-content-button-dark {
@@ -113,33 +103,96 @@
     transition: ease-in-out 0.3s;
     box-shadow: 0 0 20px rgb(83, 83, 83);
     background-color: inherit;
-    border-color: inherit;
+    border-color: #81eb81;
 }
 
-.dark-modal2 {
+.dark-input {
     background-color: #555;
     color: #749c74;
     border-color: #333;
 }
 
-.dark-modal3 {
+.dark-input2 {
     background-color: #fff;
     color: #749C74;
     border-color: #749C74;
 }
 
-.dark-modal {
-    background-color: #333;
-    color: #749c74;
-}
-
-.dark-modal2:focus {
+.dark-input:focus {
     background-color: #555454;
     box-shadow: 0 0 10px #749C74;
     border-color: #749C74;
 }
 
-.dark-modal3:focus {
+.dark-input2:focus {
     box-shadow: 0 0 10px #749C74;
     border-color: #749C74;
+}
+
+#text-inactive-dark {
+    color: rgb(39, 171, 40);
+    background-image: linear-gradient(
+    to right,
+    #81eb81,
+    #81eb81 50%,
+    rgb(39, 171, 40) 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    position: relative;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive {
+    color: rgba(39, 171, 40, 0.85);
+    background-image: linear-gradient(
+    to right,
+    #0d5517,
+    #0d5517 50%,
+    rgba(39, 171, 40, 0.85) 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    position: relative;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive:before, #text-inactive-dark:before {
+    color: #749C74;
+    background: #749C74;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive:hover, #text-inactive-dark:hover {
+    background-position: 0;
+}
+
+#text-inactive:hover::before, #text-inactive-dark:hover::before {
+    width: 100%;
+}
+
+#text-inactive:active {
+    text-decoration: underline;
+}
+
+.background-gradient-dark {
+    background: linear-gradient(270deg,#444444, #333);
+}
+
+.background-gradient-light {
+    background: linear-gradient(270deg, #ABE8AB, #fff);
 }
