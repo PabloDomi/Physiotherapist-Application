@@ -1,12 +1,11 @@
-import { useContext } from 'react'
 import '../Css/Estadisticas.css'
-import { ThemeContext } from '../Services/themeProvider'
+import { useGlobalState } from '../Store/useGlobalState';
 import { ScrollableListProps } from '../Utils/types'
 
 
 const ScrollableList = (props: ScrollableListProps) => {
 
-    const { theme } = useContext(ThemeContext)
+    const theme = useGlobalState(state => state.theme)
 
     return (
         <div className={theme === 'light'

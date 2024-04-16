@@ -7,15 +7,14 @@ import './App.css'
 import { useGlobalState } from './Store/useGlobalState'
 import NotFound from './Components/NotFound'
 import OutletWithNavBarAndFooter from './Services/OutletWithNavBarAndFooter'
-import { useContext, useEffect } from 'react'
-import { ThemeContext } from './Services/themeProvider'
+import { useEffect } from 'react'
+import Landing from './Views/Landing'
 
 function App() {
 
   const location = useLocation()
 
-  const { theme } = useContext(ThemeContext)
-
+  const theme = useGlobalState(state => state.theme)
   const user = useGlobalState(state => state.user)
   const changeView = useGlobalState(state => state.changeView)
 
@@ -39,7 +38,7 @@ function App() {
         </Routes>
         :
         <Routes>
-          <Route path='/' element={<h1>Landing</h1>} />
+          <Route path='/' element={<Landing />} />
         </Routes>
       }
     </>

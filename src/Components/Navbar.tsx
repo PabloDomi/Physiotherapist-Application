@@ -2,14 +2,15 @@ import '../Css/Navbar.css'
 import { Container, Navbar, Nav, Button, Form } from "react-bootstrap"
 import { IonIcon } from '@ionic/react'
 import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
-import { useContext } from 'react'
 import ModalWindow from './Modal'
-import { ThemeContext } from '../Services/themeProvider'
 import { NavbarProps } from '../Utils/types'
+import { useGlobalState } from '../Store/useGlobalState'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
-    const { theme, showModal, toggleModal } = useContext(ThemeContext)
+    const theme = useGlobalState(state => state.theme)
+    const showModal = useGlobalState(state => state.showModal)
+    const toggleModal = useGlobalState(state => state.toggleModal)
 
     const modalTitle = 'Cambio de Contraseña'
 
