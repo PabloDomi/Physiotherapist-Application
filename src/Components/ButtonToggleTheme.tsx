@@ -1,5 +1,5 @@
-import { ButtonToggleThemeProps } from '../Utils/types'
-import '../Css/ButtonToggleTheme.css'
+import { ButtonToggleThemeProps } from '../utils/types'
+import '../css/ButtonToggleTheme.css'
 import { Button } from "react-bootstrap"
 import { IonIcon } from "@ionic/react"
 import { moon, sunny } from 'ionicons/icons'

@@ -1,7 +1,7 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts'
-import '../Css/Estadisticas.css'
-import { mockStats } from "../Utils/MockData"
+import '../css/Estadisticas.css'
+import { mockStats } from "../utils/MockData"
 
 const DefaultStatsChart = () => {
 

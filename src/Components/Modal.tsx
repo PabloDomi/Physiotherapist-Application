@@ -1,9 +1,9 @@
-import { type ModalProps } from "../Utils/types"
-import '../Css/Modal.css'
+import { type ModalProps } from "../utils/types"
+import '../css/Modal.css'
 import { Button, Modal } from 'react-bootstrap'
 import { IonIcon } from "@ionic/react"
 import { close } from "ionicons/icons"
-import { useGlobalState } from "../Store/useGlobalState"
+import { useGlobalState } from "../store/useGlobalState"
 
 const ModalWindow = ({ show, title, content }: ModalProps) => {
 

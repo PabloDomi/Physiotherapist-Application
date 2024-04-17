@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import '../Css/Landing.css'
+import '../css/Landing.css'
 import { IonIcon } from '@ionic/react';
 import { logoGoogle, logoFacebook, logoMicrosoft, logoApple } from 'ionicons/icons';
 

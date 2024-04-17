@@ -1,7 +1,7 @@
-import { CustomStatsData } from "../Utils/types"
+import { CustomStatsData } from "../utils/types"
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts'
-import '../Css/Estadisticas.css'
+import '../css/Estadisticas.css'
 
 interface customStatsChartProps {
     data: CustomStatsData

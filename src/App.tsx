@@ -1,14 +1,14 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
-import { Estadisticas } from './Views/Estadisticas'
-import { Rutinas } from './Views/Rutinas'
-import Ejercicios from './Views/Ejercicios'
+import { Estadisticas } from './views/Estadisticas'
+import { Rutinas } from './views/Rutinas'
+import Ejercicios from './views/Ejercicios'
 import './index.css'
 import './App.css'
-import { useGlobalState } from './Store/useGlobalState'
-import NotFound from './Components/NotFound'
-import OutletWithNavBarAndFooter from './Services/OutletWithNavBarAndFooter'
+import { useGlobalState } from './store/useGlobalState'
+import NotFound from './components/NotFound'
+import OutletWithNavBarAndFooter from './services/OutletWithNavBarAndFooter'
 import { useEffect } from 'react'
-import Landing from './Views/Landing'
+import Landing from './views/Landing'
 
 function App() {
 
