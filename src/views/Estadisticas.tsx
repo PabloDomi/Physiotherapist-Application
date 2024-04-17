@@ -1,11 +1,11 @@
-import { EstadisticasProps } from "../Utils/types"
-import '../Css/Estadisticas.css'
-import { mockUsers } from "../Utils/MockData"
-import Search from "../Components/Search"
+import { EstadisticasProps } from "../utils/types"
+import '../css/Estadisticas.css'
+import { mockUsers } from "../utils/MockData"
+import Search from "../components/Search"
 import { usePatients } from "../hooks/usePatients"
-import DefaultStatsChart from "../Components/DefaultStatsChart"
-import { useGlobalState } from "../Store/useGlobalState"
-import CustomStatsChart from "../Components/CustomStatsChart"
+import DefaultStatsChart from "../components/DefaultStatsChart"
+import { useGlobalState } from "../store/useGlobalState"
+import CustomStatsChart from "../components/CustomStatsChart"
 import { IonIcon } from "@ionic/react"
 import { home } from 'ionicons/icons'
 import { Button } from "react-bootstrap"

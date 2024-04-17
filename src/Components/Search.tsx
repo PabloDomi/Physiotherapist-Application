@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ScrollableList from "./ScrollableList";
 import SearchList from "./SearchList";
-import { SearchProps } from "../Utils/types";
+import { SearchProps } from "../utils/types";
 
 
 const Search = ({ details, theme }: SearchProps) => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { List, ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material";
 import { ExpandLess, ExpandMore, Inbox as InboxIcon, StarBorder } from '@mui/icons-material';
-import { ListExpandProps } from "../Utils/types";
+import { ListExpandProps } from "../utils/types";
 
 function ListExpand(ListExpandProps: ListExpandProps) {
 

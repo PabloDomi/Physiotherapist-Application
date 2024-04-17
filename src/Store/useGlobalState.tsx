@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CustomStatsData, GlobalState } from "../Utils/types";
+import { CustomStatsData, GlobalState } from "../utils/types";
 
 export const useGlobalState = create<GlobalState>((set) => {
   return {

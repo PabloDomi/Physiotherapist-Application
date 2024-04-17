@@ -1,6 +1,6 @@
-import { SearchCardProps } from "../Utils/types";
+import { SearchCardProps } from "../utils/types";
 import React from "react";
-import '../Css/Estadisticas.css'
+import '../css/Estadisticas.css'
 //import { useGlobalState } from "../Store/useGlobalState";
 
 

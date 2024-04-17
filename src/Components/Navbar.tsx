@@ -1,10 +1,10 @@
-import '../Css/Navbar.css'
+import '../css/Navbar.css'
 import { Container, Navbar, Nav, Button, Form } from "react-bootstrap"
 import { IonIcon } from '@ionic/react'
 import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
 import ModalWindow from './Modal'
-import { NavbarProps } from '../Utils/types'
-import { useGlobalState } from '../Store/useGlobalState'
+import { NavbarProps } from '../utils/types'
+import { useGlobalState } from '../store/useGlobalState'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 

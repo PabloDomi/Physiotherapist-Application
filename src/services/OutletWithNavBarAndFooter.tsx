@@ -1,10 +1,10 @@
-import { NavBar } from "../Components/Navbar"
+import { NavBar } from "../components/Navbar"
 import { Outlet } from "react-router-dom"
-import { BrandName } from "../Utils/Constants"
-import imagePath from '../Assets/physiotherapist-logo.png'
-import { ButtonToggleTheme } from "../Components/ButtonToggleTheme"
-import '../Css/Navbar.css'
-import { useGlobalState } from "../Store/useGlobalState"
+import { BrandName } from "../utils/Constants"
+import imagePath from '../assets/physiotherapist-logo.png'
+import { ButtonToggleTheme } from "../components/ButtonToggleTheme"
+import '../css/Navbar.css'
+import { useGlobalState } from "../store/useGlobalState"
 
 
 const OutletWithNavBarAndFooter = () => {

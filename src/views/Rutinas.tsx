@@ -1,9 +1,9 @@
 import { List } from "@mui/material";
-import '../Css/Rutinas.css';
-import { useGlobalState } from "../Store/useGlobalState";
-import ListExpand from "../Components/ListExpand";
-import { mockRoutines } from "../Utils/MockData";
-import { Data } from "../Utils/types";
+import '../css/Rutinas.css';
+import { useGlobalState } from "../store/useGlobalState";
+import ListExpand from "../components/ListExpand";
+import { mockRoutines } from "../utils/MockData";
+import { Data } from "../utils/types";
 
 
 
