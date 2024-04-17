@@ -46,7 +46,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
 
     return (
         <Navbar className={styledClassName} expand="lg">
-            <Container className="container-fluid">
+            <Container className="container-fluid mx-0 contenedor-navbar">
                 <Navbar.Brand>
                     <Nav.Link className="navbar-brand" href={'/home'}>
                         <img
@@ -70,7 +70,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                             Rutinas
                             <IonIcon icon={bicycle} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
+                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 ejercicios-nav-link" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Ejercicios
                             <IonIcon icon={barbell} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
