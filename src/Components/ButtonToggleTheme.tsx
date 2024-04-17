@@ -1,19 +1,23 @@
-import { type Theme } from "../Utils/types"
-import '../index.css'
+import { ButtonToggleThemeProps } from '../Utils/types'
+import '../Css/ButtonToggleTheme.css'
 import { Button } from "react-bootstrap"
 import { IonIcon } from "@ionic/react"
 import { moon, sunny } from 'ionicons/icons'
 
-interface ButtonToggleThemeProps {
-    toggleTheme: () => void
-    theme: Theme
-
-}
 
 export const ButtonToggleTheme = ({ toggleTheme, theme }: ButtonToggleThemeProps) => {
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+
+        localStorage.setItem('theme', theme === 'light' ? 'dark' : 'light')
+
+        toggleTheme()
+    }
+
     return (
         <>
-            <Button onClick={toggleTheme}
+            <Button onClick={handleClick}
                 className={
                     theme === 'light'
                         ? 'btn-light toggle-button-light-to-dark'

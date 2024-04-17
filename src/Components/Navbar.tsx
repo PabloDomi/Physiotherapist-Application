@@ -1,31 +1,28 @@
-import '../index.css'
+import '../Css/Navbar.css'
 import { Container, Navbar, Nav, Button, Form } from "react-bootstrap"
 import { IonIcon } from '@ionic/react'
 import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
-import { useContext } from 'react'
 import ModalWindow from './Modal'
-import { ThemeContext } from '../Services/themeProvider'
-interface NavbarProps {
-    styledClassName: string // ClassName for the Navbar to set the style of darkTheme or lightTheme
-    brandName: string // Name of the brand to display in the Navbar
-    imageSrcPath: string // Path of the image to display in the Navbar
-}
+import { NavbarProps } from '../Utils/types'
+import { useGlobalState } from '../Store/useGlobalState'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
-    const { theme, showModal, toggleModal } = useContext(ThemeContext)
+    const theme = useGlobalState(state => state.theme)
+    const showModal = useGlobalState(state => state.showModal)
+    const toggleModal = useGlobalState(state => state.toggleModal)
 
     const modalTitle = 'Cambio de Contraseña'
 
     const modalContent =
         <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label className={theme === 'dark' ? 'dark-modal' : ''}>Nueva Contraseña</Form.Label>
+                <Form.Label>Nueva Contraseña</Form.Label>
                 <Form.Control
                     type="password"
                     placeholder="Al menos 8 caracteres"
                     autoFocus
-                    className={theme === 'dark' ? 'dark-modal2' : ''}
+                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                 />
             </Form.Group>
             <Form.Group
@@ -36,10 +33,11 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Form.Control
                     type="password"
                     placeholder="Las contraseñas deben coincidir"
-                    className={theme === 'dark' ? 'dark-modal2' : ''}
+                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                 />
             </Form.Group>
         </Form>
+
 
     const handleClickChangePassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
@@ -50,7 +48,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
         <Navbar className={styledClassName} expand="lg">
             <Container className="container-fluid">
                 <Navbar.Brand>
-                    <Nav.Link className="navbar-brand" href={'/'}>
+                    <Nav.Link className="navbar-brand" href={'/home'}>
                         <img
                             src={imageSrcPath}
                             width="80"
@@ -64,23 +62,23 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                 <Navbar.Collapse id='responsive-navbar-nav'>
                     <Nav className="me-auto justify-content-end w-100">
-                        <Nav.Link href="/" className="active text-uppercase fw-bold px-4 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/home" className="active text-uppercase fw-bold px-4" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Estadísticas
-                            <IonIcon icon={statsChart} color='#749c74' className='ps-2 pb-1 align-bottom' />
+                            <IonIcon icon={statsChart} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/rutinas" className="active text-uppercase fw-bold px-4" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Rutinas
-                            <IonIcon icon={bicycle} color='#749c74' className='ps-2 pb-1 align-bottom' />
+                            <IonIcon icon={bicycle} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
-                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2 font-tilt-neon" style={{ color: '#749c74' }}>
+                        <Nav.Link href="/ejercicios" className="active text-uppercase fw-bold px-4 me-2" id={theme === 'light' ? 'text-inactive' : 'text-inactive-dark'}>
                             Ejercicios
-                            <IonIcon icon={barbell} color='#749c74' className='ps-2 pb-1 align-bottom' />
+                            <IonIcon icon={barbell} className='ps-2 pb-1 align-bottom' />
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 <div className='dropdown'>
                     <Button className='btn-options'>
-                        <IonIcon icon={options} id='main-color2' className='btn-options-image' />
+                        <IonIcon icon={options} id='main-color7' className='btn-options-image' />
                     </Button>
                     <ul className='dropdown-content'>
                         <li className='dropdown-content-li dropdown-content-li-1'>

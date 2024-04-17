@@ -1,0 +1,30 @@
+/* ================ CSS PARA LA VIEW NOT FOUND ================ */
+
+.not-found {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    font-family: "Tilt Neon";
+    color: #333;
+    box-sizing: border-box;
+    background-color: #749C74;
+    background-image: radial-gradient(circle at center, 
+                      rgba(0, 128, 0, 0.8) 0%, 
+                      rgba(0, 100, 0, 0.6) 50%, 
+                      rgba(0, 64, 0, 0.4) 80%,
+                      rgba(0, 0, 0, 0.1) 100%);
+}
+
+.not-found-h1 {
+    align-self: center;
+    font-size: 100px;
+}
+
+.not-found-h2 {
+    font-size: 20px;
+    align-self: center;
+}
+.not-found-link {
+    color: blue;
+}

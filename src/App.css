@@ -1,0 +1,38 @@
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 100%;
+    padding-top: 1rem;
+}
+
+.footer-light {
+    background-color: #333;
+    color: rgb(116, 156, 116);
+    padding: 20px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.footer-dark {
+    background-color: #FFF;
+    color: rgb(116, 156, 116);
+    padding: 20px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.background-dark {
+    background: linear-gradient(270deg,#444444, #333);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.background-light {
+    background: linear-gradient(270deg, #ABE8AB, #fff);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,198 @@
+/* ================ CSS DEL NAVBAR ================ */
+
+.brand-label {
+    color: #749c74;
+    opacity: 0.8;
+    font-family: "Tilt Neon";
+}
+
+.btn-options {
+    padding: 0px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: inherit;
+    border: 2px solid rgba(39, 171, 40, .5);;
+    margin-left: auto;
+}
+
+.btn-options-image {
+    width: 20px;
+    height: 20px;
+    padding-top: 4px;
+}
+
+.dropdown {
+    max-width: 13em;
+    margin-left: auto;
+    position: relative;
+    width: 100%;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown-content {
+    list-style: none;
+    position: absolute;
+    top: 3.2em;
+    width: 100%;
+    visibility: hidden;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-content-li {
+    position: relative;
+    left: 100%;
+    transition: 0.5s;
+    backdrop-filter:blur(5px);
+    border-radius: 20px;
+    padding: 0.5em 0.1em;
+    z-index: 99;
+}
+
+.dropdown-content-li-1 {
+    --delay: 1;
+    transition-delay: calc(60ms * var(--delay));
+}
+
+.dropdown-content-li-2 {
+    --delay: 2;
+    transition-delay: calc(60ms * var(--delay));
+}
+
+.dropdown-content-li-3 {
+    --delay: 3;
+    transition-delay: calc(60ms * var(--delay));
+}
+
+.dropdown-content-li-4 {
+    --delay: 4;
+    transition-delay: calc(60ms * var(--delay));
+}
+
+.btn-options:focus-within + .dropdown-content li {
+    left: 0;
+}
+
+.btn-options:focus-within + .dropdown-content {
+    visibility: visible;
+} 
+
+.dropdown-content-button:hover {
+    outline: 2px solid #749C74;
+}
+
+.dropdown-content-button {
+    width: 100%;
+    padding: 0.7em 0.5em;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    color: #749C74;
+    outline: 1px #749C74;
+}
+
+.dropdown-content-button-dark {
+    background-color: #22242a;
+}
+
+.btn-options:hover {
+    transition: ease-in-out 0.3s;
+    box-shadow: 0 0 20px rgb(83, 83, 83);
+    background-color: inherit;
+    border-color: #81eb81;
+}
+
+.dark-input {
+    background-color: #555;
+    color: #749c74;
+    border-color: #333;
+}
+
+.dark-input2 {
+    background-color: #fff;
+    color: #749C74;
+    border-color: #749C74;
+}
+
+.dark-input:focus {
+    background-color: #555454;
+    box-shadow: 0 0 10px #749C74;
+    border-color: #749C74;
+}
+
+.dark-input2:focus {
+    box-shadow: 0 0 10px #749C74;
+    border-color: #749C74;
+}
+
+#text-inactive-dark {
+    color: rgb(39, 171, 40);
+    background-image: linear-gradient(
+    to right,
+    #81eb81,
+    #81eb81 50%,
+    rgb(39, 171, 40) 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    position: relative;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive {
+    color: rgba(39, 171, 40, 0.85);
+    background-image: linear-gradient(
+    to right,
+    #0d5517,
+    #0d5517 50%,
+    rgba(39, 171, 40, 0.85) 50%
+    );
+    background-size: 200% 100%;
+    background-position: -100%;
+    display: inline-block;
+    position: relative;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive:before, #text-inactive-dark:before {
+    color: #749C74;
+    background: #749C74;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+#text-inactive:hover, #text-inactive-dark:hover {
+    background-position: 0;
+}
+
+#text-inactive:hover::before, #text-inactive-dark:hover::before {
+    width: 100%;
+}
+
+#text-inactive:active {
+    text-decoration: underline;
+}
+
+.background-gradient-dark {
+    background: linear-gradient(270deg,#444444, #333);
+}
+
+.background-gradient-light {
+    background: linear-gradient(270deg, #ABE8AB, #fff);
+}
