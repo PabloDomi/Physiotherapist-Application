@@ -51,7 +51,7 @@
 
 .title {
     font-family: "Tilt Neon";
-    color:#568D75;
+    color:#27ab28;
     align-self: center;
     justify-self: center;
     padding-top: 6px;
@@ -59,7 +59,7 @@
 
 .input-light {
     background-color: #f4f4f4;
-    border: 1px solid #568D75;
+    border: 1px solid #8ed88f;
     border-radius: 5px;
     padding: 5px;
     width: 100%;
@@ -71,7 +71,7 @@
 
 .input-dark {
     background-color: #333;
-    border: 1px solid #568D75;
+    border: 1px solid #8ed88f;
     border-radius: 5px;
     padding: 5px;
     width: 100%;
@@ -103,7 +103,7 @@
 
 .card-name {
     font-family: "Tilt Neon";
-    color: #3F7C75;
+    color: #8ed88f;
 }
 
 .card-age {
@@ -111,7 +111,7 @@
     margin-bottom: 0;
     text-align: start;
     font-family: "Tilt Neon";
-    color: #3F7C75;
+    color: #8ed88f;
 }
 
 .card-container {
@@ -149,7 +149,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    color: #568D75;
+    color: #27ab28;
     font-size: 1.5rem;
     margin: 0;
     padding: 0;

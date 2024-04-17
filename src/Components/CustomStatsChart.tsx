@@ -12,7 +12,7 @@ function CustomStatsChart(customStatsChartProps: customStatsChartProps) {
     const { data } = customStatsChartProps
 
     const textColor = '#4dc45c'
-    const azulChart = '#346ef1'
+    const azulChart = '#527cdd'
     const verdeChart = '#27ab28'
 
     const options: ApexOptions = {
@@ -88,11 +88,11 @@ function CustomStatsChart(customStatsChartProps: customStatsChartProps) {
                 columnWidth: '55%'
             }
         },
-        colors: [verdeChart, azulChart], // Color del texto para otros elementos si es necesario
+        colors: [azulChart, verdeChart], // Color del texto para otros elementos si es necesario
         legend: {
             offsetY: 6,
             labels: {
-                colors: [verdeChart, azulChart] // Color del texto en la leyenda
+                colors: [azulChart, verdeChart] // Color del texto en la leyenda
             }
         }
     };
