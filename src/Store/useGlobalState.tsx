@@ -9,7 +9,7 @@ export const useGlobalState = create<GlobalState>((set) => {
     customStatsData: undefined,
     changeCustomStatsData: (newData: CustomStatsData) => set({ customStatsData: newData }),
     setCustomStatsDataUndefined: () => set({ customStatsData: undefined }),
-    theme: 'dark',
+    theme: localStorage.getItem('theme') || 'dark',
     toggleTheme: () => set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
     showModal: false,
     toggleModal: () => set((state) => ({ showModal: !state.showModal }))

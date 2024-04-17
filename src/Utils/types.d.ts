@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 
-export type Theme = "light" | "dark";
+export type Theme = "light" | "dark" | string;
 
 export type Id = number;
 export type Name = string;
