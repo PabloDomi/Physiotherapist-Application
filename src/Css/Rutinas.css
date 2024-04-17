@@ -1,10 +1,26 @@
 .rutinas-section {
     display: flex;
-    height: 100dvh;
+    height: 90dvh;
     width: 100vw;
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
+    overflow-x: hidden;
+
+    & h1{
+        color: #27ab28;
+        padding-right: 15px;
+    }
+}
+
+.rutinas-section-dark {
+    display: flex;
+    height: 90dvh;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    overflow-x: hidden;
 
     & h1{
         color: #8faef5;
@@ -50,6 +66,20 @@
     color: #8faef5;
 }
 
+.primary-text-exercise-light {
+    margin-right: 1rem;
+    color: #127e12;
+}
+
+.btn-agregar-rutina {
+    background-color: #4570d6 !important;
+    color: #8faef5;
+}
+
+.btn-agregar-rutina-light {
+    background-color: #127e12 !important;
+}
+
 .circle-icon-exercise {
     font-size: 0.7rem !important;
 }
@@ -66,4 +96,17 @@
 .desplegable-lista-light:hover {
     background-color: #7bda7b !important;
     transition: background-color 1s ease;
+}
+
+.btn-agregar-ej {
+    background-color: #6891ef !important;
+}
+
+.btn-agregar-ej-light {
+    background-color: #38ac38 !important;
+}
+
+.btn-agregar-ej, .btn-agregar-ej-light {
+    position: absolute;
+    left: 25vw;
 }

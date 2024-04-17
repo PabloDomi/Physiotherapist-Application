@@ -101,6 +101,10 @@ interface Data {
     tiempoEstimado: number;
 }
 
+interface ExerciseData {
+    exercises: Exercise[];
+}
+
 interface RoutineData {
     routine: Data;
 }

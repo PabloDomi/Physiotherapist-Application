@@ -4,9 +4,11 @@
 .stats-container {
     display: flex;
     max-width: 100vw;
-    min-height: 80vh;
+    min-height: 90vh;
     box-sizing: border-box;
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .background-stats-dark {
@@ -29,7 +31,7 @@
 
 .stats-chart-dark, .stats-chart-light {
     border-radius: 10px;
-    height: 100%;
+    height: 70%;
     padding: 10px;
 }
 
@@ -86,32 +88,38 @@
     overflow-y: auto;
     height: 54vh;
     scrollbar-width: thin;
-    scroll-behavior: smooth;
-    scrollbar-gutter: auto;
-    scrollbar-track-color: #568D75;
 }
 
-
-
 .scrollable-light {
-    scrollbar-color: #568D75 #fff;
+    scrollbar-color: #27ab28 #fff;
 }
 
 .scrollable-dark {
     scrollbar-color: #568D75 #333;
 }
 
+
+
 .card-name {
-    font-family: "Tilt Neon";
     color: #8ed88f;
+}
+
+.card-name-light {
+    color: #27ab28;
 }
 
 .card-age {
     font-size: .9em;
     margin-bottom: 0;
     text-align: start;
-    font-family: "Tilt Neon";
     color: #8ed88f;
+}
+
+.card-age-light {
+    font-size: .9em;
+    margin-bottom: 0;
+    text-align: start;
+    color: #27ab28;
 }
 
 .card-container {
