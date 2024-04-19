@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 
-export type Theme = "light" | "dark";
+export type Theme = "light" | "dark" | string;
 
 export type Id = number;
 export type Name = string;
@@ -99,6 +99,10 @@ interface Data {
         ej3: Exercise;
     };
     tiempoEstimado: number;
+}
+
+interface ExerciseData {
+    exercises: Exercise[];
 }
 
 interface RoutineData {

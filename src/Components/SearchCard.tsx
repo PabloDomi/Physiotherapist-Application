@@ -1,10 +1,13 @@
-import { SearchCardProps } from "../Utils/types";
+import { SearchCardProps } from "../utils/types";
 import React from "react";
-import '../Css/Estadisticas.css'
+import '../css/Estadisticas.css'
+import { useGlobalState } from "../store/useGlobalState";
 //import { useGlobalState } from "../Store/useGlobalState";
 
 
 const SearchCard: React.FC<SearchCardProps> = ({ person }) => {
+
+  const theme = useGlobalState(state => state.theme)
 
   /* 
       TODO: Aquí habría que coger los datos de person, y transformarlos en un array/objeto tipo mockStats
@@ -32,8 +35,8 @@ const SearchCard: React.FC<SearchCardProps> = ({ person }) => {
   return (
     <div className="card-container shadow">
       <button className="card-div-button" onClick={handleClick}>
-        <h6 className="card-name fw-bold">{person.name}</h6>
-        <p className="ps-2 card-age">{person.age + ' años'}</p>
+        <h6 className={theme === 'light' ? 'card-name-light fw-bold' : 'card-name fw-bold'}>{person.name}</h6>
+        <p className={theme === 'light' ? 'card-age-light ps-2' : 'card-age ps-2'}>{person.age + ' años'}</p>
       </button>
     </div>
   );

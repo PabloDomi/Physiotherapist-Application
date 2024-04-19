@@ -1,6 +1,6 @@
-import '../Css/Estadisticas.css'
-import { useGlobalState } from '../Store/useGlobalState';
-import { ScrollableListProps } from '../Utils/types'
+import '../css/Estadisticas.css'
+import { useGlobalState } from '../store/useGlobalState';
+import { ScrollableListProps } from '../utils/types'
 
 
 const ScrollableList = (props: ScrollableListProps) => {

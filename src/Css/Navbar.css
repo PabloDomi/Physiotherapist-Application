@@ -6,20 +6,30 @@
     font-family: "Tilt Neon";
 }
 
+.contenedor-navbar {
+    max-width: none;
+}
+
 .btn-options {
     padding: 0px;
     height: 40px;
     width: 40px;
     border-radius: 50%;
     background-color: inherit;
-    border: 2px solid rgba(39, 171, 40, .5);;
+    border: 3px solid rgba(39, 171, 40, .5);;
     margin-left: auto;
+    margin-right: 2.5rem;
+}
+
+.ejercicios-nav-link {
+    margin-right: 10rem;
 }
 
 .btn-options-image {
     width: 20px;
     height: 20px;
     padding-top: 4px;
+    stroke-width: 15px;
 }
 
 .dropdown {
@@ -148,7 +158,7 @@
 }
 
 #text-inactive {
-    color: rgba(39, 171, 40, 0.85);
+    color: #27ab28d9;
     background-image: linear-gradient(
     to right,
     #0d5517,

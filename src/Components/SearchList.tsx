@@ -1,5 +1,5 @@
 import SearchCard from "./SearchCard";
-import { SearchListProps } from "../Utils/types";
+import { SearchListProps } from "../utils/types";
 
 const SearchList: React.FC<SearchListProps> = ({ filteredPersons }) => {
   const filtered = filteredPersons.map(person =>

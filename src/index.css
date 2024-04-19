@@ -10,10 +10,26 @@
     #main-color4{color: rgb(50, 107, 112);}
     #main-color5{color: rgb(47, 89, 102);}
     #main-color6{color: #2F4858;}
-    #main-color7{color: rgb(39, 171, 40);}
+    #main-color7{color: #27ab28;}
 
 /* ================ CSS DE LA APP ================ */
 
 body {
     font-family: "Tilt Neon";
+
+    
+    &::-webkit-scrollbar {
+        width: 10px !important;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: #568D75 !important;
+        border-radius: 10px !important;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background-color: #333 !important;
+        border-radius: 8px !important;
+        border: 1px solid #568D75 !important;
+    }
 }
