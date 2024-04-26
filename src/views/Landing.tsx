@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import '../css/Landing.css'
-import { IonIcon } from '@ionic/react';
-import { logoGoogle, logoFacebook, logoMicrosoft, logoApple } from 'ionicons/icons';
-import { registerFormSchema } from '../utils/schemas';
+import { registerFormSchema, loginFormSchema } from '../utils/schemas';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import ErrorAlert from '../components/ErrorAlert';
 import SignUpFormField from '../components/SignUpFormField';
+import LoginFormField from '../components/LoginFormField';
 
 type ErrorMessage = {
     message: string
@@ -15,6 +14,7 @@ type ErrorMessage = {
 }
 
 type RegisterSchema = z.infer<typeof registerFormSchema>
+type LoginSchema = z.infer<typeof loginFormSchema>
 
 const Landing = () => {
 
@@ -37,9 +37,38 @@ const Landing = () => {
             }
         })
 
+    const formLogin = useForm<LoginSchema>({
+        resolver: zodResolver(loginFormSchema),
+        defaultValues: {
+            email: '',
+            password: ''
+        }
+    })
+
     useEffect(() => {
         setContainer(document.getElementById('landing-container'))
     }, [container])
+
+    useEffect(() => {
+        if (errors.name) {
+            setErrorMessage({ message: 'El nombre debe tener al menos 6 caracteres', severity: 'error' })
+        }
+        if (errors.email) {
+            setErrorMessage({ message: 'Debe introducir un email válido', severity: 'error' })
+        }
+        if (errors.password) {
+            setErrorMessage({ message: 'La contraseña debe tener al menos 6 caracteres', severity: 'error' })
+        }
+    }, [errors])
+
+    useEffect(() => {
+        if (formLogin.formState.errors.email) {
+            setErrorMessage({ message: 'Debe introducir un email válido', severity: 'error' })
+        }
+        if (formLogin.formState.errors.password) {
+            setErrorMessage({ message: 'La contraseña debe tener al menos 6 caracteres', severity: 'error' })
+        }
+    }, [formLogin.formState.errors])
 
     const handleRegisterToggle = (event: React.MouseEvent) => {
         event.preventDefault();
@@ -56,10 +85,10 @@ const Landing = () => {
         setErrorMessage({ message: 'Registro exitoso', severity: 'success' })
     }
 
-    const handleLogin = (event: React.FormEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+    const handleLoginSubmit: SubmitHandler<LoginSchema> = (values: LoginSchema) => {
+        console.log(values)
 
-        console.log('Login');
+        setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
     }
 
 
@@ -72,51 +101,44 @@ const Landing = () => {
                 <div className="form-container sign-up">
                     <form style={{ boxSizing: 'border-box' }} onSubmit={handleSubmit(handleRegisterSubmit)}>
                         <h1>Crear Cuenta</h1>
-                        <div className="social-icons">
-                            <a href="#" className="icon"><IonIcon icon={logoGoogle} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoFacebook} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoMicrosoft} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoApple} size='small' /></a>
-                        </div>
-                        <span style={{ marginBottom: '0.8rem' }}>o usa tu correo electrónico para el registro</span>
                         <SignUpFormField
                             name='name'
                             placeholder='Tu nombre completo'
                             inputType='text'
                             formControl={control}
                         />
-                        {errors.name && <p style={{ marginTop: '0.1rem', marginBottom: '0' }} className='text-danger'>{errors.name.message}</p>}
                         <SignUpFormField
                             name='email'
                             placeholder='you@example.com'
                             inputType='text'
                             formControl={control}
                         />
-                        {errors.email && <p style={{ marginTop: '0.1rem', marginBottom: '0' }} className='text-danger'>{errors.email.message}</p>}
                         <SignUpFormField
                             name='password'
                             placeholder='*******'
                             inputType='password'
                             formControl={control}
                         />
-                        {errors.password && <p style={{ marginTop: '0.1rem', marginBottom: '0' }} className='text-danger'>{errors.password.message}</p>}
-                        <button type='submit'>Registrarse</button>
+                        <button>Registrarse</button>
                     </form>
                 </div>
                 <div className="form-container sign-in">
-                    <form>
+                    <form onSubmit={formLogin.handleSubmit(handleLoginSubmit)}>
                         <h1>Iniciar Sesión</h1>
-                        <div className="social-icons">
-                            <a href="#" className="icon"><IonIcon icon={logoGoogle} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoFacebook} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoMicrosoft} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoApple} size='small' /></a>
-                        </div>
-                        <span>o usa tu correo electrónico</span>
-                        <input type="email" placeholder="you@example.com" name='email-login' />
-                        <input type="password" placeholder="*******" name='password-login' />
+                        <LoginFormField
+                            name='email'
+                            placeholder='you@example.com'
+                            inputType='text'
+                            formControl={formLogin.control}
+                        />
+                        <LoginFormField
+                            name='password'
+                            placeholder='*********'
+                            inputType='password'
+                            formControl={formLogin.control}
+                        />
                         <a href="#">¿Olvidaste la contraseña?</a>
-                        <button onSubmit={handleLogin}>Iniciar Sesión</button>
+                        <button>Iniciar Sesión</button>
                     </form>
                 </div>
                 <div className="toggle-container">
@@ -134,7 +156,7 @@ const Landing = () => {
                     </div>
                 </div>
             </div>
-        </main>
+        </main >
     )
 }
 

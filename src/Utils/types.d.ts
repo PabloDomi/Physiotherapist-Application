@@ -1,7 +1,7 @@
 import {ReactNode} from "react";
 import { Control, FieldPath } from "react-hook-form";
 import { z } from "zod";
-import { registerFormSchema } from "./schemas";
+import { loginFormSchema, registerFormSchema } from "./schemas";
 
 export type Theme = "light" | "dark" | string;
 
@@ -122,4 +122,11 @@ interface SignUpFormFieldProps {
     placeholder: string;
     inputType: string;
     formControl: Control<z.infer<typeof registerFormSchema>, unknown>;
+}
+
+interface LoginFormFieldProps {
+    name: FieldPath<z.infer<typeof loginFormSchema>>;
+    placeholder: string;
+    inputType: string;
+    formControl: Control<z.infer<typeof loginFormSchema>, unknown>;
 }
