@@ -7,6 +7,8 @@ import { z } from 'zod'
 import ErrorAlert from '../components/ErrorAlert';
 import SignUpFormField from '../components/SignUpFormField';
 import LoginFormField from '../components/LoginFormField';
+import LoginService from '../services/LoginService';
+import RegisterService from '../services/RegisterService';
 
 type ErrorMessage = {
     message: string
@@ -18,12 +20,16 @@ type LoginSchema = z.infer<typeof loginFormSchema>
 
 const Landing = () => {
 
+    // Estado para controlar el contenedor de los formularios
     const [container, setContainer] = useState<HTMLElement | null>(null);
+
+    // Estado para controlar los mensajes de error
     const [errorMessage, setErrorMessage] = useState<ErrorMessage>({
         message: '',
         severity: 'error'
     });
 
+    // Hook para controlar los formularios de registro e inicio de sesión
     const { handleSubmit,
         control,
         formState: { errors }
@@ -45,10 +51,13 @@ const Landing = () => {
         }
     })
 
+
+    // Efecto para cambiar el estado del contenedor
     useEffect(() => {
         setContainer(document.getElementById('landing-container'))
     }, [container])
 
+    // Efecto para mostrar los mensajes de error del register
     useEffect(() => {
         if (errors.name) {
             setErrorMessage({ message: 'El nombre debe tener al menos 6 caracteres', severity: 'error' })
@@ -61,6 +70,7 @@ const Landing = () => {
         }
     }, [errors])
 
+    // Efecto para mostrar los mensajes de error del login
     useEffect(() => {
         if (formLogin.formState.errors.email) {
             setErrorMessage({ message: 'Debe introducir un email válido', severity: 'error' })
@@ -70,25 +80,39 @@ const Landing = () => {
         }
     }, [formLogin.formState.errors])
 
+
+    // Toggle del formulario de registro
     const handleRegisterToggle = (event: React.MouseEvent) => {
         event.preventDefault();
         container?.classList.add('active');
     }
 
+    // Toggle del formulario de inicio de sesión
     const handleLoginToggle = (event: React.MouseEvent) => {
         event.preventDefault();
         container?.classList.remove('active');
     }
 
+    // Submit del formulario de registro
     const handleRegisterSubmit: SubmitHandler<RegisterSchema> = (values: RegisterSchema) => {
-        console.log(values)
-        setErrorMessage({ message: 'Registro exitoso', severity: 'success' })
+        try {
+            RegisterService(values)
+            setErrorMessage({ message: 'Registro exitoso', severity: 'success' })
+        } catch (error) {
+            throw new Error("Error en el registro de usuario")
+            console.error(error)
+        }
     }
 
+    // Submit del formulario de inicio de sesión
     const handleLoginSubmit: SubmitHandler<LoginSchema> = (values: LoginSchema) => {
-        console.log(values)
-
-        setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
+        try {
+            LoginService(values)
+            setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
+        } catch (error) {
+            throw new Error("Error en el login de usuario")
+            console.error(error)
+        }
     }
 
 

@@ -130,3 +130,14 @@ interface LoginFormFieldProps {
     inputType: string;
     formControl: Control<z.infer<typeof loginFormSchema>, unknown>;
 }
+
+interface RegisterServiceProps {
+        name: string;
+        email: string;
+        password: string;
+}
+
+interface LoginServiceProps {
+        email: string;
+        password: string;
+}
