@@ -9,6 +9,7 @@ import NotFound from './components/NotFound'
 import OutletWithNavBarAndFooter from './services/OutletWithNavBarAndFooter'
 import { useEffect } from 'react'
 import Landing from './views/Landing'
+import { theresUser, noUser } from './utils/Constants'
 
 function App() {
 
@@ -25,7 +26,7 @@ function App() {
 
   return (
     <>
-      {!user
+      {user
         ?
         <Routes>
           <Route element={<OutletWithNavBarAndFooter />} >
@@ -34,11 +35,12 @@ function App() {
             <Route path='rutinas' element={<Rutinas />} />
             <Route path='ejercicios' element={<Ejercicios />} />
           </Route>
-          <Route path='*' element={<NotFound />} />
+          <Route path='*' element={<NotFound type={theresUser} />} />
         </Routes>
         :
         <Routes>
           <Route path='/' element={<Landing />} />
+          <Route path='*' element={<NotFound type={noUser} />} />
         </Routes>
       }
     </>

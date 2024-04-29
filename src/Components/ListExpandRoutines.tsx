@@ -23,13 +23,13 @@ function ListExpandRoutines(ListExpandProps: ListExpandProps) {
                     {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItemIcon>
                 <ListItemText
-                    sx={theme === 'light' ? { color: '#444444' } : { color: '#8faef5' }}
+                    sx={theme === 'light' ? { color: '#127e12' } : { color: '#8faef5' }}
                     disableTypography={true}
                     primary={rutina.name} />
-                <Button sx={theme === 'light' ? { color: '#444444' } : { color: '#8faef5' }}>
+                <Button sx={theme === 'light' ? { color: '#444444' } : { color: '#D0daf1' }}>
                     <EditOutlined />
                 </Button>
-                <Button sx={theme === 'light' ? { color: '#444444' } : { color: '#8faef5' }}>
+                <Button sx={theme === 'light' ? { color: '#444444' } : { color: '#D0daf1' }}>
                     <DeleteOutline />
                 </Button>
             </ListItemButton>

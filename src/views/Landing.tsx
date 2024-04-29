@@ -1,72 +1,176 @@
 import { useEffect, useState } from 'react';
 import '../css/Landing.css'
-import { IonIcon } from '@ionic/react';
-import { logoGoogle, logoFacebook, logoMicrosoft, logoApple } from 'ionicons/icons';
+import { registerFormSchema, loginFormSchema } from '../utils/schemas';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import ErrorAlert from '../components/ErrorAlert';
+import SignUpFormField from '../components/SignUpFormField';
+import LoginFormField from '../components/LoginFormField';
+import LoginService from '../services/LoginService';
+import RegisterService from '../services/RegisterService';
+import { useGlobalState } from '../store/useGlobalState';
 
+type ErrorMessage = {
+    message: string
+    severity: 'error' | 'warning' | 'info' | 'success'
+}
+
+type RegisterSchema = z.infer<typeof registerFormSchema>
+type LoginSchema = z.infer<typeof loginFormSchema>
 
 const Landing = () => {
 
+    // Cogiendo estado global de user
+    const setUser = useGlobalState(state => state.setUser)
+
+
+    // Estado para controlar el contenedor de los formularios
     const [container, setContainer] = useState<HTMLElement | null>(null);
 
+    // Estado para controlar los mensajes de error
+    const [errorMessage, setErrorMessage] = useState<ErrorMessage>({
+        message: '',
+        severity: 'error'
+    });
+
+    // Hook para controlar los formularios de registro e inicio de sesión
+    const { handleSubmit,
+        control,
+        formState: { errors }
+    } =
+        useForm<RegisterSchema>({
+            resolver: zodResolver(registerFormSchema),
+            defaultValues: {
+                name: '',
+                email: '',
+                password: ''
+            }
+        })
+
+    const formLogin = useForm<LoginSchema>({
+        resolver: zodResolver(loginFormSchema),
+        defaultValues: {
+            email: '',
+            password: ''
+        }
+    })
+
+
+    // Efecto para cambiar el estado del contenedor
     useEffect(() => {
         setContainer(document.getElementById('landing-container'))
     }, [container])
 
+    // Efecto para mostrar los mensajes de error del register
+    useEffect(() => {
+        if (errors.name) {
+            setErrorMessage({ message: 'El nombre debe tener al menos 6 caracteres', severity: 'error' })
+        }
+        if (errors.email) {
+            setErrorMessage({ message: 'Debe introducir un email válido', severity: 'error' })
+        }
+        if (errors.password) {
+            setErrorMessage({ message: 'La contraseña debe tener al menos 6 caracteres', severity: 'error' })
+        }
+    }, [errors])
+
+    // Efecto para mostrar los mensajes de error del login
+    useEffect(() => {
+        if (formLogin.formState.errors.email) {
+            setErrorMessage({ message: 'Debe introducir un email válido', severity: 'error' })
+        }
+        if (formLogin.formState.errors.password) {
+            setErrorMessage({ message: 'La contraseña debe tener al menos 6 caracteres', severity: 'error' })
+        }
+    }, [formLogin.formState.errors])
+
+
+    // Toggle del formulario de registro
     const handleRegisterToggle = (event: React.MouseEvent) => {
         event.preventDefault();
         container?.classList.add('active');
     }
 
+    // Toggle del formulario de inicio de sesión
     const handleLoginToggle = (event: React.MouseEvent) => {
         event.preventDefault();
         container?.classList.remove('active');
     }
 
-    const handleRegister = (event: React.MouseEvent) => {
-        event.preventDefault();
-        console.log('Register');
+    // Submit del formulario de registro
+    const handleRegisterSubmit: SubmitHandler<RegisterSchema> = (values: RegisterSchema) => {
+        try {
+            RegisterService(values)
+            setErrorMessage({ message: 'Registro exitoso', severity: 'success' })
+            container?.classList.remove('active')
+        } catch (error) {
+            throw new Error("Error en el registro de usuario")
+            console.error(error)
+        }
     }
 
-    const handleLogin = (event: React.MouseEvent) => {
-        event.preventDefault();
+    // Submit del formulario de inicio de sesión
+    const handleLoginSubmit: SubmitHandler<LoginSchema> = async (values: LoginSchema) => {
+        try {
+            const data = await LoginService(values)
+            setUser(data)
+            setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
 
-        console.log('Login');
+        } catch (error) {
+            throw new Error("Error en el login de usuario")
+            console.error(error)
+        }
     }
 
 
     return (
         <main className='landing-background'>
+            {
+                errorMessage && <ErrorAlert message={errorMessage.message} severity={errorMessage.severity} />
+            }
             <div className="landing-container" id="landing-container">
                 <div className="form-container sign-up">
-                    <form>
+                    <form style={{ boxSizing: 'border-box' }} onSubmit={handleSubmit(handleRegisterSubmit)}>
                         <h1>Crear Cuenta</h1>
-                        <div className="social-icons">
-                            <a href="#" className="icon"><IonIcon icon={logoGoogle} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoFacebook} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoMicrosoft} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoApple} size='small' /></a>
-                        </div>
-                        <span>o usa tu correo electrónico para el registro</span>
-                        <input type="text" placeholder="Tu nombre" />
-                        <input type="email" placeholder="you@example.com" />
-                        <input type="password" placeholder="*******" />
-                        <button onClick={handleRegister}>Registrarse</button>
+                        <SignUpFormField
+                            name='name'
+                            placeholder='Tu nombre completo'
+                            inputType='text'
+                            formControl={control}
+                        />
+                        <SignUpFormField
+                            name='email'
+                            placeholder='you@example.com'
+                            inputType='text'
+                            formControl={control}
+                        />
+                        <SignUpFormField
+                            name='password'
+                            placeholder='*******'
+                            inputType='password'
+                            formControl={control}
+                        />
+                        <button>Registrarse</button>
                     </form>
                 </div>
                 <div className="form-container sign-in">
-                    <form>
+                    <form onSubmit={formLogin.handleSubmit(handleLoginSubmit)}>
                         <h1>Iniciar Sesión</h1>
-                        <div className="social-icons">
-                            <a href="#" className="icon"><IonIcon icon={logoGoogle} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoFacebook} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoMicrosoft} size='small' /></a>
-                            <a href="#" className="icon"><IonIcon icon={logoApple} size='small' /></a>
-                        </div>
-                        <span>o usa tu correo electrónico</span>
-                        <input type="email" placeholder="you@example.com" />
-                        <input type="password" placeholder="*******" />
+                        <LoginFormField
+                            name='email'
+                            placeholder='you@example.com'
+                            inputType='text'
+                            formControl={formLogin.control}
+                        />
+                        <LoginFormField
+                            name='password'
+                            placeholder='*********'
+                            inputType='password'
+                            formControl={formLogin.control}
+                        />
                         <a href="#">¿Olvidaste la contraseña?</a>
-                        <button onClick={handleLogin}>Iniciar Sesión</button>
+                        <button>Iniciar Sesión</button>
                     </form>
                 </div>
                 <div className="toggle-container">
@@ -84,7 +188,7 @@ const Landing = () => {
                     </div>
                 </div>
             </div>
-        </main>
+        </main >
     )
 }
 

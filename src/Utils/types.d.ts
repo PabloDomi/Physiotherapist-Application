@@ -1,6 +1,9 @@
 import {ReactNode} from "react";
+import { Control, FieldPath } from "react-hook-form";
+import { z } from "zod";
+import { loginFormSchema, registerFormSchema } from "./schemas";
 
-export type Theme = "light" | "dark";
+export type Theme = "light" | "dark" | string;
 
 export type Id = number;
 export type Name = string;
@@ -17,8 +20,8 @@ export interface User {
 export interface UserAdmin {
     id: Id
     name: Name
-    userName: string
     email: string
+    access_token: string
 }
 
 export type ModalType = boolean;
@@ -65,6 +68,7 @@ export interface SearchCardProps {
 interface GlobalState {
     view: string
     user: UserAdmin | null
+    setUser: (newUser: UserAdmin) => void
     changeView: (view: string) => void
     customStatsData: CustomStatsData | undefined
     changeCustomStatsData: (newData: CustomStatsData) => void
@@ -101,6 +105,10 @@ interface Data {
     tiempoEstimado: number;
 }
 
+interface ExerciseData {
+    exercises: Exercise[];
+}
+
 interface RoutineData {
     routine: Data;
 }
@@ -110,3 +118,27 @@ interface ListExpandProps {
     rutina: Data;
 }
 
+interface SignUpFormFieldProps {
+    name: FieldPath<z.infer<typeof registerFormSchema>>;
+    placeholder: string;
+    inputType: string;
+    formControl: Control<z.infer<typeof registerFormSchema>, unknown>;
+}
+
+interface LoginFormFieldProps {
+    name: FieldPath<z.infer<typeof loginFormSchema>>;
+    placeholder: string;
+    inputType: string;
+    formControl: Control<z.infer<typeof loginFormSchema>, unknown>;
+}
+
+interface RegisterServiceProps {
+        name: string;
+        email: string;
+        password: string;
+}
+
+interface LoginServiceProps {
+        email: string;
+        password: string;
+}
