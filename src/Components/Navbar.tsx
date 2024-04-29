@@ -24,6 +24,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
     const { logout } = useLogout()
 
     const {
+        registerPatientData,
         modalContentRegisterPatient,
         modalTitleRegisterPatient,
         showModalRegisterPatient,
@@ -125,7 +126,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                                     title={modalTitleRegisterPatient}
                                     content={modalContentRegisterPatient}
                                     action='registerPatient'
-                                    data={null}
+                                    data={registerPatientData}
                                 >
                                 </ModalWindow>
                             }

@@ -5,6 +5,7 @@ import { z } from "zod"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { RegisterPatientDataTypes } from "../utils/types"
 
 // TODO -> Las validaciones de este hook no funcionan porque el boton de submit no está aqui,
 // sino en el componente "Modal", y no, poniendo el boton del modal con tipo submit tampoco funciona
@@ -19,7 +20,7 @@ type RegisterPatientSchema = z.infer<typeof registerPatientFormSchema>
 export function useRegisterPatient() {
 
     const { handleSubmit,
-        control,
+        //control,
         formState: { errors }
     } =
         useForm<RegisterPatientSchema>({
@@ -61,6 +62,14 @@ export function useRegisterPatient() {
         console.log(data)
     }
 
+    const [registerPatientData, setRegisterPatientData] = useState<RegisterPatientDataTypes>({
+        name: '',
+        surname: '',
+        age: 0,
+        gender: '',
+        routine_id: ''
+    })
+
     const theme = useGlobalState(state => state.theme)
 
     const showModalRegisterPatient = useGlobalState(state => state.showRegisterPatientModal)
@@ -76,11 +85,20 @@ export function useRegisterPatient() {
             >
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
+                    onChange={(event) => setRegisterPatientData(
+                        {
+                            name: event.target.value,
+                            surname: registerPatientData.surname,
+                            age: registerPatientData.age,
+                            gender: registerPatientData.gender,
+                            routine_id: registerPatientData.routine_id
+                        }
+                    )}
                     type="text"
                     placeholder="Nombre del paciente"
                     autoFocus
                     className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                    {...control.register('name')}
+                /* {...control.register('name')} */
                 />
             </Form.Group>
             <Form.Group
@@ -89,10 +107,19 @@ export function useRegisterPatient() {
             >
                 <Form.Label>Apellidos</Form.Label>
                 <Form.Control
+                    onChange={(event) => setRegisterPatientData(
+                        {
+                            name: registerPatientData.name,
+                            surname: event.target.value,
+                            age: registerPatientData.age,
+                            gender: registerPatientData.gender,
+                            routine_id: registerPatientData.routine_id
+                        }
+                    )}
                     type="text"
                     placeholder="Apellidos del paciente"
                     className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                    {...control.register('surname')}
+                /* {...control.register('surname')} */
                 />
             </Form.Group>
             <Form.Group
@@ -101,10 +128,19 @@ export function useRegisterPatient() {
             >
                 <Form.Label>Edad</Form.Label>
                 <Form.Control
+                    onChange={(event) => setRegisterPatientData(
+                        {
+                            name: registerPatientData.name,
+                            surname: registerPatientData.surname,
+                            age: Number(event.target.value),
+                            gender: registerPatientData.gender,
+                            routine_id: registerPatientData.routine_id
+                        }
+                    )}
                     type="number"
                     placeholder="Edad del paciente"
                     className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                    {...control.register('age')}
+                /* {...control.register('age')} */
                 />
             </Form.Group>
             <Form.Group
@@ -113,13 +149,22 @@ export function useRegisterPatient() {
             >
                 <Form.Label>Género</Form.Label>
                 <Form.Select
+                    onChange={(event) => setRegisterPatientData(
+                        {
+                            name: registerPatientData.name,
+                            surname: registerPatientData.surname,
+                            age: registerPatientData.age,
+                            gender: event.target.value,
+                            routine_id: registerPatientData.routine_id
+                        }
+                    )}
                     aria-label="Default select"
-                    {...control.register("gender")}
+                /* {...control.register("gender")} */
                 >
                     <option>Seleccionar entre...</option>
-                    <option value="1">Masculino</option>
-                    <option value="2">Femenino</option>
-                    <option value="3">Otro</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group
@@ -128,10 +173,20 @@ export function useRegisterPatient() {
             >
                 <Form.Label>Rutina</Form.Label>
                 <Form.Select
+                    onChange={(event) => setRegisterPatientData(
+                        {
+                            name: registerPatientData.name,
+                            surname: registerPatientData.surname,
+                            age: registerPatientData.age,
+                            gender: registerPatientData.gender,
+                            routine_id: event.target.value
+                        }
+                    )}
                     aria-label="Default select"
-                    {...control.register("routine_id")}
+                /* {...control.register("routine_id")} */
                 >
                     <option>Seleccionar rutina de paciente...</option>
+                    <option value="Ninguna">Ninguna</option>
                     <option value="1">Rutina 1 example</option>
                     <option value="2">Rutina 2 example</option>
                     {/* 
@@ -143,7 +198,7 @@ export function useRegisterPatient() {
             </Form.Group>
         </Form>
 
-    return { errorMessage, showModalRegisterPatient, toggleModalRegisterPatient, modalTitleRegisterPatient, modalContentRegisterPatient, theme }
+    return { errorMessage, showModalRegisterPatient, toggleModalRegisterPatient, modalTitleRegisterPatient, modalContentRegisterPatient, theme, registerPatientData }
 }
 
 export default useRegisterPatient

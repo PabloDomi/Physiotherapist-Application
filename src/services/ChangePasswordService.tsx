@@ -9,7 +9,7 @@ async function ChangePasswordService(credentials: ChangePasswordServiceProps) {
         const { data } = await axios.put(`${baseUrl}user_management/changePassword`, credentials)
         return data
     } catch (error) {
-        throw new Error("Error en el login de usuario")
+        throw new Error("Error en el cambio de contraseña")
     }
 }
 

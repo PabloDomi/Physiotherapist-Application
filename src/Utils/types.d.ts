@@ -39,7 +39,7 @@ interface RegisterPatientDataTypes {
     surname: string
     age: number
     gender: string,
-    routine_id: number
+    routine_id: number | string
 }
 
 export interface ModalProps {
@@ -172,4 +172,12 @@ interface RegisterPatientFormProps {
 interface ChangePasswordServiceProps {
     email: string;
     newPassword: string;
+}
+
+interface registerPatientServiceProps {
+    name: string;
+    surname: string;
+    age: number;
+    gender: string;
+    routine_id: number | string;
 }

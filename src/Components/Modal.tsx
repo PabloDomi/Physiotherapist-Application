@@ -1,10 +1,11 @@
-import { ChangePasswordDataTypes, type ModalProps } from "../utils/types"
+import { ChangePasswordDataTypes, RegisterPatientDataTypes, type ModalProps } from "../utils/types"
 import '../css/Modal.css'
 import { Button, Modal } from 'react-bootstrap'
 import { IonIcon } from "@ionic/react"
 import { close } from "ionicons/icons"
 import { useGlobalState } from "../store/useGlobalState"
 import ChangePasswordService from "../services/ChangePasswordService"
+import RegisterPatientService from "../services/RegisterPatientService"
 
 const ModalWindow = ({ show, title, content, action, data }: ModalProps) => {
 
@@ -38,10 +39,19 @@ const ModalWindow = ({ show, title, content, action, data }: ModalProps) => {
                 email: (data as ChangePasswordDataTypes)?.email,
                 newPassword: (data as ChangePasswordDataTypes)?.newPassword
             }
+
             await ChangePasswordService(credentials)
         }
         else if (action === 'registerPatient' && data) {
-            console.log('Register patient')
+            const credentials = {
+                name: (data as RegisterPatientDataTypes)?.name,
+                surname: (data as RegisterPatientDataTypes)?.surname,
+                age: (data as RegisterPatientDataTypes)?.age,
+                gender: (data as RegisterPatientDataTypes)?.gender,
+                routine_id: (data as RegisterPatientDataTypes)?.routine_id
+            }
+
+            await RegisterPatientService(credentials)
         }
         else {
             throw new Error('Error en la acción del modal')
