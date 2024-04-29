@@ -20,8 +20,8 @@ export interface User {
 export interface UserAdmin {
     id: Id
     name: Name
-    userName: string
     email: string
+    access_token: string
 }
 
 export type ModalType = boolean;
@@ -68,6 +68,7 @@ export interface SearchCardProps {
 interface GlobalState {
     view: string
     user: UserAdmin | null
+    setUser: (newUser: UserAdmin) => void
     changeView: (view: string) => void
     customStatsData: CustomStatsData | undefined
     changeCustomStatsData: (newData: CustomStatsData) => void

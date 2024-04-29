@@ -9,6 +9,7 @@ import SignUpFormField from '../components/SignUpFormField';
 import LoginFormField from '../components/LoginFormField';
 import LoginService from '../services/LoginService';
 import RegisterService from '../services/RegisterService';
+import { useGlobalState } from '../store/useGlobalState';
 
 type ErrorMessage = {
     message: string
@@ -19,6 +20,10 @@ type RegisterSchema = z.infer<typeof registerFormSchema>
 type LoginSchema = z.infer<typeof loginFormSchema>
 
 const Landing = () => {
+
+    // Cogiendo estado global de user
+    const setUser = useGlobalState(state => state.setUser)
+
 
     // Estado para controlar el contenedor de los formularios
     const [container, setContainer] = useState<HTMLElement | null>(null);
@@ -98,6 +103,7 @@ const Landing = () => {
         try {
             RegisterService(values)
             setErrorMessage({ message: 'Registro exitoso', severity: 'success' })
+            container?.classList.remove('active')
         } catch (error) {
             throw new Error("Error en el registro de usuario")
             console.error(error)
@@ -105,10 +111,12 @@ const Landing = () => {
     }
 
     // Submit del formulario de inicio de sesión
-    const handleLoginSubmit: SubmitHandler<LoginSchema> = (values: LoginSchema) => {
+    const handleLoginSubmit: SubmitHandler<LoginSchema> = async (values: LoginSchema) => {
         try {
-            LoginService(values)
+            const data = await LoginService(values)
+            setUser(data)
             setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
+
         } catch (error) {
             throw new Error("Error en el login de usuario")
             console.error(error)

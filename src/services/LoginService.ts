@@ -3,7 +3,9 @@ import { baseUrl } from '../utils/Constants'
 import { LoginServiceProps } from '../utils/types'
 
 
-const LoginService = async (credentials: LoginServiceProps) => {
+async function LoginService (credentials: LoginServiceProps) {
+
+
     try {
         const { data } = await axios.post(`${baseUrl}Sign/Login`, credentials)
         return data
