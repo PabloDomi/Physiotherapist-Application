@@ -1,43 +1,16 @@
 import '../css/Navbar.css'
-import { Container, Navbar, Nav, Button, Form } from "react-bootstrap"
+import { Container, Navbar, Nav, Button } from "react-bootstrap"
 import { IonIcon } from '@ionic/react'
 import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
 import ModalWindow from './Modal'
 import { NavbarProps } from '../utils/types'
-import { useGlobalState } from '../store/useGlobalState'
+import useChangePassword from '../hooks/useModal'
+import useLogout from '../hooks/useLogout'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
-    const theme = useGlobalState(state => state.theme)
-    const showModal = useGlobalState(state => state.showModal)
-    const toggleModal = useGlobalState(state => state.toggleModal)
-
-    const modalTitle = 'Cambio de Contraseña'
-
-    const modalContent =
-        <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Nueva Contraseña</Form.Label>
-                <Form.Control
-                    type="password"
-                    placeholder="Al menos 8 caracteres"
-                    autoFocus
-                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                />
-            </Form.Group>
-            <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlInput2"
-            >
-                <Form.Label>Repetir Nueva Contraseña</Form.Label>
-                <Form.Control
-                    type="password"
-                    placeholder="Las contraseñas deben coincidir"
-                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                />
-            </Form.Group>
-        </Form>
-
+    const { toggleModal, theme, showModal, modalContent, modalTitle } = useChangePassword()
+    const { logout } = useLogout()
 
     const handleClickChangePassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
@@ -82,10 +55,12 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                     </Button>
                     <ul className='dropdown-content'>
                         <li className='dropdown-content-li dropdown-content-li-1'>
-                            <button className={theme === 'light'
-                                ? 'dropdown-content-button'
-                                : 'dropdown-content-button dropdown-content-button-dark'
-                            } >LogOut</button>
+                            <button
+                                onClick={logout}
+                                className={theme === 'light'
+                                    ? 'dropdown-content-button'
+                                    : 'dropdown-content-button dropdown-content-button-dark'
+                                } >LogOut</button>
                         </li>
                         <li className='dropdown-content-li dropdown-content-li-2'>
                             <button onClick={handleClickChangePassword}
