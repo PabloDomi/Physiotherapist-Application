@@ -13,8 +13,10 @@ export type Gender = string;
 export interface User { 
     id: Id
     name: Name
+    surname: Name
     age: Age
     gender: Gender
+    routine_id: Id
 }
 
 export interface UserAdmin {
@@ -26,10 +28,26 @@ export interface UserAdmin {
 
 export type ModalType = boolean;
 
+interface ChangePasswordDataTypes {
+    email: string
+    password: string
+    newPassword: string    
+}
+
+interface RegisterPatientDataTypes {
+    name: string
+    surname: string
+    age: number
+    gender: string,
+    routine_id: number
+}
+
 export interface ModalProps {
     show: boolean
     title: string
     content: ReactNode
+    action: string
+    data: ChangePasswordDataTypes |  RegisterPatientDataTypes | null
 }
 
 export interface ButtonToggleThemeProps {
@@ -75,8 +93,10 @@ interface GlobalState {
     setCustomStatsDataUndefined: () => void
     theme: Theme
     toggleTheme: () => void
-    showModal: ModalType
-    toggleModal: () => void
+    showChangePasswordModal: ModalType
+    toggleChangePasswordModal: () => void
+    showRegisterPatientModal: ModalType
+    toggleRegisterPatientModal: () => void
   }
 
 export interface CustomStatsData {
@@ -141,4 +161,15 @@ interface RegisterServiceProps {
 interface LoginServiceProps {
         email: string;
         password: string;
+}
+
+interface RegisterPatientFormProps {
+    name: FieldPath<z.infer<typeof registerFormSchema>>;
+    surname: FieldPath<z.infer<typeof registerFormSchema>>;
+    age: FieldPath<z.infer<typeof registerFormSchema>>;
+}
+
+interface ChangePasswordServiceProps {
+    email: string;
+    newPassword: string;
 }

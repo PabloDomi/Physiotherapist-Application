@@ -4,17 +4,40 @@ import { IonIcon } from '@ionic/react'
 import { statsChart, barbell, options, bicycle } from 'ionicons/icons'
 import ModalWindow from './Modal'
 import { NavbarProps } from '../utils/types'
-import useChangePassword from '../hooks/useModal'
+import useChangePassword from '../hooks/useChangePassword'
 import useLogout from '../hooks/useLogout'
+import useRegisterPatient from '../hooks/useRegisterPatient'
+import { useGlobalState } from '../store/useGlobalState'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
-    const { toggleModal, theme, showModal, modalContent, modalTitle } = useChangePassword()
+    const theme = useGlobalState(state => state.theme)
+
+    const {
+        changePasswordData,
+        toggleModalChangePassword,
+        showModalChangePassword,
+        modalContentChangePassword,
+        modalTitleChangePassword
+    } = useChangePassword()
+
     const { logout } = useLogout()
+
+    const {
+        modalContentRegisterPatient,
+        modalTitleRegisterPatient,
+        showModalRegisterPatient,
+        toggleModalRegisterPatient
+    } = useRegisterPatient()
 
     const handleClickChangePassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
-        toggleModal()
+        toggleModalChangePassword()
+    }
+
+    const handleRegisterPatient = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        toggleModalRegisterPatient()
     }
 
     return (
@@ -69,26 +92,43 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                                     : 'dropdown-content-button dropdown-content-button-dark'
                                 } >Cambiar Contraseña
                             </button>
-                            {showModal &&
+                            {showModalChangePassword &&
                                 <ModalWindow
-                                    show={showModal}
-                                    title={modalTitle}
-                                    content={modalContent}
+                                    show={showModalChangePassword}
+                                    title={modalTitleChangePassword}
+                                    content={modalContentChangePassword}
+                                    action='changePassword'
+                                    data={changePasswordData}
                                 >
                                 </ModalWindow>
                             }
                         </li>
                         <li className='dropdown-content-li dropdown-content-li-3'>
-                            <button className={theme === 'light'
-                                ? 'dropdown-content-button'
-                                : 'dropdown-content-button dropdown-content-button-dark'
-                            } >Borrar Cuenta Administrador</button>
+                            <button
+                                className={theme === 'light'
+                                    ? 'dropdown-content-button'
+                                    : 'dropdown-content-button dropdown-content-button-dark'
+                                } >Borrar Cuenta Administrador
+                            </button>
                         </li>
                         <li className='dropdown-content-li dropdown-content-li-4'>
-                            <button className={theme === 'light'
-                                ? 'dropdown-content-button'
-                                : 'dropdown-content-button dropdown-content-button-dark'
-                            } >Registrar Usuario</button>
+                            <button
+                                onClick={handleRegisterPatient}
+                                className={theme === 'light'
+                                    ? 'dropdown-content-button'
+                                    : 'dropdown-content-button dropdown-content-button-dark'
+                                } >Registrar Usuario
+                            </button>
+                            {showModalRegisterPatient &&
+                                <ModalWindow
+                                    show={showModalRegisterPatient}
+                                    title={modalTitleRegisterPatient}
+                                    content={modalContentRegisterPatient}
+                                    action='registerPatient'
+                                    data={null}
+                                >
+                                </ModalWindow>
+                            }
                         </li>
                     </ul>
                 </div>
