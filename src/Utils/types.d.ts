@@ -1,4 +1,7 @@
 import {ReactNode} from "react";
+import { Control, FieldPath } from "react-hook-form";
+import { z } from "zod";
+import { loginFormSchema, registerFormSchema } from "./schemas";
 
 export type Theme = "light" | "dark" | string;
 
@@ -114,3 +117,27 @@ interface ListExpandProps {
     rutina: Data;
 }
 
+interface SignUpFormFieldProps {
+    name: FieldPath<z.infer<typeof registerFormSchema>>;
+    placeholder: string;
+    inputType: string;
+    formControl: Control<z.infer<typeof registerFormSchema>, unknown>;
+}
+
+interface LoginFormFieldProps {
+    name: FieldPath<z.infer<typeof loginFormSchema>>;
+    placeholder: string;
+    inputType: string;
+    formControl: Control<z.infer<typeof loginFormSchema>, unknown>;
+}
+
+interface RegisterServiceProps {
+        name: string;
+        email: string;
+        password: string;
+}
+
+interface LoginServiceProps {
+        email: string;
+        password: string;
+}
