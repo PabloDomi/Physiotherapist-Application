@@ -8,10 +8,22 @@ import useChangePassword from '../hooks/useChangePassword'
 import useLogout from '../hooks/useLogout'
 import useRegisterPatient from '../hooks/useRegisterPatient'
 import { useGlobalState } from '../store/useGlobalState'
+import GetDataService from '../services/GetDataService'
+import { toast, Toaster } from 'sonner'
+import useDeleteAdmin from '../hooks/useDeleteAdmin'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
     const theme = useGlobalState(state => state.theme)
+    const setPatients = useGlobalState(state => state.setPatients)
+
+    const {
+        showModalDeleteAdmin,
+        toggleModalDeleteAdmin,
+        modalTitleDeleteAdmin,
+        modalContentDeleteAdmin,
+        userSelected
+    } = useDeleteAdmin()
 
     const {
         changePasswordData,
@@ -41,8 +53,24 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
         toggleModalRegisterPatient()
     }
 
+    const handleDeleteAdmin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        toggleModalDeleteAdmin()
+    }
+
+    const refetchPatientData = async () => {
+        try {
+            const res = await GetDataService.getPatients()
+            setPatients(res)
+        } catch (error) {
+            console.error(error)
+            throw new Error("Error al obtener los pacientes")
+        }
+    }
+
     return (
         <Navbar className={styledClassName} expand="lg">
+            <Toaster richColors />
             <Container className="container-fluid mx-0 contenedor-navbar">
                 <Navbar.Brand>
                     <Nav.Link className="navbar-brand" href={'/home'}>
@@ -100,17 +128,30 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                                     content={modalContentChangePassword}
                                     action='changePassword'
                                     data={changePasswordData}
+                                    behavior={() => toast.success('Contraseña cambiada con éxito')}
                                 >
                                 </ModalWindow>
                             }
                         </li>
                         <li className='dropdown-content-li dropdown-content-li-3'>
                             <button
+                                onClick={handleDeleteAdmin}
                                 className={theme === 'light'
                                     ? 'dropdown-content-button'
                                     : 'dropdown-content-button dropdown-content-button-dark'
                                 } >Borrar Cuenta Administrador
                             </button>
+                            {showModalDeleteAdmin &&
+                                <ModalWindow
+                                    show={showModalDeleteAdmin}
+                                    title={modalTitleDeleteAdmin}
+                                    content={modalContentDeleteAdmin}
+                                    action='deleteAdmin'
+                                    data={userSelected}
+                                    behavior={() => toast.success('Administrador eliminado con éxito')}
+                                >
+                                </ModalWindow>
+                            }
                         </li>
                         <li className='dropdown-content-li dropdown-content-li-4'>
                             <button
@@ -127,6 +168,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                                     content={modalContentRegisterPatient}
                                     action='registerPatient'
                                     data={registerPatientData}
+                                    behavior={refetchPatientData}
                                 >
                                 </ModalWindow>
                             }

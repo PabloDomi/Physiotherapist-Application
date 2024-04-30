@@ -1,6 +1,5 @@
 import { EstadisticasProps } from "../utils/types"
 import '../css/Estadisticas.css'
-import { mockUsers } from "../utils/MockData"
 import Search from "../components/Search"
 import { usePatients } from "../hooks/usePatients"
 import DefaultStatsChart from "../components/DefaultStatsChart"
@@ -9,15 +8,18 @@ import CustomStatsChart from "../components/CustomStatsChart"
 import { IonIcon } from "@ionic/react"
 import { home } from 'ionicons/icons'
 import { Button } from "react-bootstrap"
+import { useState } from "react"
+
 
 
 export const Estadisticas = ({ theme }: EstadisticasProps) => {
 
     const { isLoading } = usePatients()
+    const [patientName, setPatientName] = useState<string>('')
 
     const customData = useGlobalState(state => state.customStatsData)
-
     const setCustomStatsDataUndefined = useGlobalState(state => state.setCustomStatsDataUndefined)
+    const patients = useGlobalState(state => state.patients)
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
@@ -40,14 +42,15 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                         {!customData &&
                             <>
                                 <div className="stats-header">
-                                    <Button onClick={handleClick} className={theme === 'light' ? 'button-home-icon' : 'button-home-icon-dark'}>
+                                    <Button
+                                        onClick={handleClick}
+                                        className={theme === 'light' ? 'button-home-icon' : 'button-home-icon-dark'}>
                                         <IonIcon icon={home} />
                                     </Button>
                                     <h2 className="title">Estadísticas</h2>
                                 </div>
                                 <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
                                     <DefaultStatsChart />
-                                    {customData && <CustomStatsChart data={customData} />}
                                 </div>
                             </>
                         }
@@ -57,7 +60,7 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                                     <Button onClick={handleClick} className={theme === 'light' ? 'button-home-icon' : 'button-home-icon-dark'}>
                                         <IonIcon icon={home} />
                                     </Button>
-                                    <h2 className="title">Estadísticas de Manolete</h2>
+                                    <h2 className="title">Estadísticas de {`${patientName}`}</h2>
                                 </div>
                                 <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
                                     <CustomStatsChart data={customData} />
@@ -67,7 +70,7 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
 
                     </section>
                     <aside className="search mt-1">
-                        <Search details={mockUsers} theme={theme} />
+                        <Search chartTitle={setPatientName} details={patients} theme={theme} />
                     </aside>
                 </main>
             }

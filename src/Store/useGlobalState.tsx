@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CustomStatsData, GlobalState, UserAdmin } from "../utils/types";
+import { CustomStatsData, GlobalState, User, UserAdmin } from "../utils/types";
 
 export const useGlobalState = create<GlobalState>((set) => {
   return {
@@ -12,6 +12,9 @@ export const useGlobalState = create<GlobalState>((set) => {
       set({ user: newUser })
     },
 
+    patients: [],
+    setPatients: (newPatients: User[]) => set({ patients: newPatients }),
+
     customStatsData: undefined,
     changeCustomStatsData: (newData: CustomStatsData) => set({ customStatsData: newData }),
     setCustomStatsDataUndefined: () => set({ customStatsData: undefined }),
@@ -23,6 +26,12 @@ export const useGlobalState = create<GlobalState>((set) => {
     toggleChangePasswordModal: () => set((state) => ({ showChangePasswordModal: !state.showChangePasswordModal })),
 
     showRegisterPatientModal: false,
-    toggleRegisterPatientModal: () => set((state) => ({ showRegisterPatientModal: !state.showRegisterPatientModal }))
+    toggleRegisterPatientModal: () => set((state) => ({ showRegisterPatientModal: !state.showRegisterPatientModal })),
+
+    showAreUSureModal: false,
+    toggleAreUSureModal: () => set((state) => ({ showAreUSureModal: !state.showAreUSureModal })),
+
+    showDeleteAdminModal: false,
+    toggleDeleteAdminModal: () => set((state) => ({ showDeleteAdminModal: !state.showDeleteAdminModal }))
   }
 });

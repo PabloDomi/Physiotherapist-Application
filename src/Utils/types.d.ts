@@ -29,17 +29,17 @@ export interface UserAdmin {
 export type ModalType = boolean;
 
 interface ChangePasswordDataTypes {
-    email: string
-    password: string
-    newPassword: string    
+    email: string | undefined
+    password: string | undefined
+    newPassword: string | undefined
 }
 
 interface RegisterPatientDataTypes {
-    name: string
-    surname: string
-    age: number
-    gender: string,
-    routine_id: number | string
+    name: string | undefined
+    surname: string | undefined
+    age: number | undefined
+    gender: string | undefined
+    routine_id: number | string | undefined
 }
 
 export interface ModalProps {
@@ -47,7 +47,8 @@ export interface ModalProps {
     title: string
     content: ReactNode
     action: string
-    data: ChangePasswordDataTypes |  RegisterPatientDataTypes | null
+    data: ChangePasswordDataTypes |  RegisterPatientDataTypes | number | string | null | undefined
+    behavior: () => void
 }
 
 export interface ButtonToggleThemeProps {
@@ -66,12 +67,14 @@ export interface ScrollableListProps {
 }
 
 export interface SearchProps {
-    details: User[]
+    chartTitle: (newTitle: string) => void
+    details: User[] | null
     theme: Theme
 }
 
 export interface SearchListProps {
-    filteredPersons: User[]
+    chartTitle: (newTitle: string) => void
+    filteredPersons: User[] | undefined
 }
 
 export interface EstadisticasProps {
@@ -79,6 +82,7 @@ export interface EstadisticasProps {
 }
 
 export interface SearchCardProps {
+    chartTitle: (newTitle: string) => void
     key: number;
     person: User;
 }
@@ -87,6 +91,8 @@ interface GlobalState {
     view: string
     user: UserAdmin | null
     setUser: (newUser: UserAdmin) => void
+    patients: User[] | null
+    setPatients: (newPatients: User[]) => void
     changeView: (view: string) => void
     customStatsData: CustomStatsData | undefined
     changeCustomStatsData: (newData: CustomStatsData) => void
@@ -97,6 +103,10 @@ interface GlobalState {
     toggleChangePasswordModal: () => void
     showRegisterPatientModal: ModalType
     toggleRegisterPatientModal: () => void
+    showAreUSureModal: ModalType
+    toggleAreUSureModal: () => void
+    showDeleteAdminModal: ModalType
+    toggleDeleteAdminModal: () => void
   }
 
 export interface CustomStatsData {
@@ -170,14 +180,14 @@ interface RegisterPatientFormProps {
 }
 
 interface ChangePasswordServiceProps {
-    email: string;
-    newPassword: string;
+    email: string | undefined;
+    newPassword: string | undefined;
 }
 
 interface registerPatientServiceProps {
-    name: string;
-    surname: string;
-    age: number;
-    gender: string;
-    routine_id: number | string;
+    name: string | undefined;
+    surname: string | undefined;
+    age: number | undefined;
+    gender: string | undefined;
+    routine_id: number | string | undefined;
 }

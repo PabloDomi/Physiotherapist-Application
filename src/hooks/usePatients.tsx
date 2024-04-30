@@ -1,24 +1,31 @@
 import { useEffect, useState } from "react"
+import GetDataService from "../services/GetDataService"
+import { useGlobalState } from "../store/useGlobalState"
 
 export function usePatients() {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
-    // const [patients, setPatients] = useState<User[] | null>(null)
+    const setPatients = useGlobalState(state => state.setPatients)
+
 
     useEffect(() => {
-        /*
-        fetch(API-URL + API-ENDPOINT)
-            .then(res => res.json())
-            .then(data => {
-                setLista(data);
-                setIsLoading(false)
-            })
-            .catch(error => console.error(error))
-            */
+
+        const getPatients = async () => {
+            try {
+                const res = await GetDataService.getPatients()
+                setPatients(res)
+            } catch (error) {
+                console.error(error)
+                throw new Error("Error al obtener los pacientes")
+            }
+        }
+
+        getPatients()
+
         setTimeout(() => {
             setIsLoading(false)
         }, 1000)
-    }, [])
+    }, [setPatients])
 
 
     return { isLoading }

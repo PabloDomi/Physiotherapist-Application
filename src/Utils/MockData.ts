@@ -350,6 +350,17 @@ export const mockStats = [
     }
 ]
 
+export const mockCustomStats = 
+{
+        labels: ['Manolete García', 'Viviana Lopez', 'Pablo Dominguez', 'Ricardo Gomez', 'Alberto Retiro', 'Samuel Mencía', 'Lucio Ramiro'],
+        titleChart: 'Progress of patients',
+        yaxisTitle: 'Exercises completed (%)',
+        yaxisTitleOpposite: 'Time used (minutes)',
+        porcentualData: [Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)],
+        timeData: [Math.floor(Math.random() * 200), Math.floor(Math.random() * 200), Math.floor(Math.random() * 200), Math.floor(Math.random() * 200), Math.floor(Math.random() * 200), Math.floor(Math.random() * 200), Math.floor(Math.random() * 200)]
+}
+
+
 export const mockRoutines = 
 {
     routine1Data: {

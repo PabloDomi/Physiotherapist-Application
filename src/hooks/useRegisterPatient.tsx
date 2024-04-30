@@ -62,13 +62,7 @@ export function useRegisterPatient() {
         console.log(data)
     }
 
-    const [registerPatientData, setRegisterPatientData] = useState<RegisterPatientDataTypes>({
-        name: '',
-        surname: '',
-        age: 0,
-        gender: '',
-        routine_id: ''
-    })
+    const [registerPatientData, setRegisterPatientData] = useState<RegisterPatientDataTypes | undefined>(undefined)
 
     const theme = useGlobalState(state => state.theme)
 
@@ -88,10 +82,10 @@ export function useRegisterPatient() {
                     onChange={(event) => setRegisterPatientData(
                         {
                             name: event.target.value,
-                            surname: registerPatientData.surname,
-                            age: registerPatientData.age,
-                            gender: registerPatientData.gender,
-                            routine_id: registerPatientData.routine_id
+                            surname: registerPatientData?.surname,
+                            age: registerPatientData?.age,
+                            gender: registerPatientData?.gender,
+                            routine_id: registerPatientData?.routine_id
                         }
                     )}
                     type="text"
@@ -109,11 +103,11 @@ export function useRegisterPatient() {
                 <Form.Control
                     onChange={(event) => setRegisterPatientData(
                         {
-                            name: registerPatientData.name,
+                            name: registerPatientData?.name,
                             surname: event.target.value,
-                            age: registerPatientData.age,
-                            gender: registerPatientData.gender,
-                            routine_id: registerPatientData.routine_id
+                            age: registerPatientData?.age,
+                            gender: registerPatientData?.gender,
+                            routine_id: registerPatientData?.routine_id
                         }
                     )}
                     type="text"
@@ -130,11 +124,11 @@ export function useRegisterPatient() {
                 <Form.Control
                     onChange={(event) => setRegisterPatientData(
                         {
-                            name: registerPatientData.name,
-                            surname: registerPatientData.surname,
+                            name: registerPatientData?.name,
+                            surname: registerPatientData?.surname,
                             age: Number(event.target.value),
-                            gender: registerPatientData.gender,
-                            routine_id: registerPatientData.routine_id
+                            gender: registerPatientData?.gender,
+                            routine_id: registerPatientData?.routine_id
                         }
                     )}
                     type="number"
@@ -151,11 +145,11 @@ export function useRegisterPatient() {
                 <Form.Select
                     onChange={(event) => setRegisterPatientData(
                         {
-                            name: registerPatientData.name,
-                            surname: registerPatientData.surname,
-                            age: registerPatientData.age,
+                            name: registerPatientData?.name,
+                            surname: registerPatientData?.surname,
+                            age: registerPatientData?.age,
                             gender: event.target.value,
-                            routine_id: registerPatientData.routine_id
+                            routine_id: registerPatientData?.routine_id
                         }
                     )}
                     aria-label="Default select"
@@ -165,35 +159,6 @@ export function useRegisterPatient() {
                     <option value="Masculino">Masculino</option>
                     <option value="Femenino">Femenino</option>
                     <option value="Otro">Otro</option>
-                </Form.Select>
-            </Form.Group>
-            <Form.Group
-                className="mb-3"
-                controlId="registerPatientForm.SelectCustom2"
-            >
-                <Form.Label>Rutina</Form.Label>
-                <Form.Select
-                    onChange={(event) => setRegisterPatientData(
-                        {
-                            name: registerPatientData.name,
-                            surname: registerPatientData.surname,
-                            age: registerPatientData.age,
-                            gender: registerPatientData.gender,
-                            routine_id: event.target.value
-                        }
-                    )}
-                    aria-label="Default select"
-                /* {...control.register("routine_id")} */
-                >
-                    <option>Seleccionar rutina de paciente...</option>
-                    <option value="Ninguna">Ninguna</option>
-                    <option value="1">Rutina 1 example</option>
-                    <option value="2">Rutina 2 example</option>
-                    {/* 
-                        TODO -> map con las rutinas creadas disponibles para este usuario 
-                        Habría que hacer un fetch a la base de datos para obtener las rutinas 
-                        filtradas por el nombre y apellidos del paciente que se está registrando
-                    */}
                 </Form.Select>
             </Form.Group>
         </Form>

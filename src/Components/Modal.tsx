@@ -6,12 +6,19 @@ import { close } from "ionicons/icons"
 import { useGlobalState } from "../store/useGlobalState"
 import ChangePasswordService from "../services/ChangePasswordService"
 import RegisterPatientService from "../services/RegisterPatientService"
+import DeleteDataService from "../services/DeleteDataService"
+import useCheckNewPasswordData from "../hooks/useCheckNewPasswordData"
+import { Toaster, toast } from "sonner"
 
-const ModalWindow = ({ show, title, content, action, data }: ModalProps) => {
+const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProps) => {
 
     const theme = useGlobalState(state => state.theme)
     const toggleChangePasswordModal = useGlobalState(state => state.toggleChangePasswordModal)
     const toggleRegisterPatientModal = useGlobalState(state => state.toggleRegisterPatientModal)
+    const toggleAreUSureModal = useGlobalState(state => state.toggleAreUSureModal)
+    const toggleDeleteAdminModal = useGlobalState(state => state.toggleDeleteAdminModal)
+
+    const { checkChangePasswordFormData } = useCheckNewPasswordData()
 
     const handleClose = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
@@ -23,6 +30,12 @@ const ModalWindow = ({ show, title, content, action, data }: ModalProps) => {
             case 'registerPatient':
                 toggleRegisterPatientModal()
                 break
+            case 'deletePatient':
+                toggleAreUSureModal()
+                break
+            case 'deleteAdmin':
+                toggleDeleteAdminModal()
+                break
             default:
                 break
         }
@@ -33,34 +46,68 @@ const ModalWindow = ({ show, title, content, action, data }: ModalProps) => {
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
 
-        if (action === 'changePassword' && data) {
+        if (data === null || data === undefined) {
+
+            toast.info('Acción cancelada')
+            throw new Error('Error en los datos del modal')
+        }
+
+
+        else if (action === 'changePassword' && data) {
+
+            data = data as ChangePasswordDataTypes
+
+            checkChangePasswordFormData(data)
 
             const credentials = {
-                email: (data as ChangePasswordDataTypes)?.email,
-                newPassword: (data as ChangePasswordDataTypes)?.newPassword
+                email: data?.email,
+                newPassword: data?.newPassword
             }
 
             await ChangePasswordService(credentials)
+            behavior()
         }
         else if (action === 'registerPatient' && data) {
+
+            data = data as RegisterPatientDataTypes
+
             const credentials = {
-                name: (data as RegisterPatientDataTypes)?.name,
-                surname: (data as RegisterPatientDataTypes)?.surname,
-                age: (data as RegisterPatientDataTypes)?.age,
-                gender: (data as RegisterPatientDataTypes)?.gender,
-                routine_id: (data as RegisterPatientDataTypes)?.routine_id
+                name: data?.name,
+                surname: data?.surname,
+                age: data?.age,
+                gender: data?.gender,
+                routine_id: data?.routine_id
             }
 
             await RegisterPatientService(credentials)
+            behavior()
+        }
+        else if (action === 'deletePatient') {
+            await DeleteDataService.deletePatient(data as number)
+            behavior()
+            toast.success('Paciente eliminado con éxito')
+        }
+        else if (action === 'deleteAdmin') {
+            await DeleteDataService.deleteAdmin(data as string)
+            behavior()
+            setTimeout(() => { }, 3000)
+            const user = JSON.parse(window.localStorage.getItem('user') || '{}');
+            const userEmail = user.email;
+
+            if (data === userEmail) {
+                window.localStorage.clear()
+                window.location.href = '/'
+            }
         }
         else {
-            throw new Error('Error en la acción del modal')
             console.error('Error en la acción del modal')
+            throw new Error('Error en la acción del modal')
         }
     }
 
     return (
         <>
+            <Toaster richColors />
             <Modal show={show} onHide={() => handleClose} backdrop='static'>
                 <Modal.Header className={theme === 'dark' ? 'header-modal' : ''}>
                     <Modal.Title>{title}</Modal.Title>

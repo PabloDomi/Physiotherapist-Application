@@ -3,7 +3,7 @@ import { baseUrl } from '../utils/Constants'
 import { ChangePasswordServiceProps } from '../utils/types'
 
 
-async function ChangePasswordService(credentials: ChangePasswordServiceProps) {
+async function ChangePasswordService(credentials: ChangePasswordServiceProps | undefined) {
 
     try {
         const { data } = await axios.put(`${baseUrl}user_management/changePassword`, credentials)

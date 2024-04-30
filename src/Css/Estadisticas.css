@@ -123,6 +123,7 @@
 }
 
 .card-container {
+    display: flex;
     text-align: center;
     padding: .25rem;
     margin: .5rem;
@@ -145,6 +146,17 @@
     transition: transform 0.4s ease-in-out, box-shadow 0.3s ease;
 }
 
+.card-icon {
+    color: #8ed88f;
+}
+
+#card-delete-button {
+   position: absolute;
+   padding: 0.2rem 0.5rem;
+   top: 0;
+   right: 0;
+}
+
 .stats-header {
     display: flex;
     justify-content: flex-start;
@@ -155,21 +167,26 @@
 
 .button-home-icon, .button-home-icon-dark {
     background-color: transparent;
-    border: none;
+    border: 2px solid #27ab28;
+    border-radius: 10px;
     cursor: pointer;
     color: #27ab28;
     font-size: 1.5rem;
     margin: 0;
-    padding: 0;
+    padding: 0.3rem;
     display: flex;
 }
 
 .button-home-icon-dark:hover {
     color: #81eb81;
+    border-color: #81eb81;
     background-color: transparent;
+    transition: all 0.3s ease-in-out;
 }
 
 .button-home-icon:hover {
-    color: #0d5517;
+    color: #166420;
+    border-color: #166420;
     background-color: transparent;
+    transition: all 0.3s ease-in-out;
 }
