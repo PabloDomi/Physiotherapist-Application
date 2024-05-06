@@ -32,6 +32,12 @@ export const useGlobalState = create<GlobalState>((set) => {
     toggleAreUSureModal: () => set((state) => ({ showAreUSureModal: !state.showAreUSureModal })),
 
     showDeleteAdminModal: false,
-    toggleDeleteAdminModal: () => set((state) => ({ showDeleteAdminModal: !state.showDeleteAdminModal }))
+    toggleDeleteAdminModal: () => set((state) => ({ showDeleteAdminModal: !state.showDeleteAdminModal })),
+
+    showAddRoutineModal: false,
+    toggleAddRoutineModal: () => set((state) => ({ showAddRoutineModal: !state.showAddRoutineModal })),
+
+    showAddExerciseToRoutineModal: false,
+    toggleAddExerciseToRoutineModal: () => set((state) => ({ showAddExerciseToRoutineModal: !state.showAddExerciseToRoutineModal }))
   }
 });

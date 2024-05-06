@@ -2,11 +2,16 @@
 import axios from "axios";
 import { baseUrl } from "../utils/Constants";
 
-/*
-const getRoutinesFromId = async (id: string) => {
 
+const getRoutines = async () => {
+    try {
+        const response = await axios.get(`${baseUrl}routines`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
 }
-*/
+
 
 const getPatients = async () => {
     try {
@@ -36,5 +41,5 @@ const getUsers = async () => {
 
 }
 
-export default { getPatients, checkEmailExists, getUsers }
+export default { getPatients, checkEmailExists, getUsers, getRoutines }
 

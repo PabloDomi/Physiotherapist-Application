@@ -190,3 +190,26 @@
     background-color: transparent;
     transition: all 0.3s ease-in-out;
 }
+
+#patient-card-dark, #patient-card-light {
+    max-width: 350px;
+    max-height: 300px;
+    margin: 2rem;
+    margin-top: 5rem;
+}
+
+#patient-card-dark {
+    background-color: #333;
+    color: #fff;
+    outline: 2px solid #8ed88f;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#patient-card-light {
+    background-color: #fff;
+    color: #333;
+    outline: 2px solid #27ab28;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}

@@ -1,4 +1,4 @@
-import { ChangePasswordDataTypes, RegisterPatientDataTypes, type ModalProps } from "../utils/types"
+import { AddExerciseToRoutineDataTypes, AddRoutineDataTypes, ChangePasswordDataTypes, RegisterPatientDataTypes, type ModalProps } from "../utils/types"
 import '../css/Modal.css'
 import { Button, Modal } from 'react-bootstrap'
 import { IonIcon } from "@ionic/react"
@@ -9,6 +9,7 @@ import RegisterPatientService from "../services/RegisterPatientService"
 import DeleteDataService from "../services/DeleteDataService"
 import useCheckNewPasswordData from "../hooks/useCheckNewPasswordData"
 import { Toaster, toast } from "sonner"
+import AddRoutineService from "../services/AddRoutineService"
 
 const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProps) => {
 
@@ -17,7 +18,9 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
     const toggleRegisterPatientModal = useGlobalState(state => state.toggleRegisterPatientModal)
     const toggleAreUSureModal = useGlobalState(state => state.toggleAreUSureModal)
     const toggleDeleteAdminModal = useGlobalState(state => state.toggleDeleteAdminModal)
-
+    const setCustomStatsDataUndefined = useGlobalState(state => state.setCustomStatsDataUndefined)
+    const toggleModalAddRoutine = useGlobalState(state => state.toggleAddRoutineModal)
+    const toggleModalAddExerciseToRoutine = useGlobalState(state => state.toggleAddExerciseToRoutineModal)
     const { checkChangePasswordFormData } = useCheckNewPasswordData()
 
     const handleClose = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -32,9 +35,16 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                 break
             case 'deletePatient':
                 toggleAreUSureModal()
+                setCustomStatsDataUndefined()
                 break
             case 'deleteAdmin':
                 toggleDeleteAdminModal()
+                break
+            case 'addRoutine':
+                toggleModalAddRoutine()
+                break
+            case 'addExerciseToRoutine':
+                toggleModalAddExerciseToRoutine()
                 break
             default:
                 break
@@ -46,8 +56,9 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
 
-        if (data === null || data === undefined) {
+        console.log(data)
 
+        if (data === null || data === undefined) {
             toast.info('Acción cancelada')
             throw new Error('Error en los datos del modal')
         }
@@ -98,6 +109,39 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                 window.localStorage.clear()
                 window.location.href = '/'
             }
+        }
+        else if (action === 'addRoutine' && data) {
+
+            const AddRoutineData = data as AddRoutineDataTypes
+
+            const userData = JSON.parse(window.localStorage.getItem('user') || '{}');
+
+            const credentials = {
+                name: AddRoutineData.name,
+                description: AddRoutineData.description,
+                estimatedTime: AddRoutineData.estimatedTime,
+                user_id: userData.id as number,
+                patient_id: AddRoutineData.patient_id
+            }
+
+            await AddRoutineService.AddRoutineService(credentials)
+
+            behavior()
+            toast.success('Rutina añadida con éxito')
+        }
+        else if (action === 'addExerciseToRoutine' && data) {
+            const AddExerciseToRoutineData = data as AddExerciseToRoutineDataTypes
+
+            const credentials = {
+                name: AddExerciseToRoutineData.name,
+                description: AddExerciseToRoutineData.description,
+                routine_name: AddExerciseToRoutineData.routine_name
+            }
+
+
+            await AddRoutineService.AddExerciseToRoutineService(credentials)
+            behavior()
+            toast.success('Ejercicio añadido con éxito')
         }
         else {
             console.error('Error en la acción del modal')

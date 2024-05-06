@@ -59,6 +59,9 @@
     max-height: 700px;
     overflow: auto;
     border-radius: 20px;
+    width: 100%;
+    max-width: 900;
+    box-shadow: 0px 4px 6px #4368bc;
 }
 
 .primary-text-exercise {
@@ -69,6 +72,12 @@
 .primary-text-exercise-light {
     margin-right: 1rem;
     color: #127e12;
+}
+
+.btn-agregar-rutina-light, .btn-agregar-rutina {
+    width: 70.5%;
+    margin-top: 1.4rem;
+    max-width: 900px;
 }
 
 .btn-agregar-rutina {
@@ -109,4 +118,37 @@
 .btn-agregar-ej, .btn-agregar-ej-light {
     position: absolute;
     left: 25vw;
+}
+
+#icono-lista-light, #icono-lista-dark {
+    min-width: 38px;
+}
+
+#icono-lista-light {
+    color: #444444;
+}
+
+#icono-lista-dark {
+    color: #D0daf1;
+}
+
+#texto-lista-light, #btn-lista-light {
+    color: #127e12;
+}
+
+#texto-lista-dark, #btn-lista-dark {
+    color: #8faef5;
+}
+
+#no-exercises-light {
+    color: #127e12;
+}
+
+#no-exercises-dark {
+    color: #a5bdf7;
+}
+
+#no-exercises-light, #no-exercises-dark {
+    margin-left: 3.4rem;
+    font-size: 1rem;
 }

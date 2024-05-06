@@ -7,7 +7,7 @@ import ListExpandExercises from "./ListExpandExercises";
 
 function ListExpandRoutines(ListExpandProps: ListExpandProps) {
 
-    const { rutina } = ListExpandProps
+    const { rutina, refetchRoutinesData } = ListExpandProps
     const [open, setOpen] = useState(false);
     const theme = useGlobalState(state => state.theme)
 
@@ -19,22 +19,23 @@ function ListExpandRoutines(ListExpandProps: ListExpandProps) {
         <>
             <ListItemButton className={theme === 'dark' ? 'desplegable-lista' : 'desplegable-lista-light'} onClick={handleClick}>
                 <ListItemIcon
-                    sx={theme === 'light' ? { color: '#444444', minWidth: '38px' } : { color: '#D0daf1', minWidth: '38px' }}>
+                    id={theme === 'light' ? 'icono-lista-light' : 'icono-lista-dark'}
+                >
                     {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItemIcon>
                 <ListItemText
-                    sx={theme === 'light' ? { color: '#127e12' } : { color: '#8faef5' }}
+                    id={theme === 'light' ? 'texto-lista-light' : 'texto-lista-dark'}
                     disableTypography={true}
                     primary={rutina.name} />
-                <Button sx={theme === 'light' ? { color: '#444444' } : { color: '#D0daf1' }}>
+                <Button id={theme === 'light' ? 'btn-lista-light' : 'btn-lista-dark'}>
                     <EditOutlined />
                 </Button>
-                <Button sx={theme === 'light' ? { color: '#444444' } : { color: '#D0daf1' }}>
+                <Button id={theme === 'light' ? 'btn-lista-light' : 'btn-lista-dark'}>
                     <DeleteOutline />
                 </Button>
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
-                <ListExpandExercises routine={rutina} />
+                <ListExpandExercises refetchRoutinesData={refetchRoutinesData} rutina={rutina} />
             </Collapse>
         </>
     )

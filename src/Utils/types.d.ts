@@ -47,7 +47,7 @@ export interface ModalProps {
     title: string
     content: ReactNode
     action: string
-    data: ChangePasswordDataTypes |  RegisterPatientDataTypes | number | string | null | undefined
+    data: ChangePasswordDataTypes |  RegisterPatientDataTypes | AddExerciseToRoutineDataTypes | AddRoutineDataTypes | number | string | null | undefined
     behavior: () => void
 }
 
@@ -67,13 +67,13 @@ export interface ScrollableListProps {
 }
 
 export interface SearchProps {
-    chartTitle: (newTitle: string) => void
+    chartTitle: (newTitle: number) => void
     details: User[] | null
     theme: Theme
 }
 
 export interface SearchListProps {
-    chartTitle: (newTitle: string) => void
+    chartTitle: (newTitle: number) => void
     filteredPersons: User[] | undefined
 }
 
@@ -82,7 +82,7 @@ export interface EstadisticasProps {
 }
 
 export interface SearchCardProps {
-    chartTitle: (newTitle: string) => void
+    chartTitle: (newTitle: number) => void
     key: number;
     person: User;
 }
@@ -107,6 +107,10 @@ interface GlobalState {
     toggleAreUSureModal: () => void
     showDeleteAdminModal: ModalType
     toggleDeleteAdminModal: () => void
+    showAddRoutineModal: ModalType
+    toggleAddRoutineModal: () => void
+    showAddExerciseToRoutineModal: ModalType
+    toggleAddExerciseToRoutineModal: () => void
   }
 
 export interface CustomStatsData {
@@ -123,29 +127,24 @@ interface Exercise {
     description: string;
 }
 
-interface Data {
+interface RoutineData {
     id: Id;
     name: string;
     description: string;
-    ejercicios: {
-        ej1: Exercise;
-        ej2: Exercise;
-        ej3: Exercise;
-    };
+    ejercicios: Exercise[] | []
     tiempoEstimado: number;
+    patient_id: number;
+    user_id: number;
 }
 
 interface ExerciseData {
     exercises: Exercise[];
 }
 
-interface RoutineData {
-    routine: Data;
-}
-
 interface ListExpandProps {
     key: number;
-    rutina: Data;
+    rutina: RoutineData;
+    refetchRoutinesData: () => void;
 }
 
 interface SignUpFormFieldProps {
@@ -190,4 +189,31 @@ interface registerPatientServiceProps {
     age: number | undefined;
     gender: string | undefined;
     routine_id: number | string | undefined;
+}
+
+interface AddRoutineDataTypes {
+    name: string | undefined;
+    description: string | undefined;
+    estimatedTime: number | undefined;
+    patient_id: number | undefined;
+}
+
+interface AddRoutineServiceProps {
+    name: string | undefined;
+    description: string | undefined;
+    estimatedTime: number | undefined;
+    user_id: number | undefined;
+    patient_id: number | undefined;
+}
+
+interface AddExerciseToRoutineDataTypes {
+    name: string | undefined;
+    description: string | undefined;
+    routine_name?: string | undefined;
+}
+
+interface AddExerciseToRoutineServiceProps {
+    name: string | undefined;
+    description: string | undefined;
+    routine_name: string | undefined;
 }

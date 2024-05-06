@@ -39,7 +39,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person }) => {
 
 
   function handleClick() {
-    chartTitle(person.name)
+    chartTitle(person.id)
     changeCustomStatsData(mockCustomStats)
   }
 
