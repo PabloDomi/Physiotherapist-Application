@@ -107,17 +107,20 @@
     transition: background-color 1s ease;
 }
 
-.btn-agregar-ej {
+#btn-agregar-ej {
     background-color: #6891ef !important;
 }
 
-.btn-agregar-ej-light {
+#btn-agregar-ej-light {
     background-color: #38ac38 !important;
 }
 
-.btn-agregar-ej, .btn-agregar-ej-light {
-    position: absolute;
-    left: 25vw;
+#btn-agregar-ej, #btn-agregar-ej-light {
+   position: absolute;
+   bottom: 2rem;
+   left: 50%;
+   transform: translate(-50%);
+   max-width: 400px;
 }
 
 #icono-lista-light, #icono-lista-dark {

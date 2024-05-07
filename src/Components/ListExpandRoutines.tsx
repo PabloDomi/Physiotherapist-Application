@@ -7,7 +7,7 @@ import ListExpandExercises from "./ListExpandExercises";
 
 function ListExpandRoutines(ListExpandProps: ListExpandProps) {
 
-    const { rutina, refetchRoutinesData } = ListExpandProps
+    const { rutina } = ListExpandProps
     const [open, setOpen] = useState(false);
     const theme = useGlobalState(state => state.theme)
 
@@ -35,7 +35,7 @@ function ListExpandRoutines(ListExpandProps: ListExpandProps) {
                 </Button>
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
-                <ListExpandExercises refetchRoutinesData={refetchRoutinesData} rutina={rutina} />
+                <ListExpandExercises rutina={rutina} />
             </Collapse>
         </>
     )

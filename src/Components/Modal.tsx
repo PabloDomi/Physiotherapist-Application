@@ -56,8 +56,6 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
 
-        console.log(data)
-
         if (data === null || data === undefined) {
             toast.info('Acción cancelada')
             throw new Error('Error en los datos del modal')

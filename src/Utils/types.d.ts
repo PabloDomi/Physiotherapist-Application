@@ -131,8 +131,8 @@ interface RoutineData {
     id: Id;
     name: string;
     description: string;
-    ejercicios: Exercise[] | []
-    tiempoEstimado: number;
+    exercises: Exercise[] | []
+    estimatedTime: number;
     patient_id: number;
     user_id: number;
 }
@@ -144,7 +144,6 @@ interface ExerciseData {
 interface ListExpandProps {
     key: number;
     rutina: RoutineData;
-    refetchRoutinesData: () => void;
 }
 
 interface SignUpFormFieldProps {

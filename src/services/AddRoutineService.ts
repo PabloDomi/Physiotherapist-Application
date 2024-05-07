@@ -15,6 +15,8 @@ async function AddRoutineService(credentials: AddRoutineServiceProps) {
 
 async function AddExerciseToRoutineService(credentials: AddExerciseToRoutineServiceProps) {
     
+        console.log(credentials)
+
         try {
             const { data } = await axios.post(`${baseUrl}routine_management/addExerciseToRoutine`, credentials)
             return data

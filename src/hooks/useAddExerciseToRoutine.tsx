@@ -1,9 +1,10 @@
 import { Form } from "react-bootstrap"
 import { useGlobalState } from "../store/useGlobalState"
-import { useState } from "react"
-import { AddExerciseToRoutineDataTypes } from "../utils/types"
+import { useEffect, useState } from "react"
+import { AddExerciseToRoutineDataTypes, RoutineData } from "../utils/types"
+import GetDataService from "../services/GetDataService"
 
-export function useAddExerciseToRoutine(routineName: string) {
+export function useAddExerciseToRoutine() {
 
     const theme = useGlobalState(state => state.theme)
 
@@ -13,6 +14,11 @@ export function useAddExerciseToRoutine(routineName: string) {
     const modalTitleAddExerciseToRoutine = 'Agregar Ejercicio a Rutina'
 
     const [AddExerciseToRoutineData, setAddExerciseToRoutineData] = useState<AddExerciseToRoutineDataTypes | null>(null)
+    const [routines, setRoutines] = useState<RoutineData[] | null>(null)
+
+    useEffect(() => {
+        GetDataService.getRoutines().then(res => setRoutines(res))
+    }, [])
 
     const modalContentAddExerciseToRoutine =
         <Form>
@@ -23,7 +29,7 @@ export function useAddExerciseToRoutine(routineName: string) {
                         {
                             name: event.target.value,
                             description: AddExerciseToRoutineData?.description,
-                            routine_name: routineName
+                            routine_name: AddExerciseToRoutineData?.routine_name
                         }
                     )}
                     type="text"
@@ -39,7 +45,7 @@ export function useAddExerciseToRoutine(routineName: string) {
                         {
                             name: AddExerciseToRoutineData?.name,
                             description: event.target.value,
-                            routine_name: routineName
+                            routine_name: AddExerciseToRoutineData?.routine_name
                         }
                     )}
                     type="text"
@@ -47,6 +53,27 @@ export function useAddExerciseToRoutine(routineName: string) {
                     autoFocus
                     className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                 />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="AddExerciseToRoutineForm.Select1">
+                <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione el paciente para la rutina</Form.Label>
+                <Form.Select
+                    style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
+                    onChange={(event) => setAddExerciseToRoutineData(
+                        {
+                            name: AddExerciseToRoutineData?.name,
+                            description: AddExerciseToRoutineData?.description,
+                            routine_name: event.target.value
+                        }
+                    )}
+                    autoFocus
+                    aria-label="Default select"
+                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
+                >
+                    <option>Seleccione la rutina</option>
+                    {routines?.map((routine, index) => {
+                        return <option key={index} value={routine.name}>{routine.name}</option>
+                    })}
+                </Form.Select>
             </Form.Group>
         </Form>
 

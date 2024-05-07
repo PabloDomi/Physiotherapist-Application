@@ -9,6 +9,7 @@ import ModalWindow from "../components/Modal";
 import useAddRoutine from "../hooks/useAddRoutine";
 import GetDataService from "../services/GetDataService";
 import { useEffect, useState } from "react";
+import useAddExerciseToRoutine from "../hooks/useAddExerciseToRoutine"
 
 
 export const Rutinas = () => {
@@ -45,12 +46,28 @@ export const Rutinas = () => {
 
     const refetchRoutinesData = async () => {
         try {
-            const res = await GetDataService.getPatients()
+            const res = await GetDataService.getRoutines()
             setRoutines(res)
         } catch (error) {
             console.error(error)
             throw new Error("Error al obtener los pacientes")
         }
+    }
+
+    const {
+        showModalAddExerciseToRoutine,
+        toggleModalAddExerciseToRoutine,
+        modalTitleAddExerciseToRoutine,
+        modalContentAddExerciseToRoutine,
+        AddExerciseToRoutineData
+    } = useAddExerciseToRoutine()
+
+
+
+
+    const handleClickAddRoutine = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        toggleModalAddExerciseToRoutine()
     }
 
     return (
@@ -68,8 +85,27 @@ export const Rutinas = () => {
                             className="rutinas-list"
                         >
                             {routines?.map((routine, index) =>
-                                <ListExpandRoutines key={index} rutina={routine} refetchRoutinesData={refetchRoutinesData} />
+                                <ListExpandRoutines key={index} rutina={routine} />
                             )}
+                            <Button
+                                sx={theme === 'dark' ? { color: '#C8d3ef' } : { color: 'inherit' }}
+                                id={theme === 'light' ? 'btn-agregar-ej-light' : 'btn-agregar-ej'}
+                                variant="contained"
+                                onClick={handleClickAddRoutine}
+                            >
+                                Añadir Ejercicio a Rutina
+                            </Button>
+                            {showModalAddExerciseToRoutine &&
+                                <ModalWindow
+                                    show={showModalAddExerciseToRoutine}
+                                    title={modalTitleAddExerciseToRoutine}
+                                    content={modalContentAddExerciseToRoutine}
+                                    action='addExerciseToRoutine'
+                                    data={AddExerciseToRoutineData}
+                                    behavior={refetchRoutinesData}
+                                >
+                                </ModalWindow>
+                            }
                         </List>
                     </main>
                     <aside className="rutinas-aside">

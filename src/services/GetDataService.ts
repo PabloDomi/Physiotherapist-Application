@@ -41,5 +41,15 @@ const getUsers = async () => {
 
 }
 
-export default { getPatients, checkEmailExists, getUsers, getRoutines }
+const getExercisesByRoutineName = async (routineName: string) => {
+    try {
+        const response = await axios.get(`${baseUrl}routine_management/getExercisesFromRoutine/${routineName}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+
+}
+
+export default { getPatients, checkEmailExists, getUsers, getRoutines, getExercisesByRoutineName }
 
