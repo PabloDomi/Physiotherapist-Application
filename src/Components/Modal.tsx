@@ -10,6 +10,7 @@ import DeleteDataService from "../services/DeleteDataService"
 import useCheckNewPasswordData from "../hooks/useCheckNewPasswordData"
 import { Toaster, toast } from "sonner"
 import AddRoutineService from "../services/AddRoutineService"
+import GetDataService from "../services/GetDataService"
 
 const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProps) => {
 
@@ -29,35 +30,43 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
         switch (action) {
             case 'changePassword':
                 toggleChangePasswordModal()
+                toast.info('Acción cancelada')
                 break
             case 'registerPatient':
                 toggleRegisterPatientModal()
+                toast.info('Acción cancelada')
                 break
             case 'deletePatient':
                 toggleAreUSureModal()
                 setCustomStatsDataUndefined()
+                toast.info('Acción cancelada')
                 break
             case 'deleteAdmin':
                 toggleDeleteAdminModal()
+                toast.info('Acción cancelada')
                 break
             case 'addRoutine':
                 toggleModalAddRoutine()
+                toast.info('Acción cancelada')
                 break
             case 'addExerciseToRoutine':
                 toggleModalAddExerciseToRoutine()
+                toast.info('Acción cancelada')
+                break
+            case 'deleteRoutine':
+                toggleAreUSureModal()
+                toast.info('Acción cancelada')
                 break
             default:
                 break
         }
-
-        handleSubmit(event)
     }
 
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
 
         if (data === null || data === undefined) {
-            toast.info('Acción cancelada')
+            toast.warning('Error en los datos del modal')
             throw new Error('Error en los datos del modal')
         }
 
@@ -75,6 +84,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
 
             await ChangePasswordService(credentials)
             behavior()
+            toggleChangePasswordModal()
         }
         else if (action === 'registerPatient' && data) {
 
@@ -90,11 +100,13 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
 
             await RegisterPatientService(credentials)
             behavior()
+            toggleRegisterPatientModal()
         }
         else if (action === 'deletePatient') {
             await DeleteDataService.deletePatient(data as number)
             behavior()
             toast.success('Paciente eliminado con éxito')
+            toggleAreUSureModal()
         }
         else if (action === 'deleteAdmin') {
             await DeleteDataService.deleteAdmin(data as string)
@@ -107,12 +119,22 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                 window.localStorage.clear()
                 window.location.href = '/'
             }
+            toggleDeleteAdminModal()
         }
         else if (action === 'addRoutine' && data) {
 
             const AddRoutineData = data as AddRoutineDataTypes
 
             const userData = JSON.parse(window.localStorage.getItem('user') || '{}');
+
+            const hasRoutine = await GetDataService.checkHasRoutine(AddRoutineData.patient_id?.toString() as string)
+
+            console.log(hasRoutine)
+
+            if (hasRoutine.hasRoutine) {
+                toast.error('El paciente ya tiene una rutina asignada')
+                return
+            }
 
             const credentials = {
                 name: AddRoutineData.name,
@@ -126,6 +148,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
 
             behavior()
             toast.success('Rutina añadida con éxito')
+            toggleModalAddRoutine()
         }
         else if (action === 'addExerciseToRoutine' && data) {
             const AddExerciseToRoutineData = data as AddExerciseToRoutineDataTypes
@@ -140,8 +163,16 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
             await AddRoutineService.AddExerciseToRoutineService(credentials)
             behavior()
             toast.success('Ejercicio añadido con éxito')
+            toggleModalAddExerciseToRoutine()
+        }
+        else if (action === 'deleteRoutine') {
+            await DeleteDataService.deleteRoutine(data as number)
+            behavior()
+            toast.success('Rutina eliminada con éxito')
+            toggleAreUSureModal()
         }
         else {
+            handleClose(event)
             console.error('Error en la acción del modal')
             throw new Error('Error en la acción del modal')
         }
@@ -161,7 +192,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                     {content}
                 </Modal.Body>
                 <Modal.Footer className={theme === 'dark' ? 'footer-modal' : ''}>
-                    <Button type="submit" className={theme === 'dark' ? 'save-modal' : 'save-modal2'} variant="primary" onClick={handleClose}>
+                    <Button type="submit" className={theme === 'dark' ? 'save-modal' : 'save-modal2'} variant="primary" onClick={handleSubmit}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

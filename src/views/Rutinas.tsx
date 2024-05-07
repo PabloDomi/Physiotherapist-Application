@@ -39,11 +39,6 @@ export const Rutinas = () => {
         fetchRoutines()
     }, [])
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault()
-        toggleModalAddRoutine()
-    }
-
     const refetchRoutinesData = async () => {
         try {
             const res = await GetDataService.getRoutines()
@@ -54,13 +49,20 @@ export const Rutinas = () => {
         }
     }
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        refetchRoutinesData()
+        toggleModalAddRoutine()
+    }
+
+
     const {
         showModalAddExerciseToRoutine,
         toggleModalAddExerciseToRoutine,
         modalTitleAddExerciseToRoutine,
         modalContentAddExerciseToRoutine,
         AddExerciseToRoutineData
-    } = useAddExerciseToRoutine()
+    } = useAddExerciseToRoutine(routines)
 
 
 
@@ -82,30 +84,11 @@ export const Rutinas = () => {
                                 background: theme === 'dark' ? 'linear-gradient(270deg, #262726, #3b3c3b)' : 'linear-gradient(90deg, #A1e1a1, #67c467)',
                             }}
                             component="nav"
-                            className="rutinas-list"
+                            id="rutinas-list"
                         >
                             {routines?.map((routine, index) =>
-                                <ListExpandRoutines key={index} rutina={routine} />
+                                <ListExpandRoutines key={index} rutina={routine} rutinas={routines} setRoutines={setRoutines} />
                             )}
-                            <Button
-                                sx={theme === 'dark' ? { color: '#C8d3ef' } : { color: 'inherit' }}
-                                id={theme === 'light' ? 'btn-agregar-ej-light' : 'btn-agregar-ej'}
-                                variant="contained"
-                                onClick={handleClickAddRoutine}
-                            >
-                                Añadir Ejercicio a Rutina
-                            </Button>
-                            {showModalAddExerciseToRoutine &&
-                                <ModalWindow
-                                    show={showModalAddExerciseToRoutine}
-                                    title={modalTitleAddExerciseToRoutine}
-                                    content={modalContentAddExerciseToRoutine}
-                                    action='addExerciseToRoutine'
-                                    data={AddExerciseToRoutineData}
-                                    behavior={refetchRoutinesData}
-                                >
-                                </ModalWindow>
-                            }
                         </List>
                     </main>
                     <aside className="rutinas-aside">
@@ -123,6 +106,25 @@ export const Rutinas = () => {
                                 action='addRoutine'
                                 data={AddRoutineData}
                                 behavior={refetchRoutinesData}
+                            >
+                            </ModalWindow>
+                        }
+                        <Button
+                            sx={{ color: '#fff' }}
+                            id={theme === 'light' ? 'btn-agregar-ej-light' : 'btn-agregar-ej'}
+                            variant="contained"
+                            onClick={handleClickAddRoutine}
+                        >
+                            Añadir Ejercicio a Rutina
+                        </Button>
+                        {showModalAddExerciseToRoutine &&
+                            <ModalWindow
+                                show={showModalAddExerciseToRoutine}
+                                title={modalTitleAddExerciseToRoutine}
+                                content={modalContentAddExerciseToRoutine}
+                                action='addExerciseToRoutine'
+                                data={AddExerciseToRoutineData}
+                                behavior={() => { }}
                             >
                             </ModalWindow>
                         }

@@ -14,7 +14,7 @@ export function useAddRoutine() {
 
     const modalTitleAddRoutine = 'Agregar Rutina'
 
-    const [AddRoutineData, setAddRoutineData] = useState<AddRoutineDataTypes | null>(null)
+    const [AddRoutineData, setAddRoutineData] = useState<AddRoutineDataTypes | undefined>(undefined)
 
     const modalContentAddRoutine =
         <Form>
@@ -87,12 +87,15 @@ export function useAddRoutine() {
                     aria-label="Default select"
                     className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                 >
+                    <option>Seleccione el paciente al que añadirle la rutina</option>
                     {patients?.map((patient, index) => {
                         return <option key={index} value={patient.id}>{patient.name + ' ' + patient.surname}</option>
                     })}
                 </Form.Select>
             </Form.Group>
         </Form>
+
+
 
     return { showModalAddRoutine, toggleModalAddRoutine, modalTitleAddRoutine, modalContentAddRoutine, theme, AddRoutineData }
 }

@@ -1,10 +1,9 @@
 import { Form } from "react-bootstrap"
 import { useGlobalState } from "../store/useGlobalState"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { AddExerciseToRoutineDataTypes, RoutineData } from "../utils/types"
-import GetDataService from "../services/GetDataService"
 
-export function useAddExerciseToRoutine() {
+export function useAddExerciseToRoutine(listRoutines: RoutineData[] | undefined) {
 
     const theme = useGlobalState(state => state.theme)
 
@@ -14,11 +13,6 @@ export function useAddExerciseToRoutine() {
     const modalTitleAddExerciseToRoutine = 'Agregar Ejercicio a Rutina'
 
     const [AddExerciseToRoutineData, setAddExerciseToRoutineData] = useState<AddExerciseToRoutineDataTypes | null>(null)
-    const [routines, setRoutines] = useState<RoutineData[] | null>(null)
-
-    useEffect(() => {
-        GetDataService.getRoutines().then(res => setRoutines(res))
-    }, [])
 
     const modalContentAddExerciseToRoutine =
         <Form>
@@ -70,7 +64,7 @@ export function useAddExerciseToRoutine() {
                     className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                 >
                     <option>Seleccione la rutina</option>
-                    {routines?.map((routine, index) => {
+                    {listRoutines?.map((routine, index) => {
                         return <option key={index} value={routine.name}>{routine.name}</option>
                     })}
                 </Form.Select>

@@ -144,6 +144,8 @@ interface ExerciseData {
 interface ListExpandProps {
     key: number;
     rutina: RoutineData;
+    setRoutines: (newRoutines: RoutineData[]) => void;
+    rutinas: RoutineData[];
 }
 
 interface SignUpFormFieldProps {

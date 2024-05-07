@@ -55,7 +55,7 @@
     min-width: none;
 }
 
-.rutinas-list {
+#rutinas-list {
     max-height: 700px;
     overflow: auto;
     border-radius: 20px;
@@ -75,9 +75,9 @@
 }
 
 .btn-agregar-rutina-light, .btn-agregar-rutina {
-    width: 70.5%;
+    width: 100%;
     margin-top: 1.4rem;
-    max-width: 900px;
+    max-width: 325px;
 }
 
 .btn-agregar-rutina {
@@ -116,11 +116,10 @@
 }
 
 #btn-agregar-ej, #btn-agregar-ej-light {
-   position: absolute;
-   bottom: 2rem;
-   left: 50%;
-   transform: translate(-50%);
-   max-width: 400px;
+    width: 100%;
+    margin-top: 1.4rem;
+    max-width: 325px;
+    margin-left: 1rem;
 }
 
 #icono-lista-light, #icono-lista-dark {
