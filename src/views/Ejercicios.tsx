@@ -1,17 +1,52 @@
 import { Button, List } from "@mui/material";
 import '../css/Ejercicios.css';
 import { useGlobalState } from "../store/useGlobalState";
-import { mockRoutines } from "../utils/MockData";
-import { Data } from "../utils/types";
 import { usePatients } from "../hooks/usePatients";
 import ListExpandExercisesCustom from "../components/ListExpandExercisesCustom";
+import { DeleteOutline, EditOutlined } from "@mui/icons-material";
+import useEditExercise from "../hooks/useEditExercise";
+import ModalWindow from "../components/Modal";
+import useDeleteExercise from "../hooks/useDeleteExercise";
 
 const Ejercicios = () => {
 
     const theme = useGlobalState(state => state.theme)
     const { isLoading } = usePatients()
 
-    const routineEntries = Object.values(mockRoutines)
+    const routines = useGlobalState(state => state.routines)
+
+    const globalExercises = routines?.flatMap((routine) => routine.exercises);
+    const setGlobalExercises = useGlobalState(state => state.setExercises)
+
+    const {
+        showModalEditExercise,
+        toggleModalEditExercise,
+        modalTitleEditExercise,
+        modalContentEditExercise,
+        EditExerciseData
+    } = useEditExercise()
+
+    const {
+        showModalDeleteExercise,
+        toggleModalDeleteExercise,
+        modalTitleDeleteExercise,
+        modalContentDeleteExercise,
+        DeleteExerciseData
+    } = useDeleteExercise()
+
+    const refetchExercisesData = async () => {
+        if (globalExercises) {
+            const newExercises = globalExercises.filter((r) => r.id !== DeleteExerciseData?.exercise_id)
+            setGlobalExercises(newExercises)
+        }
+    }
+
+    /*
+        TODO: 
+            1. Pensar manera de actualizar el routine_ids al seleccionar varias rutinas
+               a las que agregar el ejercicio.
+            2. Probar la funcionalidad de los botones de editar y eliminar ejercicio.
+    */
 
     return (
         <>
@@ -34,16 +69,46 @@ const Ejercicios = () => {
                             component="nav"
                             className="rutinas-list"
                         >
-                            {routineEntries.map((routine: Data) =>
-                                <ListExpandExercisesCustom key={routine.id} routine={routine} />
+                            {globalExercises?.map((exercise, index) =>
+                                <ListExpandExercisesCustom key={index} exercise={exercise} />
                             )}
                         </List>
                     </main>
                     <aside className="rutinas-aside">
-                        <Button variant="contained" color="primary"
-                            sx={{ width: '70.5%', marginTop: '1.4rem', maxWidth: '900px' }}>
-                            Agregar Ejercicio
+                        <Button
+                            onClick={toggleModalEditExercise}
+                            variant="contained"
+                            sx={{ margin: '1rem', width: '33.5vw' }}>
+                            Editar ejercicio
+                            <EditOutlined />
                         </Button>
+                        {showModalEditExercise &&
+                            <ModalWindow
+                                show={showModalEditExercise}
+                                title={modalTitleEditExercise}
+                                content={modalContentEditExercise}
+                                action='editExercise'
+                                data={EditExerciseData}
+                                behavior={() => { }}
+                            />
+                        }
+                        <Button
+                            onClick={toggleModalDeleteExercise}
+                            variant="contained"
+                            sx={{ margin: '1rem', width: '33.5vw' }}>
+                            Eliminar ejercicio
+                            <DeleteOutline />
+                        </Button>
+                        {showModalDeleteExercise &&
+                            <ModalWindow
+                                show={showModalDeleteExercise}
+                                title={modalTitleDeleteExercise}
+                                content={modalContentDeleteExercise}
+                                action='editExercise'
+                                data={DeleteExerciseData}
+                                behavior={refetchExercisesData}
+                            />
+                        }
                     </aside>
                 </section >
             }

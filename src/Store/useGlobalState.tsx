@@ -22,6 +22,12 @@ export const useGlobalState = create<GlobalState>((set) => {
     theme: localStorage.getItem('theme') || 'dark',
     toggleTheme: () => set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
 
+    routines: [],
+    setRoutines: (newRoutines) => set({ routines: newRoutines }),
+
+    exercises: [],
+    setExercises: (newExercises) => set({ exercises: newExercises }),
+
     showChangePasswordModal: false,
     toggleChangePasswordModal: () => set((state) => ({ showChangePasswordModal: !state.showChangePasswordModal })),
 
@@ -38,6 +44,18 @@ export const useGlobalState = create<GlobalState>((set) => {
     toggleAddRoutineModal: () => set((state) => ({ showAddRoutineModal: !state.showAddRoutineModal })),
 
     showAddExerciseToRoutineModal: false,
-    toggleAddExerciseToRoutineModal: () => set((state) => ({ showAddExerciseToRoutineModal: !state.showAddExerciseToRoutineModal }))
+    toggleAddExerciseToRoutineModal: () => set((state) => ({ showAddExerciseToRoutineModal: !state.showAddExerciseToRoutineModal })),
+
+    showEditRoutineModal: false,
+    toggleEditRoutineModal: () => set((state) => ({ showEditRoutineModal: !state.showEditRoutineModal })),
+
+    showDeleteRoutineModal: false,
+    toggleDeleteRoutineModal: () => set((state) => ({ showDeleteRoutineModal: !state.showDeleteRoutineModal })),
+
+    showDeleteExerciseModal: false,
+    toggleDeleteExerciseModal: () => set((state) => ({ showDeleteExerciseModal: !state.showDeleteExerciseModal })),
+
+    showEditExerciseModal: false,
+    toggleEditExerciseModal: () => set((state) => ({ showEditExerciseModal: !state.showEditExerciseModal })),
   }
 });

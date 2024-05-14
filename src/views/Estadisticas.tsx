@@ -22,7 +22,6 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
     const customData = useGlobalState(state => state.customStatsData)
     const setCustomStatsDataUndefined = useGlobalState(state => state.setCustomStatsDataUndefined)
     const patients = useGlobalState(state => state.patients)
-    console.log(patients)
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
@@ -30,6 +29,8 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
         setCustomStatsDataUndefined()
         setPatientId(null)
     }
+
+    // TODO: HACER QUE LA LISTA DE PACIENTES, AL PULSAR LA X, SE BORRE EL SELECCIONADO, NO EL ULTIMO AÑADIDO
 
     return (
         <>

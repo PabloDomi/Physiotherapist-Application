@@ -75,8 +75,7 @@
 }
 
 .btn-agregar-rutina-light, .btn-agregar-rutina {
-    width: 100%;
-    margin-top: 1.4rem;
+    width: 17%;
     max-width: 325px;
 }
 
@@ -108,18 +107,31 @@
 }
 
 #btn-agregar-ej {
-    background-color: #6891ef !important;
+    background-color: #4570d6 !important;
 }
 
 #btn-agregar-ej-light {
-    background-color: #38ac38 !important;
+    background-color: #127e12 !important;
 }
 
 #btn-agregar-ej, #btn-agregar-ej-light {
-    width: 100%;
-    margin-top: 1.4rem;
+    margin-left: 1rem;
+}
+
+#btn-lista-dark {
     max-width: 325px;
     margin-left: 1rem;
+    background-color: #4570d6;
+}
+
+#btn-lista-light {
+    max-width: 325px;
+    margin-left: 1rem;
+    background-color: #127e12;
+}
+
+.iconos-rutinas {
+    margin-left: 0.5rem;
 }
 
 #icono-lista-light, #icono-lista-dark {
@@ -134,11 +146,11 @@
     color: #D0daf1;
 }
 
-#texto-lista-light, #btn-lista-light {
+#texto-lista-light {
     color: #127e12;
 }
 
-#texto-lista-dark, #btn-lista-dark {
+#texto-lista-dark {
     color: #8faef5;
 }
 

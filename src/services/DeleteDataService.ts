@@ -31,4 +31,14 @@ const deleteRoutine = async (id: Id) => {
     }
 }
 
-export default { deletePatient, deleteAdmin, deleteRoutine }
+const deleteExercise = async (id: Id) => {
+    try {
+        const res = await axios.delete(`${baseUrl}routine_management/deleteExercise/${id}`)
+        return { res }
+    } catch (error) {
+        console.error(error)
+    }
+
+}
+
+export default { deleteExercise, deletePatient, deleteAdmin, deleteRoutine }

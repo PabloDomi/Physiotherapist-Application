@@ -10,6 +10,7 @@ import OutletWithNavBarAndFooter from './components/OutletWithNavBarAndFooter'
 import { useEffect } from 'react'
 import Landing from './views/Landing'
 import { theresUser, noUser } from './utils/Constants'
+import GetDataService from './services/GetDataService'
 
 function App() {
 
@@ -18,11 +19,29 @@ function App() {
   const theme = useGlobalState(state => state.theme)
   const user = useGlobalState(state => state.user)
   const changeView = useGlobalState(state => state.changeView)
+  const setGlobalRoutines = useGlobalState(state => state.setRoutines)
+  const setGlobalExercises = useGlobalState(state => state.setExercises)
 
   useEffect(() => {
     const newLocation = location.pathname
     changeView(newLocation)
   }, [changeView, location.pathname])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await GetDataService.getRoutines()
+        setGlobalRoutines(res)
+
+        const res2 = await GetDataService.getAllExercises()
+        setGlobalExercises(res2)
+      } catch (error) {
+        console.error(error)
+        throw new Error("Error al obtener los administradores")
+      }
+    }
+    fetchData()
+  }, [setGlobalRoutines])
 
   return (
     <>

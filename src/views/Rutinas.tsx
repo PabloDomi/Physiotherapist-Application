@@ -1,22 +1,24 @@
 import { Button, List } from "@mui/material";
 import '../css/Rutinas.css';
 import { useGlobalState } from "../store/useGlobalState";
-import { RoutineData } from "../utils/types";
 import ListExpandRoutines from "../components/ListExpandRoutines";
 import { usePatients } from "../hooks/usePatients";
 import Loader from "../components/Loader";
 import ModalWindow from "../components/Modal";
 import useAddRoutine from "../hooks/useAddRoutine";
 import GetDataService from "../services/GetDataService";
-import { useEffect, useState } from "react";
 import useAddExerciseToRoutine from "../hooks/useAddExerciseToRoutine"
+import useEditRoutine from "../hooks/useEditRoutine";
+import { DeleteOutline, EditOutlined, AccessibilityNewOutlined, FitnessCenterOutlined } from "@mui/icons-material";
+import useDeleteRoutine from "../hooks/useDeleteRoutine";
 
 
 export const Rutinas = () => {
 
     const theme = useGlobalState(state => state.theme)
-    const [routines, setRoutines] = useState<RoutineData[]>()
     const { isLoading } = usePatients()
+    const setGlobalRoutines = useGlobalState(state => state.setRoutines)
+    const globalRoutines = useGlobalState(state => state.routines)
 
     const {
         showModalAddRoutine,
@@ -26,23 +28,11 @@ export const Rutinas = () => {
         AddRoutineData
     } = useAddRoutine()
 
-    useEffect(() => {
-        const fetchRoutines = async () => {
-            try {
-                const res = await GetDataService.getRoutines()
-                setRoutines(res)
-            } catch (error) {
-                console.error(error)
-                throw new Error("Error al obtener los administradores")
-            }
-        }
-        fetchRoutines()
-    }, [])
-
     const refetchRoutinesData = async () => {
         try {
             const res = await GetDataService.getRoutines()
-            setRoutines(res)
+            setGlobalRoutines(res)
+            setGlobalRoutines(res)
         } catch (error) {
             console.error(error)
             throw new Error("Error al obtener los pacientes")
@@ -62,9 +52,42 @@ export const Rutinas = () => {
         modalTitleAddExerciseToRoutine,
         modalContentAddExerciseToRoutine,
         AddExerciseToRoutineData
-    } = useAddExerciseToRoutine(routines)
+    } = useAddExerciseToRoutine(globalRoutines)
 
 
+    const {
+        showModalDeleteRoutine,
+        toggleModalDeleteRoutine,
+        modalTitleDeleteRoutine,
+        modalContentDeleteRoutine,
+        DeleteRoutineData
+    } = useDeleteRoutine()
+
+    const {
+        showModalEditRoutine,
+        toggleModalEditRoutine,
+        modalTitleEditRoutine,
+        modalContentEditRoutine,
+        EditRoutineData
+    } = useEditRoutine()
+
+
+    const handleDeleteRoutineClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation()
+        toggleModalDeleteRoutine()
+    }
+
+    const refetchRoutines = () => {
+        if (globalRoutines) {
+            const newRoutines = globalRoutines.filter((r) => r.id !== DeleteRoutineData?.routine_id)
+            setGlobalRoutines(newRoutines)
+        }
+    }
+
+    const handleEditRoutineClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation()
+        toggleModalEditRoutine()
+    }
 
 
     const handleClickAddRoutine = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -86,8 +109,8 @@ export const Rutinas = () => {
                             component="nav"
                             id="rutinas-list"
                         >
-                            {routines?.map((routine, index) =>
-                                <ListExpandRoutines key={index} rutina={routine} rutinas={routines} setRoutines={setRoutines} />
+                            {globalRoutines?.map((routine, index) =>
+                                <ListExpandRoutines key={index} rutina={routine} rutinas={globalRoutines} setRoutines={setGlobalRoutines} componentId={index} />
                             )}
                         </List>
                     </main>
@@ -95,8 +118,10 @@ export const Rutinas = () => {
                         <Button
                             onClick={handleClick}
                             variant="contained"
-                            className={theme === 'light' ? 'btn-agregar-rutina-light' : 'btn-agregar-rutina'}>
+                            className={theme === 'light' ? 'btn-agregar-rutina-light' : 'btn-agregar-rutina'}
+                        >
                             Agregar Rutina
+                            <FitnessCenterOutlined className="iconos-rutinas" />
                         </Button>
                         {showModalAddRoutine &&
                             <ModalWindow
@@ -110,12 +135,12 @@ export const Rutinas = () => {
                             </ModalWindow>
                         }
                         <Button
-                            sx={{ color: '#fff' }}
                             id={theme === 'light' ? 'btn-agregar-ej-light' : 'btn-agregar-ej'}
                             variant="contained"
                             onClick={handleClickAddRoutine}
                         >
                             Añadir Ejercicio a Rutina
+                            <AccessibilityNewOutlined className="iconos-rutinas" />
                         </Button>
                         {showModalAddExerciseToRoutine &&
                             <ModalWindow
@@ -127,6 +152,42 @@ export const Rutinas = () => {
                                 behavior={() => { }}
                             >
                             </ModalWindow>
+                        }
+                        <Button
+                            onClick={handleEditRoutineClick}
+                            id={theme === 'light' ? 'btn-lista-light' : 'btn-lista-dark'}
+                            variant="contained"
+                        >
+                            Edit Routine
+                            <EditOutlined className="iconos-rutinas" />
+                        </Button>
+                        {showModalEditRoutine &&
+                            <ModalWindow
+                                show={showModalEditRoutine}
+                                title={modalTitleEditRoutine}
+                                content={modalContentEditRoutine}
+                                action='editRoutine'
+                                data={EditRoutineData}
+                                behavior={() => { }}
+                            />
+                        }
+                        <Button
+                            onClick={handleDeleteRoutineClick}
+                            id={theme === 'light' ? 'btn-lista-light' : 'btn-lista-dark'}
+                            variant="contained"
+                        >
+                            Delete Routine
+                            <DeleteOutline className="iconos-rutinas" />
+                        </Button>
+                        {showModalDeleteRoutine &&
+                            <ModalWindow
+                                show={showModalDeleteRoutine}
+                                title={modalTitleDeleteRoutine}
+                                content={modalContentDeleteRoutine}
+                                action='deleteRoutine'
+                                data={DeleteRoutineData?.routine_id}
+                                behavior={refetchRoutines}
+                            />
                         }
                     </aside>
                 </section >

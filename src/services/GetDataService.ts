@@ -60,5 +60,35 @@ const checkHasRoutine = async (patientId: string) => {
     }
 }
 
-export default { getPatients, checkEmailExists, getUsers, getRoutines, getExercisesByRoutineName, checkHasRoutine }
+const getRoutineById = async (routineId:number) => {
+    try {
+        const response = await axios.get(`${baseUrl}routine_management/getRoutineById/${routineId}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+
+}
+
+const getExerciseById = async (exerciseId:number) => {
+    try {
+        const response = await axios.get(`${baseUrl}exercise_management/getExerciseById/${exerciseId}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+
+}
+
+const getAllExercises = async () => {
+    try {
+        const response = await axios.get(`${baseUrl}exercises`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+
+}
+
+export default { getExerciseById, getAllExercises, getRoutineById, getPatients, checkEmailExists, getUsers, getRoutines, getExercisesByRoutineName, checkHasRoutine }
 

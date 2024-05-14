@@ -47,7 +47,7 @@ export interface ModalProps {
     title: string
     content: ReactNode
     action: string
-    data: ChangePasswordDataTypes |  RegisterPatientDataTypes | AddExerciseToRoutineDataTypes | AddRoutineDataTypes | number | string | null | undefined
+    data: DeleteExerciseDataTypes | ChangePasswordDataTypes |  RegisterPatientDataTypes | AddExerciseToRoutineDataTypes | AddRoutineDataTypes | number | string | null | undefined
     behavior: () => void
 }
 
@@ -99,6 +99,10 @@ interface GlobalState {
     setCustomStatsDataUndefined: () => void
     theme: Theme
     toggleTheme: () => void
+    routines: RoutineData[] | undefined
+    setRoutines: (newRoutines: RoutineData[]) => void
+    exercises: Exercise[] | undefined
+    setExercises: (newExercises: Exercise[]) => void
     showChangePasswordModal: ModalType
     toggleChangePasswordModal: () => void
     showRegisterPatientModal: ModalType
@@ -111,6 +115,14 @@ interface GlobalState {
     toggleAddRoutineModal: () => void
     showAddExerciseToRoutineModal: ModalType
     toggleAddExerciseToRoutineModal: () => void
+    showEditRoutineModal: ModalType
+    toggleEditRoutineModal: () => void
+    showDeleteRoutineModal: ModalType
+    toggleDeleteRoutineModal: () => void
+    showDeleteExerciseModal: ModalType
+    toggleDeleteExerciseModal: () => void
+    showEditExerciseModal: ModalType
+    toggleEditExerciseModal: () => void
   }
 
 export interface CustomStatsData {
@@ -123,8 +135,11 @@ export interface CustomStatsData {
 }
 
 interface Exercise {
+    id: Id;
     name: string;
     description: string;
+    routine_ids: Id[] | []
+    routine: RoutineData | null
 }
 
 interface RoutineData {
@@ -146,6 +161,7 @@ interface ListExpandProps {
     rutina: RoutineData;
     setRoutines: (newRoutines: RoutineData[]) => void;
     rutinas: RoutineData[];
+    componentId: number;
 }
 
 interface SignUpFormFieldProps {
@@ -217,4 +233,33 @@ interface AddExerciseToRoutineServiceProps {
     name: string | undefined;
     description: string | undefined;
     routine_name: string | undefined;
+}
+
+interface EditRoutineDataTypes {
+    routine_id: number | undefined;
+    name: string | undefined;
+    description: string | undefined;
+    estimatedTime: number | undefined;
+    patient_id: number | undefined;
+}
+
+interface DeleteRoutineDataTypes {
+    routine_id: number | undefined;
+}
+
+interface ListExpandExercisesCustomProps {
+    key: number;
+    exercise: Exercise;
+}
+
+interface DeleteExerciseDataTypes {
+    exercise_id: number | undefined;
+}
+
+interface EditExerciseDataTypes {
+    id: number | undefined;
+    name: string | undefined;
+    description: string | undefined;
+    routine_ids: number[] | undefined;
+    routine: RoutineData | undefined | null;
 }
