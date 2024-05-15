@@ -252,14 +252,17 @@ interface ListExpandExercisesCustomProps {
     exercise: Exercise;
 }
 
-interface DeleteExerciseDataTypes {
-    exercise_id: number | undefined;
-}
-
 interface EditExerciseDataTypes {
     id: number | undefined;
     name: string | undefined;
     description: string | undefined;
     routine_ids: number[] | undefined;
-    routine: RoutineData | undefined | null;
+    routine: RoutineData[] | undefined | null;
+}
+
+interface EditExerciseServiceProps {
+    id: number | undefined;
+    name: string | undefined;
+    description: string | undefined;
+    routine_ids: number[] | undefined;
 }

@@ -70,9 +70,9 @@ const getRoutineById = async (routineId:number) => {
 
 }
 
-const getExerciseById = async (exerciseId:number) => {
+const getExerciseById = async (exerciseId: string) => {
     try {
-        const response = await axios.get(`${baseUrl}exercise_management/getExerciseById/${exerciseId}`);
+        const response = await axios.get(`${baseUrl}routine_management/getExerciseById/${exerciseId}`);
         return response.data;
     } catch (error) {
         console.error(error);

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseUrl } from '../utils/Constants'
-import { AddExerciseToRoutineServiceProps, AddRoutineServiceProps, EditExerciseDataTypes, EditRoutineDataTypes } from '../utils/types'
+import { AddExerciseToRoutineServiceProps, AddRoutineServiceProps, EditExerciseServiceProps, EditRoutineDataTypes } from '../utils/types'
 
 
 async function AddRoutineService(credentials: AddRoutineServiceProps) {
@@ -33,7 +33,7 @@ async function EditRoutineService(credentials: EditRoutineDataTypes) {
     }
 }
 
-async function EditExerciseService(credentials: EditExerciseDataTypes) {
+async function EditExerciseService(credentials: EditExerciseServiceProps) {
 
     try {
         const { data } = await axios.put(`${baseUrl}routine_management/updateExercise`, credentials)

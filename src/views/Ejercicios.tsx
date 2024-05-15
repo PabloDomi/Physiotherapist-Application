@@ -36,17 +36,10 @@ const Ejercicios = () => {
 
     const refetchExercisesData = async () => {
         if (globalExercises) {
-            const newExercises = globalExercises.filter((r) => r.id !== DeleteExerciseData?.exercise_id)
+            const newExercises = globalExercises.filter((r) => r.id !== DeleteExerciseData)
             setGlobalExercises(newExercises)
         }
     }
-
-    /*
-        TODO: 
-            1. Pensar manera de actualizar el routine_ids al seleccionar varias rutinas
-               a las que agregar el ejercicio.
-            2. Probar la funcionalidad de los botones de editar y eliminar ejercicio.
-    */
 
     return (
         <>
@@ -104,7 +97,7 @@ const Ejercicios = () => {
                                 show={showModalDeleteExercise}
                                 title={modalTitleDeleteExercise}
                                 content={modalContentDeleteExercise}
-                                action='editExercise'
+                                action='deleteExercise'
                                 data={DeleteExerciseData}
                                 behavior={refetchExercisesData}
                             />

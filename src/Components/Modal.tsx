@@ -1,4 +1,4 @@
-import { AddExerciseToRoutineDataTypes, AddRoutineDataTypes, ChangePasswordDataTypes, EditExerciseDataTypes, EditRoutineDataTypes, RegisterPatientDataTypes, type ModalProps } from "../utils/types"
+import { AddExerciseToRoutineDataTypes, AddRoutineDataTypes, ChangePasswordDataTypes, EditExerciseDataTypes, EditExerciseServiceProps, EditRoutineDataTypes, RegisterPatientDataTypes, type ModalProps } from "../utils/types"
 import '../css/Modal.css'
 import { Button, Modal } from 'react-bootstrap'
 import { IonIcon } from "@ionic/react"
@@ -167,12 +167,11 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
         else if (action === 'editExercise' && data) {
             const editExerciseData = data as EditExerciseDataTypes
 
-            const credentials = {
+            const credentials: EditExerciseServiceProps = {
                 id: editExerciseData.id as number,
                 name: editExerciseData.name,
                 description: editExerciseData.description,
-                routine_ids: editExerciseData.routine_ids,
-                routine: editExerciseData.routine
+                routine_ids: editExerciseData.routine_ids
             }
 
             await PostPutDataService.EditExerciseService(credentials)

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import { EditExerciseDataTypes, Exercise, RoutineData } from "../utils/types"
 import GetDataService from "../services/GetDataService"
 
+
 export function useEditExercise() {
 
     const theme = useGlobalState(state => state.theme)
@@ -14,7 +15,7 @@ export function useEditExercise() {
 
     const [exercise, setExercise] = useState<Exercise | undefined>(undefined)
 
-    const patients = useGlobalState(state => state.patients)
+    const routines = useGlobalState(state => state.routines)
 
     const modalTitleEditExercise = 'Actualizar Rutina'
 
@@ -23,8 +24,8 @@ export function useEditExercise() {
             id: exercise?.id,
             name: exercise?.name,
             description: exercise?.description,
-            routine_ids: exercise?.routine_ids,
-            routine: exercise?.routine
+            routine_ids: Array.isArray(exercise?.routine_ids) ? exercise.routine_ids : [],
+            routine: Array.isArray(exercise?.routine) ? exercise?.routine : []
         }
     )
 
@@ -35,8 +36,8 @@ export function useEditExercise() {
                 id: exercise.id,
                 name: exercise.name,
                 description: exercise.description,
-                routine_ids: Array(Number(exercise)),
-                routine: exercise.routine as RoutineData
+                routine_ids: Array.isArray(exercise?.routine_ids) ? exercise.routine_ids : [],
+                routine: Array.isArray(exercise.routine) ? exercise.routine : []
             }
         )
     }, []);
@@ -45,6 +46,71 @@ export function useEditExercise() {
         if (exercise)
             updateExerciseData(exercise)
     }, [exercise, updateExerciseData])
+
+
+    const routineOfExercises = () => {
+        if (exercise?.routine && Array.isArray(exercise.routine)) {
+
+            const arrayOfRoutines: RoutineData[] | undefined = []
+
+            const routineIds: number[] = exercise.routine_ids
+
+            exercise.routine.forEach(element => {
+                if (exercise?.routine_ids) {
+                    if (routineIds.includes(element.id))
+                        arrayOfRoutines?.push(element)
+                }
+            })
+
+            return arrayOfRoutines as RoutineData[]
+        } else {
+            return []
+        }
+
+    }
+
+    const getRoutinesNotWithExercise = () => {
+
+        const routinesNotWithExercise = routines?.filter((r) => {
+            return !routineOfExercises().some(rutina => rutina.id === r.id)
+        })
+
+        return routinesNotWithExercise?.map((routine, index) => {
+            return <li style={{ margin: '0.2rem' }} key={index}>
+                <Form.Check.Input
+                    style={{ margin: '0.3rem', marginRight: '0.5rem' }}
+                    key={index}
+                    type="checkbox"
+                    defaultChecked={false}
+                    value={routine.id}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        if (event.target.checked === true) {
+                            isChecked(routine)
+                        } else {
+                            isUnchecked(routine)
+                        }
+                    }}
+                >
+                </Form.Check.Input>
+                <Form.Check.Label>
+                    {routine.name}
+                </Form.Check.Label>
+            </li>
+        })
+    }
+
+    const isChecked = (routine: RoutineData) => {
+        EditExerciseData?.routine_ids?.push(routine.id)
+        console.log(EditExerciseData?.routine_ids)
+    }
+
+    const isUnchecked = (routine: RoutineData) => {
+        const index = EditExerciseData?.routine_ids?.indexOf(routine.id)
+        if (index !== undefined) {
+            EditExerciseData?.routine_ids?.splice(index, 1)
+        }
+        console.log(EditExerciseData?.routine_ids)
+    }
 
     const modalContentEditExercise =
         <>
@@ -56,7 +122,7 @@ export function useEditExercise() {
                             style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                             onChange={(event) => {
                                 event.stopPropagation()
-                                GetDataService.getExerciseById(Number(event.target.value))
+                                GetDataService.getExerciseById(event.target.value)
                                     .then((res) => {
                                         setExercise(Object(res))
                                     })
@@ -114,33 +180,50 @@ export function useEditExercise() {
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="EditExerciseForm.Select1" onClick={(event) => event.stopPropagation()}>
-                        <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione la o las rutinas para agregar el ejercicio</Form.Label>
-                        <Form.Select
-                            multiple
+                        <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione a que rutinas agregar el ejercicio</Form.Label>
+                        <Form.Check
+                            type={"checkbox"}
                             style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                             onChange={(event) => {
                                 event.stopPropagation()
-                                setEditExerciseData(
-                                    {
-                                        ...(EditExerciseData as EditExerciseDataTypes),
-                                        routine: (event.target.value as unknown) as RoutineData
-                                    }
-                                )
+                                setEditExerciseData({
+                                    ...(EditExerciseData as EditExerciseDataTypes),
+                                    routine_ids: exercise?.routine_ids ? [...exercise.routine_ids, Number(event.target.value)] : [Number(event.target.value)]
+                                })
                             }}
                             autoFocus
                             aria-label="Default select"
                             className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                         >
-                            <option
-                                key={exercise?.routine?.name}
-                                value={exercise?.routine?.name}
-                            >
-                                { }
-                            </option>
-                            {patients?.map((patient, index) => {
-                                return <option key={index} value={patient.id}>{patient.name + ' ' + patient.surname}</option>
-                            })}
-                        </Form.Select>
+                            <ul>
+                                {
+                                    routineOfExercises().map((r, index) => {
+                                        return <li style={{ margin: '0.2rem' }} key={index}>
+                                            <Form.Check.Input
+                                                style={{ margin: '0.3rem', marginRight: '0.5rem' }}
+                                                type="checkbox"
+                                                defaultChecked={true}
+                                                value={r.id}
+                                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                                    if (event.target.checked === true) {
+                                                        isChecked(r)
+                                                    } else {
+                                                        isUnchecked(r)
+                                                    }
+                                                }}
+                                            >
+                                            </Form.Check.Input>
+                                            <Form.Check.Label>
+                                                {r.name}
+                                            </Form.Check.Label>
+                                        </li>
+                                    })
+                                }
+                            </ul>
+                            <ul>
+                                {getRoutinesNotWithExercise()}
+                            </ul>
+                        </Form.Check>
                     </Form.Group>
                 </Form>
             }
