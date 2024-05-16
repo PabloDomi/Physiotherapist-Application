@@ -23,7 +23,8 @@ const Ejercicios = () => {
         toggleModalEditExercise,
         modalTitleEditExercise,
         modalContentEditExercise,
-        EditExerciseData
+        EditExerciseData,
+        setExercise
     } = useEditExercise()
 
     const {
@@ -52,7 +53,7 @@ const Ejercicios = () => {
             }
             {!isLoading &&
                 <section className={theme === 'light' ? 'rutinas-section rutinas-background-light' : 'rutinas-section rutinas-background-dark'}>
-                    <h1>Lista de Ejercicios</h1>
+                    <h1 id="title-exercises">Lista de Ejercicios</h1>
                     <main className="rutinas-container">
                         <List
                             sx={{
@@ -71,7 +72,8 @@ const Ejercicios = () => {
                         <Button
                             onClick={toggleModalEditExercise}
                             variant="contained"
-                            sx={{ margin: '1rem', width: '33.5vw' }}>
+                            className="btn-exercise"
+                        >
                             Editar ejercicio
                             <EditOutlined />
                         </Button>
@@ -82,13 +84,14 @@ const Ejercicios = () => {
                                 content={modalContentEditExercise}
                                 action='editExercise'
                                 data={EditExerciseData}
-                                behavior={() => { }}
+                                behavior={() => { setExercise(undefined) }}
                             />
                         }
                         <Button
                             onClick={toggleModalDeleteExercise}
                             variant="contained"
-                            sx={{ margin: '1rem', width: '33.5vw' }}>
+                            className="btn-exercise"
+                        >
                             Eliminar ejercicio
                             <DeleteOutline />
                         </Button>

@@ -68,7 +68,8 @@ export const Rutinas = () => {
         toggleModalEditRoutine,
         modalTitleEditRoutine,
         modalContentEditRoutine,
-        EditRoutineData
+        EditRoutineData,
+        setRutina
     } = useEditRoutine()
 
 
@@ -168,7 +169,7 @@ export const Rutinas = () => {
                                 content={modalContentEditRoutine}
                                 action='editRoutine'
                                 data={EditRoutineData}
-                                behavior={() => { }}
+                                behavior={() => { setRutina(undefined) }}
                             />
                         }
                         <Button

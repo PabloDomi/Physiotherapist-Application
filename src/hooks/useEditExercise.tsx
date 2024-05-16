@@ -230,7 +230,7 @@ export function useEditExercise() {
         </>
 
 
-    return { showModalEditExercise, toggleModalEditExercise, modalTitleEditExercise, modalContentEditExercise, EditExerciseData }
+    return { showModalEditExercise, toggleModalEditExercise, modalTitleEditExercise, modalContentEditExercise, EditExerciseData, setExercise }
 }
 
 export default useEditExercise

@@ -81,7 +81,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                             className="d-inline-block align-center"
                             alt="logo-image-physioterapist"
                         />
-                        <span className="fw-bolder fs-4 brand-label">{brandName}</span>
+                        <span className={theme === 'light' ? "fw-bolder fs-4 brand-label-light" : "fw-bolder fs-4 brand-label"}>{brandName}</span>
                     </Nav.Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
@@ -102,7 +102,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                     </Nav>
                 </Navbar.Collapse>
                 <div className='dropdown'>
-                    <Button className='btn-options'>
+                    <Button className={theme === 'light' ? 'btn-options' : 'btn-options-dark'}>
                         <IonIcon icon={options} id='main-color7' className='btn-options-image' />
                     </Button>
                     <ul className='dropdown-content'>

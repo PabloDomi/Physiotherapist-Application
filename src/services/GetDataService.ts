@@ -1,11 +1,11 @@
 
 import axios from "axios";
-import { baseUrl } from "../utils/Constants";
+import { authorizationHeader, baseUrl } from "../utils/Constants";
 
 
 const getRoutines = async () => {
     try {
-        const response = await axios.get(`${baseUrl}routines`);
+        const response = await axios.get(`${baseUrl}routines`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -15,7 +15,7 @@ const getRoutines = async () => {
 
 const getPatients = async () => {
     try {
-        const response = await axios.get(`${baseUrl}patients`);
+        const response = await axios.get(`${baseUrl}patients`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -24,7 +24,7 @@ const getPatients = async () => {
 
 const checkEmailExists = async (email: string) => {
     try {
-        const response = await axios.get(`${baseUrl}user_management/checkEmail/${email}`);
+        const response = await axios.get(`${baseUrl}user_management/checkEmail/${email}`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -33,7 +33,7 @@ const checkEmailExists = async (email: string) => {
 
 const getUsers = async () => {
     try {
-        const response = await axios.get(`${baseUrl}users`);
+        const response = await axios.get(`${baseUrl}users`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -43,7 +43,7 @@ const getUsers = async () => {
 
 const getExercisesByRoutineName = async (routineName: string) => {
     try {
-        const response = await axios.get(`${baseUrl}routine_management/getExercisesFromRoutine/${routineName}`);
+        const response = await axios.get(`${baseUrl}routine_management/getExercisesFromRoutine/${routineName}`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -51,9 +51,13 @@ const getExercisesByRoutineName = async (routineName: string) => {
 
 }
 
-const checkHasRoutine = async (patientId: string) => {
+const checkHasRoutine = async (patientId: number | undefined) => {
     try {
-        const response = await axios.get(`${baseUrl}routine_management/checkHasRoutine/${patientId}`);
+        if(patientId === undefined) {
+            console.error("Patient ID is undefined");
+            return;
+        }
+        const response = await axios.get(`${baseUrl}routine_management/checkHasRoutine/${patientId}`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -62,7 +66,7 @@ const checkHasRoutine = async (patientId: string) => {
 
 const getRoutineById = async (routineId:number) => {
     try {
-        const response = await axios.get(`${baseUrl}routine_management/getRoutineById/${routineId}`);
+        const response = await axios.get(`${baseUrl}routine_management/getRoutineById/${routineId}`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -72,7 +76,7 @@ const getRoutineById = async (routineId:number) => {
 
 const getExerciseById = async (exerciseId: string) => {
     try {
-        const response = await axios.get(`${baseUrl}routine_management/getExerciseById/${exerciseId}`);
+        const response = await axios.get(`${baseUrl}routine_management/getExerciseById/${exerciseId}`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -82,7 +86,7 @@ const getExerciseById = async (exerciseId: string) => {
 
 const getAllExercises = async () => {
     try {
-        const response = await axios.get(`${baseUrl}exercises`);
+        const response = await axios.get(`${baseUrl}exercises`, authorizationHeader);
         return response.data;
     } catch (error) {
         console.error(error);

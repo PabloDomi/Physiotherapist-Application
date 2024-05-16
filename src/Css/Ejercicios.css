@@ -1,3 +1,14 @@
 ul {
     list-style-type: none;
 }
+
+#title-exercises {
+    color: #8faef5;
+}
+
+.btn-exercise {
+    background-color: #4570d6 !important;
+    margin: 1rem !important;
+    margin-top: 0.5rem !important;
+    width: 33.7vw;
+}

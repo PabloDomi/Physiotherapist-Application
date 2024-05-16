@@ -68,6 +68,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                 break
             case 'editRoutine':
                 toggleModalEditRoutine()
+                behavior()
                 toast.info('Acción cancelada')
                 break
             case 'deleteExercise':
@@ -76,6 +77,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                 break
             case 'editExercise':
                 toggleModalEditExercise()
+                behavior()
                 toast.info('Acción cancelada')
                 break
             default:
@@ -157,9 +159,9 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                 patient_id: editRoutineData.patient_id
             }
 
+            behavior()
             await PostPutDataService.EditRoutineService(credentials)
 
-            behavior()
             toast.success('! Rutina actualizada ! 🎉')
             toggleModalEditRoutine()
         }
@@ -187,7 +189,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
 
             const userData = JSON.parse(window.localStorage.getItem('user') || '{}');
 
-            const { hasRoutine } = await GetDataService.checkHasRoutine(AddRoutineData.patient_id?.toString() as string)
+            const { hasRoutine } = await GetDataService.checkHasRoutine(AddRoutineData.patient_id)
 
             if (hasRoutine !== false) {
                 alreadyHasRoutineError()
@@ -203,6 +205,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
             }
 
             await PostPutDataService.AddRoutineService(credentials)
+
 
             behavior()
             toast.success('Rutina añadida con éxito')

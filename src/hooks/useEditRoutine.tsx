@@ -169,13 +169,20 @@ export function useEditRoutine() {
             }
         </>
 
-    if (EditRoutineData?.patient_id !== rutina?.patient_id && EditRoutineData?.patient_id?.toString() !== undefined) {
+    if (
+        EditRoutineData?.patient_id !== rutina?.patient_id &&
+        EditRoutineData?.patient_id?.toString() !== undefined &&
+        rutina?.patient_id !== undefined
+    ) {
+        console.log('EditRoutineData.patient_id: ', EditRoutineData?.patient_id)
+        console.log('rutina.patient_id: ', rutina?.patient_id)
+
         try {
-            GetDataService.checkHasRoutine(EditRoutineData?.patient_id?.toString() as string)
+            GetDataService.checkHasRoutine(EditRoutineData?.patient_id)
                 .then(({ hasRoutine }) => {
                     if (hasRoutine) {
                         toast.error('El paciente ya tiene una rutina asignada')
-                        return new Error('El paciente ya tiene una rutina asignada')
+                        return
                     }
                 })
         } catch (error) {
@@ -185,7 +192,7 @@ export function useEditRoutine() {
     }
 
 
-    return { showModalEditRoutine, toggleModalEditRoutine, modalTitleEditRoutine, modalContentEditRoutine, EditRoutineData }
+    return { showModalEditRoutine, toggleModalEditRoutine, modalTitleEditRoutine, modalContentEditRoutine, EditRoutineData, setRutina }
 }
 
 export default useEditRoutine
