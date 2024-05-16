@@ -4,12 +4,12 @@ import SearchList from "./SearchList";
 import { SearchProps } from "../utils/types";
 
 
-const Search = ({ details, theme }: SearchProps) => {
+const Search = ({ chartTitle, details, theme }: SearchProps) => {
 
   const [searchField, setSearchField] = useState('')
   const [searchShow, setSearchShow] = useState(false)
 
-  const filteredPersons = details.filter(
+  const filteredPersons = details?.filter(
     person => {
       return (
         person
@@ -33,7 +33,7 @@ const Search = ({ details, theme }: SearchProps) => {
     if (searchShow) {
       return (
         <ScrollableList>
-          <SearchList filteredPersons={filteredPersons} />
+          <SearchList chartTitle={chartTitle} filteredPersons={filteredPersons} />
         </ScrollableList>
       );
     }

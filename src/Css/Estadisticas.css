@@ -53,7 +53,7 @@
 
 .title {
     font-family: "Tilt Neon";
-    color:#27ab28;
+    color:#8db1eb;
     align-self: center;
     justify-self: center;
     padding-top: 6px;
@@ -73,7 +73,7 @@
 
 .input-dark {
     background-color: #333;
-    border: 1px solid #8ed88f;
+    border: 1px solid #bbd2f7;
     border-radius: 5px;
     padding: 5px;
     width: 100%;
@@ -95,13 +95,11 @@
 }
 
 .scrollable-dark {
-    scrollbar-color: #568D75 #333;
+    scrollbar-color: #bbd2f7 #333;
 }
 
-
-
 .card-name {
-    color: #8ed88f;
+    color: #bbd2f7;
 }
 
 .card-name-light {
@@ -112,7 +110,7 @@
     font-size: .9em;
     margin-bottom: 0;
     text-align: start;
-    color: #8ed88f;
+    color: #bbd2f7;
 }
 
 .card-age-light {
@@ -123,6 +121,7 @@
 }
 
 .card-container {
+    display: flex;
     text-align: center;
     padding: .25rem;
     margin: .5rem;
@@ -145,6 +144,17 @@
     transition: transform 0.4s ease-in-out, box-shadow 0.3s ease;
 }
 
+.card-icon {
+    color: #bbd2f7;
+}
+
+#card-delete-button {
+   position: absolute;
+   padding: 0.2rem 0.5rem;
+   top: 0;
+   right: 0;
+}
+
 .stats-header {
     display: flex;
     justify-content: flex-start;
@@ -155,21 +165,49 @@
 
 .button-home-icon, .button-home-icon-dark {
     background-color: transparent;
-    border: none;
+    border: 2px solid #8db1eb;
+    border-radius: 10px;
     cursor: pointer;
-    color: #27ab28;
+    color: #8db1eb;
     font-size: 1.5rem;
     margin: 0;
-    padding: 0;
+    padding: 0.3rem;
     display: flex;
 }
 
 .button-home-icon-dark:hover {
-    color: #81eb81;
+    color: #c3d5f1;
+    border-color: #c3d5f1;
     background-color: transparent;
+    transition: all 0.3s ease-in-out;
 }
 
 .button-home-icon:hover {
-    color: #0d5517;
+    color: #166420;
+    border-color: #166420;
     background-color: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#patient-card-dark, #patient-card-light {
+    max-width: 350px;
+    max-height: 300px;
+    margin: 2rem;
+    margin-top: 5rem;
+}
+
+#patient-card-dark {
+    background-color: #333;
+    color: #fff;
+    outline: 2px solid #bbd2f7;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#patient-card-light {
+    background-color: #fff;
+    color: #333;
+    outline: 2px solid #27ab28;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }

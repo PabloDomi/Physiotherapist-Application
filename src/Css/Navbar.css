@@ -1,8 +1,12 @@
 /* ================ CSS DEL NAVBAR ================ */
 
 .brand-label {
-    color: #749c74;
-    opacity: 0.8;
+    color: #bbd2f7;
+    font-family: "Tilt Neon";
+}
+
+.brand-label-light {
+    color: #0d5517;
     font-family: "Tilt Neon";
 }
 
@@ -19,6 +23,17 @@
     border: 3px solid rgba(39, 171, 40, .5);;
     margin-left: auto;
     margin-right: 2.5rem;
+}
+
+.btn-options-dark {
+    padding: 0px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: inherit;
+    border: 3px solid rgba(187, 210, 247, 0.502);
+    margin-left: auto;
+    margin-right: 2.5rem;    
 }
 
 .ejercicios-nav-link {
@@ -88,12 +103,20 @@
     left: 0;
 }
 
+.btn-options-dark:focus-within + .dropdown-content li {
+    left: 0;
+}
+
 .btn-options:focus-within + .dropdown-content {
     visibility: visible;
 } 
 
+.btn-options-dark:focus-within + .dropdown-content {
+    visibility: visible;
+}
+
 .dropdown-content-button:hover {
-    outline: 2px solid #749C74;
+    outline: 2px solid #bbd2f7;
 }
 
 .dropdown-content-button {
@@ -101,8 +124,8 @@
     padding: 0.7em 0.5em;
     border-radius: 20px;
     border: 1px solid transparent;
-    color: #749C74;
-    outline: 1px #749C74;
+    color: #bbd2f7;
+    outline: 1px #bbd2f7;
 }
 
 .dropdown-content-button-dark {
@@ -112,40 +135,59 @@
 .btn-options:hover {
     transition: ease-in-out 0.3s;
     box-shadow: 0 0 20px rgb(83, 83, 83);
-    background-color: inherit;
-    border-color: #81eb81;
+    background-color: #d4e3fa;
+    border-color: #d4e3fa;
+
+    & .btn-options-image {
+        stroke-width: 20px;
+        color: #4570D6 !important;
+        transition: ease 0.3s;
+    }
+}
+
+.btn-options-dark:hover {
+    transition: ease-in-out 0.3s;
+    box-shadow: 0 0 20px rgb(83, 83, 83);
+    background-color: #4570D6;
+    border-color: #4570D6;
+
+    & .btn-options-image {
+        stroke-width: 20px;
+        color: #d4e3fa !important;
+        transition: ease 0.3s;
+    }
 }
 
 .dark-input {
     background-color: #555;
-    color: #749c74;
+    color: #4570D6;
     border-color: #333;
 }
 
 .dark-input2 {
-    background-color: #fff;
-    color: #749C74;
-    border-color: #749C74;
+    background-color: #555;
+    color: #4570D6;
+    border-color: #4570D6;
 }
 
 .dark-input:focus {
     background-color: #555454;
-    box-shadow: 0 0 10px #749C74;
-    border-color: #749C74;
+    box-shadow: 0 0 10px #4570D6;
+    border-color: #4570D6;
 }
 
 .dark-input2:focus {
-    box-shadow: 0 0 10px #749C74;
-    border-color: #749C74;
+    box-shadow: 0 0 10px #4570D6;
+    border-color: #4570D6;
 }
 
 #text-inactive-dark {
-    color: rgb(39, 171, 40);
+    color: #bbd2f7;
     background-image: linear-gradient(
     to right,
-    #81eb81,
-    #81eb81 50%,
-    rgb(39, 171, 40) 50%
+    #4570D6,
+    #668AF3 50%,
+    #bbd2f7 50%
     );
     background-size: 200% 100%;
     background-position: -100%;
@@ -154,7 +196,7 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.6s ease-in-out;
 }
 
 #text-inactive {

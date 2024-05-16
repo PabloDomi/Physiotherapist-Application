@@ -13,8 +13,10 @@ export type Gender = string;
 export interface User { 
     id: Id
     name: Name
+    surname: Name
     age: Age
     gender: Gender
+    routine_id: Id
 }
 
 export interface UserAdmin {
@@ -26,10 +28,27 @@ export interface UserAdmin {
 
 export type ModalType = boolean;
 
+interface ChangePasswordDataTypes {
+    email: string | undefined
+    password: string | undefined
+    newPassword: string | undefined
+}
+
+interface RegisterPatientDataTypes {
+    name: string | undefined
+    surname: string | undefined
+    age: number | undefined
+    gender: string | undefined
+    routine_id: number | string | undefined
+}
+
 export interface ModalProps {
     show: boolean
     title: string
     content: ReactNode
+    action: string
+    data: DeleteExerciseDataTypes | ChangePasswordDataTypes |  RegisterPatientDataTypes | AddExerciseToRoutineDataTypes | AddRoutineDataTypes | number | string | null | undefined
+    behavior: () => void
 }
 
 export interface ButtonToggleThemeProps {
@@ -48,12 +67,14 @@ export interface ScrollableListProps {
 }
 
 export interface SearchProps {
-    details: User[]
+    chartTitle: (newTitle: number) => void
+    details: User[] | null
     theme: Theme
 }
 
 export interface SearchListProps {
-    filteredPersons: User[]
+    chartTitle: (newTitle: number) => void
+    filteredPersons: User[] | undefined
 }
 
 export interface EstadisticasProps {
@@ -61,6 +82,7 @@ export interface EstadisticasProps {
 }
 
 export interface SearchCardProps {
+    chartTitle: (newTitle: number) => void
     key: number;
     person: User;
 }
@@ -69,14 +91,38 @@ interface GlobalState {
     view: string
     user: UserAdmin | null
     setUser: (newUser: UserAdmin) => void
+    patients: User[] | null
+    setPatients: (newPatients: User[]) => void
     changeView: (view: string) => void
     customStatsData: CustomStatsData | undefined
     changeCustomStatsData: (newData: CustomStatsData) => void
     setCustomStatsDataUndefined: () => void
     theme: Theme
     toggleTheme: () => void
-    showModal: ModalType
-    toggleModal: () => void
+    routines: RoutineData[] | undefined
+    setRoutines: (newRoutines: RoutineData[]) => void
+    exercises: Exercise[] | undefined
+    setExercises: (newExercises: Exercise[]) => void
+    showChangePasswordModal: ModalType
+    toggleChangePasswordModal: () => void
+    showRegisterPatientModal: ModalType
+    toggleRegisterPatientModal: () => void
+    showAreUSureModal: ModalType
+    toggleAreUSureModal: () => void
+    showDeleteAdminModal: ModalType
+    toggleDeleteAdminModal: () => void
+    showAddRoutineModal: ModalType
+    toggleAddRoutineModal: () => void
+    showAddExerciseToRoutineModal: ModalType
+    toggleAddExerciseToRoutineModal: () => void
+    showEditRoutineModal: ModalType
+    toggleEditRoutineModal: () => void
+    showDeleteRoutineModal: ModalType
+    toggleDeleteRoutineModal: () => void
+    showDeleteExerciseModal: ModalType
+    toggleDeleteExerciseModal: () => void
+    showEditExerciseModal: ModalType
+    toggleEditExerciseModal: () => void
   }
 
 export interface CustomStatsData {
@@ -89,33 +135,33 @@ export interface CustomStatsData {
 }
 
 interface Exercise {
-    name: string;
-    description: string;
-}
-
-interface Data {
     id: Id;
     name: string;
     description: string;
-    ejercicios: {
-        ej1: Exercise;
-        ej2: Exercise;
-        ej3: Exercise;
-    };
-    tiempoEstimado: number;
+    routine_ids: Id[] | []
+    routine: RoutineData | null
+}
+
+interface RoutineData {
+    id: Id;
+    name: string;
+    description: string;
+    exercises: Exercise[] | []
+    estimatedTime: number;
+    patient_id: number;
+    user_id: number;
 }
 
 interface ExerciseData {
     exercises: Exercise[];
 }
 
-interface RoutineData {
-    routine: Data;
-}
-
 interface ListExpandProps {
     key: number;
-    rutina: Data;
+    rutina: RoutineData;
+    setRoutines: (newRoutines: RoutineData[]) => void;
+    rutinas: RoutineData[];
+    componentId: number;
 }
 
 interface SignUpFormFieldProps {
@@ -141,4 +187,82 @@ interface RegisterServiceProps {
 interface LoginServiceProps {
         email: string;
         password: string;
+}
+
+interface RegisterPatientFormProps {
+    name: FieldPath<z.infer<typeof registerFormSchema>>;
+    surname: FieldPath<z.infer<typeof registerFormSchema>>;
+    age: FieldPath<z.infer<typeof registerFormSchema>>;
+}
+
+interface ChangePasswordServiceProps {
+    email: string | undefined;
+    newPassword: string | undefined;
+}
+
+interface registerPatientServiceProps {
+    name: string | undefined;
+    surname: string | undefined;
+    age: number | undefined;
+    gender: string | undefined;
+    routine_id: number | string | undefined;
+}
+
+interface AddRoutineDataTypes {
+    name: string | undefined;
+    description: string | undefined;
+    estimatedTime: number | undefined;
+    patient_id: number | undefined;
+}
+
+interface AddRoutineServiceProps {
+    name: string | undefined;
+    description: string | undefined;
+    estimatedTime: number | undefined;
+    user_id: number | undefined;
+    patient_id: number | undefined;
+}
+
+interface AddExerciseToRoutineDataTypes {
+    name: string | undefined;
+    description: string | undefined;
+    routine_name?: string | undefined;
+}
+
+interface AddExerciseToRoutineServiceProps {
+    name: string | undefined;
+    description: string | undefined;
+    routine_name: string | undefined;
+}
+
+interface EditRoutineDataTypes {
+    routine_id: number | undefined;
+    name: string | undefined;
+    description: string | undefined;
+    estimatedTime: number | undefined;
+    patient_id: number | undefined;
+}
+
+interface DeleteRoutineDataTypes {
+    routine_id: number | undefined;
+}
+
+interface ListExpandExercisesCustomProps {
+    key: number;
+    exercise: Exercise;
+}
+
+interface EditExerciseDataTypes {
+    id: number | undefined;
+    name: string | undefined;
+    description: string | undefined;
+    routine_ids: number[] | undefined;
+    routine: RoutineData[] | undefined | null;
+}
+
+interface EditExerciseServiceProps {
+    id: number | undefined;
+    name: string | undefined;
+    description: string | undefined;
+    routine_ids: number[] | undefined;
 }

@@ -9,7 +9,7 @@
 
 .footer-light {
     background-color: #333;
-    color: rgb(116, 156, 116);
+    color: #749c74;
     padding: 20px 0;
     width: 100%;
     position: fixed;
@@ -19,7 +19,7 @@
 
 .footer-dark {
     background-color: #FFF;
-    color: rgb(116, 156, 116);
+    color: #749c74;
     padding: 20px 0;
     width: 100%;
     position: fixed;

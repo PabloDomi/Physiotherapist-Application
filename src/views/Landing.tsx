@@ -118,8 +118,8 @@ const Landing = () => {
             setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
 
         } catch (error) {
+            setErrorMessage({ message: 'Email o contraseña incorrectos', severity: 'error' })
             throw new Error("Error en el login de usuario")
-            console.error(error)
         }
     }
 
