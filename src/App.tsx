@@ -37,11 +37,11 @@ function App() {
         setGlobalExercises(res2)
       } catch (error) {
         console.error(error)
-        throw new Error("Error al obtener los administradores")
+        throw new Error("Error al obtener los datos de las rutinas y ejercicios")
       }
     }
     fetchData()
-  }, [setGlobalRoutines])
+  }, [setGlobalRoutines, setGlobalExercises])
 
   return (
     <>
