@@ -20,6 +20,8 @@ const useRefreshJWToken = (user: UserAdmin | null) => {
                 }
             };
 
+            isInitialRender.current = false
+
             // Configuración del intervalo para refrescar el token cada 5 minutos
             const interval = setInterval(() => {
                 updateToken()
@@ -28,8 +30,6 @@ const useRefreshJWToken = (user: UserAdmin | null) => {
             // Cleanup function del interavalo
             return () => clearInterval(interval)
         }
-        if (user) isInitialRender.current = false
-
     }, [user])
 }
 
