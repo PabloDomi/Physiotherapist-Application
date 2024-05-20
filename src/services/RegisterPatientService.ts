@@ -1,9 +1,19 @@
 import axios from 'axios'
-import { authorizationHeader, baseUrl } from '../utils/Constants'
-import { registerPatientServiceProps } from '../utils/types'
+import { baseUrl } from '../utils/Constants'
+import { authHeader, registerPatientServiceProps } from '../utils/types'
 
+
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
 
 async function RegisterPatientService(credentials: registerPatientServiceProps) {
+
+    const authorizationHeader: authHeader = authHeaders()
 
     try {
         const { data } = await axios.post(`${baseUrl}patient_management/registerPatient`, credentials, authorizationHeader)

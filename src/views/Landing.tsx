@@ -113,7 +113,7 @@ const Landing = () => {
     // Submit del formulario de inicio de sesión
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (values: LoginSchema) => {
         try {
-            const data = await LoginService(values)
+            const data = await LoginService.LoginService(values)
             setUser(data)
             setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
 

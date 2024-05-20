@@ -1,9 +1,20 @@
 import axios from 'axios'
-import { authorizationHeader, baseUrl } from '../utils/Constants'
-import { AddExerciseToRoutineServiceProps, AddRoutineServiceProps, EditExerciseServiceProps, EditRoutineDataTypes } from '../utils/types'
+import { baseUrl } from '../utils/Constants'
+import { AddExerciseToRoutineServiceProps, AddRoutineServiceProps, EditExerciseServiceProps, EditRoutineDataTypes, authHeader } from '../utils/types'
+
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
 
 
 async function AddRoutineService(credentials: AddRoutineServiceProps) {
+
+    const authorizationHeader: authHeader = authHeaders()
+
 
     try {
         const { data } = await axios.post(`${baseUrl}routine_management/addRoutine`, credentials, authorizationHeader)
@@ -15,15 +26,19 @@ async function AddRoutineService(credentials: AddRoutineServiceProps) {
 
 async function AddExerciseToRoutineService(credentials: AddExerciseToRoutineServiceProps) {
 
-        try {
-            const { data } = await axios.post(`${baseUrl}routine_management/addExerciseToRoutine`, credentials, authorizationHeader)
-            return data
-        } catch (error) {
-            throw new Error("Error añadiendo el ejercicio a la rutina")
-        }
+    const authorizationHeader: authHeader = authHeaders()
+
+    try {
+        const { data } = await axios.post(`${baseUrl}routine_management/addExerciseToRoutine`, credentials, authorizationHeader)
+        return data
+    } catch (error) {
+        throw new Error("Error añadiendo el ejercicio a la rutina")
+    }
 }
 
 async function EditRoutineService(credentials: EditRoutineDataTypes) {
+
+    const authorizationHeader: authHeader = authHeaders()
 
     try {
         const { data } = await axios.put(`${baseUrl}routine_management/updateRoutine`, credentials,authorizationHeader)
@@ -34,6 +49,8 @@ async function EditRoutineService(credentials: EditRoutineDataTypes) {
 }
 
 async function EditExerciseService(credentials: EditExerciseServiceProps) {
+
+    const authorizationHeader: authHeader = authHeaders()
 
     try {
         const { data } = await axios.put(`${baseUrl}routine_management/updateExercise`, credentials, authorizationHeader)

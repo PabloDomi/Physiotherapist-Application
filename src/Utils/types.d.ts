@@ -85,7 +85,14 @@ export interface SearchCardProps {
     chartTitle: (newTitle: number) => void
     key: number;
     person: User;
+    onRemove: (personId: number) => void;
 }
+
+export type authHeader = {
+    headers: { 
+        Authorization: string 
+    }
+};
 
 interface GlobalState {
     view: string
@@ -187,6 +194,10 @@ interface RegisterServiceProps {
 interface LoginServiceProps {
         email: string;
         password: string;
+}
+
+interface LogoutServiceProps {
+    email: string;
 }
 
 interface RegisterPatientFormProps {

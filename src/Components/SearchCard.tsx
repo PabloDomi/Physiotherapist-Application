@@ -9,7 +9,7 @@ import useAreUSure from "../hooks/useAreUSure";
 import ModalWindow from "./Modal";
 
 
-const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person }) => {
+const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove }) => {
 
   const theme = useGlobalState(state => state.theme)
 
@@ -49,14 +49,27 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person }) => {
     toggleModalAreUSure()
   }
 
+  const confirmDelete = () => {
+    onRemove(person.id)
+    toggleShowCard()
+  }
+
+  /*const getPersonId = (personsIndex: number, visiblePersons: User[] | null) => {
+    if (!visiblePersons) return null
+    return visiblePersons[personsIndex].id
+  } */
 
   return (
     <>
       {showCard &&
         <div className="card-container shadow">
           <button className="card-div-button" onClick={handleClick}>
-            <h6 className={theme === 'light' ? 'card-name-light fw-bold' : 'card-name fw-bold'}>{person.name + ' ' + person.surname}</h6>
-            <p className={theme === 'light' ? 'card-age-light ps-2' : 'card-age ps-2'}>{person.age + ' años'}</p>
+            <h6 className={theme === 'light' ? 'card-name-light fw-bold' : 'card-name fw-bold'}>
+              {person.name + ' ' + person.surname}
+            </h6>
+            <p className={theme === 'light' ? 'card-age-light ps-2' : 'card-age ps-2'}>
+              {person.age + ' años'}
+            </p>
           </button>
           <IconButton onClick={handleDeleteClick} aria-label="delete" id="card-delete-button">
             <Clear fontSize="small" className={theme === 'dark' ? 'card-icon' : ''} />
@@ -68,7 +81,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person }) => {
               content={modalContentAreUSure}
               action='deletePatient'
               data={person.id}
-              behavior={toggleShowCard}
+              behavior={confirmDelete}
             />
           }
         </div>

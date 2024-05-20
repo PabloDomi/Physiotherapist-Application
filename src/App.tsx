@@ -11,6 +11,7 @@ import { useEffect } from 'react'
 import Landing from './views/Landing'
 import { theresUser, noUser } from './utils/Constants'
 import GetDataService from './services/GetDataService'
+import useRefreshJWToken from './hooks/useRefreshJWToken'
 
 function App() {
 
@@ -21,6 +22,9 @@ function App() {
   const changeView = useGlobalState(state => state.changeView)
   const setGlobalRoutines = useGlobalState(state => state.setRoutines)
   const setGlobalExercises = useGlobalState(state => state.setExercises)
+
+  useRefreshJWToken(user)
+
 
   useEffect(() => {
     const newLocation = location.pathname
@@ -40,8 +44,10 @@ function App() {
         throw new Error("Error al obtener los datos de las rutinas y ejercicios")
       }
     }
-    fetchData()
-  }, [setGlobalRoutines, setGlobalExercises])
+    if (user) {
+      fetchData()
+    }
+  }, [setGlobalRoutines, setGlobalExercises, user])
 
   return (
     <>

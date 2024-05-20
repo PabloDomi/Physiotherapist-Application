@@ -127,14 +127,14 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
         }
 
         else if (action === 'deletePatient') {
-            await DeleteDataService.deletePatient(data as number)
+            await DeleteDataService.DeletePatient(data as number)
             behavior()
             toast.success('Paciente eliminado con éxito')
             toggleAreUSureModal()
         }
 
         else if (action === 'deleteAdmin') {
-            await DeleteDataService.deleteAdmin(data as string)
+            await DeleteDataService.DeleteAdmin(data as string)
             behavior()
             setTimeout(() => { }, 3000)
             const user = JSON.parse(window.localStorage.getItem('user') || '{}');
@@ -227,14 +227,14 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
             toggleModalAddExerciseToRoutine()
         }
         else if (action === 'deleteRoutine') {
-            await DeleteDataService.deleteRoutine(data as number)
+            await DeleteDataService.DeleteRoutine(data as number)
             behavior()
             toast.success('Rutina eliminada con éxito')
             toggleModalDeleteRoutine()
         }
 
         else if (action === 'deleteExercise') {
-            await DeleteDataService.deleteExercise(data as number)
+            await DeleteDataService.DeleteExercise(data as number)
             behavior()
             toast.success('Ejercicio eliminado con éxito')
             toggleModalDeleteExercise()

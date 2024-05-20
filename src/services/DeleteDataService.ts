@@ -1,9 +1,19 @@
 import axios from 'axios';
-import { Id } from '../utils/types';
-import { authorizationHeader, baseUrl } from '../utils/Constants';
+import { Id, authHeader } from '../utils/types';
+import { baseUrl } from '../utils/Constants';
 
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
 
-const deletePatient = async (id: Id) => {
+const DeletePatient = async (id: Id) => {
+
+    const authorizationHeader: authHeader = authHeaders() 
+
     try {
         const res = await axios.delete(`${baseUrl}patient_management/patientDelete/${id}`, authorizationHeader)
         return { res }
@@ -12,7 +22,9 @@ const deletePatient = async (id: Id) => {
     }
 }
 
-const deleteAdmin = async (email: string) => {
+const DeleteAdmin = async (email: string) => {
+
+    const authorizationHeader: authHeader = authHeaders() 
 
     try {
         const res = await axios.delete(`${baseUrl}user_management/deleteUser/${email}`, authorizationHeader)
@@ -22,7 +34,10 @@ const deleteAdmin = async (email: string) => {
     }
 }
 
-const deleteRoutine = async (id: Id) => {
+const DeleteRoutine = async (id: Id) => {
+
+    const authorizationHeader: authHeader = authHeaders() 
+
     try {
         const res = await axios.delete(`${baseUrl}routine_management/deleteRoutine/${id}`, authorizationHeader)
         return { res }
@@ -31,7 +46,10 @@ const deleteRoutine = async (id: Id) => {
     }
 }
 
-const deleteExercise = async (id: Id) => {
+const DeleteExercise = async (id: Id) => {
+
+    const authorizationHeader: authHeader = authHeaders() 
+
     try {
         const res = await axios.delete(`${baseUrl}routine_management/deleteExercise/${id}`, authorizationHeader)
         return { res }
@@ -41,4 +59,4 @@ const deleteExercise = async (id: Id) => {
 
 }
 
-export default { deleteExercise, deletePatient, deleteAdmin, deleteRoutine }
+export default { DeleteExercise, DeletePatient, DeleteAdmin, DeleteRoutine }
