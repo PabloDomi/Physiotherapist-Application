@@ -5,26 +5,14 @@ import { useGlobalState } from "../store/useGlobalState";
 import { mockCustomStats } from "../utils/MockData";
 import { IconButton } from "@mui/material";
 import { Clear } from '@mui/icons-material';
-import useAreUSure from "../hooks/useAreUSure";
-import ModalWindow from "./Modal";
 
 
-const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove }) => {
+const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove, setBehavior }) => {
 
   const theme = useGlobalState(state => state.theme)
-
-  const information = '¿Está seguro de que desea eliminar este paciente y toda su información relacionada?'
-
   const [showCard, setShowCard] = useState<boolean>(true)
 
   const toggleShowCard = () => setShowCard(!showCard)
-
-  const {
-    showModalAreUSure,
-    toggleModalAreUSure,
-    modalTitleAreUSure,
-    modalContentAreUSure
-  } = useAreUSure(information)
 
   // Función para actualizar el valor de custom data y recarga automatica de los datos en estadisticas
   const changeCustomStatsData = useGlobalState(state => state.changeCustomStatsData)
@@ -45,19 +33,12 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove })
 
   const handleDeleteClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-
-    toggleModalAreUSure()
+    setBehavior({
+      onRemove: onRemove,
+      toggleShowCard: toggleShowCard,
+      person_Id: person.id
+    })
   }
-
-  const confirmDelete = () => {
-    onRemove(person.id)
-    toggleShowCard()
-  }
-
-  /*const getPersonId = (personsIndex: number, visiblePersons: User[] | null) => {
-    if (!visiblePersons) return null
-    return visiblePersons[personsIndex].id
-  } */
 
   return (
     <>
@@ -74,16 +55,6 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove })
           <IconButton onClick={handleDeleteClick} aria-label="delete" id="card-delete-button">
             <Clear fontSize="small" className={theme === 'dark' ? 'card-icon' : ''} />
           </IconButton>
-          {showModalAreUSure &&
-            <ModalWindow
-              show={showModalAreUSure}
-              title={modalTitleAreUSure}
-              content={modalContentAreUSure}
-              action='deletePatient'
-              data={person.id}
-              behavior={confirmDelete}
-            />
-          }
         </div>
       }
     </>

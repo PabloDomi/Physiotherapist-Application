@@ -96,148 +96,222 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
 
         else if (action === 'changePassword' && data) {
 
-            data = data as ChangePasswordDataTypes
+            try {
 
-            checkChangePasswordFormData(data)
+                data = data as ChangePasswordDataTypes
 
-            const credentials = {
-                email: data?.email,
-                newPassword: data?.newPassword
+                checkChangePasswordFormData(data)
+
+                const credentials = {
+                    email: data?.email,
+                    newPassword: data?.newPassword
+                }
+
+                await ChangePasswordService(credentials)
+                behavior()
+                toggleChangePasswordModal()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al cambiar la contraseña')
             }
 
-            await ChangePasswordService(credentials)
-            behavior()
-            toggleChangePasswordModal()
         }
         else if (action === 'registerPatient' && data) {
 
-            data = data as RegisterPatientDataTypes
+            try {
 
-            const credentials = {
-                name: data?.name,
-                surname: data?.surname,
-                age: data?.age,
-                gender: data?.gender,
-                routine_id: data?.routine_id
+                data = data as RegisterPatientDataTypes
+
+                const credentials = {
+                    name: data?.name,
+                    surname: data?.surname,
+                    age: data?.age,
+                    gender: data?.gender,
+                    routine_id: data?.routine_id
+                }
+
+                await RegisterPatientService(credentials)
+                behavior()
+                toggleRegisterPatientModal()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al registrar el paciente')
             }
-
-            await RegisterPatientService(credentials)
-            behavior()
-            toggleRegisterPatientModal()
         }
 
         else if (action === 'deletePatient') {
-            await DeleteDataService.DeletePatient(data as number)
-            behavior()
-            toast.success('Paciente eliminado con éxito')
-            toggleAreUSureModal()
+            try {
+                await DeleteDataService.DeletePatient(data as number)
+                toast.success('Paciente eliminado con éxito')
+                toggleAreUSureModal()
+                behavior()
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al eliminar el paciente')
+            }
         }
 
         else if (action === 'deleteAdmin') {
-            await DeleteDataService.DeleteAdmin(data as string)
-            behavior()
-            setTimeout(() => { }, 3000)
-            const user = JSON.parse(window.localStorage.getItem('user') || '{}');
-            const userEmail = user.email;
 
-            if (data === userEmail) {
-                window.localStorage.clear()
-                window.location.href = '/'
+            try {
+
+                await DeleteDataService.DeleteAdmin(data as string)
+                behavior()
+                setTimeout(() => { }, 3000)
+                const user = JSON.parse(window.localStorage.getItem('user') || '{}');
+                const userEmail = user.email;
+
+                if (data === userEmail) {
+                    window.localStorage.clear()
+                    window.location.href = '/'
+                }
+                toggleDeleteAdminModal()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al eliminar el administrador')
             }
-            toggleDeleteAdminModal()
         }
 
         else if (action === 'editRoutine' && data) {
 
-            const editRoutineData = data as EditRoutineDataTypes
+            try {
 
-            const credentials = {
-                routine_id: editRoutineData.routine_id as number,
-                name: editRoutineData.name,
-                description: editRoutineData.description,
-                estimatedTime: editRoutineData.estimatedTime,
-                patient_id: editRoutineData.patient_id
+                const editRoutineData = data as EditRoutineDataTypes
+
+                const credentials = {
+                    routine_id: editRoutineData.routine_id as number,
+                    name: editRoutineData.name,
+                    description: editRoutineData.description,
+                    estimatedTime: editRoutineData.estimatedTime,
+                    patient_id: editRoutineData.patient_id
+                }
+
+                behavior()
+                await PostPutDataService.EditRoutineService(credentials)
+
+                toast.success('! Rutina actualizada ! 🎉')
+                toggleModalEditRoutine()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al editar la rutina')
             }
-
-            behavior()
-            await PostPutDataService.EditRoutineService(credentials)
-
-            toast.success('! Rutina actualizada ! 🎉')
-            toggleModalEditRoutine()
         }
 
         else if (action === 'editExercise' && data) {
-            const editExerciseData = data as EditExerciseDataTypes
 
-            const credentials: EditExerciseServiceProps = {
-                id: editExerciseData.id as number,
-                name: editExerciseData.name,
-                description: editExerciseData.description,
-                routine_ids: editExerciseData.routine_ids
+            try {
+
+                const editExerciseData = data as EditExerciseDataTypes
+
+                const credentials: EditExerciseServiceProps = {
+                    id: editExerciseData.id as number,
+                    name: editExerciseData.name,
+                    description: editExerciseData.description,
+                    routine_ids: editExerciseData.routine_ids
+                }
+
+                await PostPutDataService.EditExerciseService(credentials)
+
+                behavior()
+                toast.success('! Ejercicio actualizado ! 🎉')
+                toggleModalEditExercise()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al editar el ejercicio')
             }
-
-            await PostPutDataService.EditExerciseService(credentials)
-
-            behavior()
-            toast.success('! Ejercicio actualizado ! 🎉')
-            toggleModalEditExercise()
         }
 
         else if (action === 'addRoutine' && data) {
 
-            const AddRoutineData = data as AddRoutineDataTypes
+            try {
 
-            const userData = JSON.parse(window.localStorage.getItem('user') || '{}');
+                const AddRoutineData = data as AddRoutineDataTypes
 
-            const { hasRoutine } = await GetDataService.checkHasRoutine(AddRoutineData.patient_id)
+                const userData = JSON.parse(window.localStorage.getItem('user') || '{}');
 
-            if (hasRoutine !== false) {
-                alreadyHasRoutineError()
-                return
+                const { hasRoutine } = await GetDataService.checkHasRoutine(AddRoutineData.patient_id)
+
+                if (hasRoutine !== false) {
+                    alreadyHasRoutineError()
+                    return
+                }
+
+                const credentials = {
+                    name: AddRoutineData.name,
+                    description: AddRoutineData.description,
+                    estimatedTime: AddRoutineData.estimatedTime,
+                    user_id: userData.id as number,
+                    patient_id: AddRoutineData.patient_id
+                }
+
+                await PostPutDataService.AddRoutineService(credentials)
+
+
+                behavior()
+                toast.success('Rutina añadida con éxito')
+                toggleModalAddRoutine()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al añadir la rutina')
             }
-
-            const credentials = {
-                name: AddRoutineData.name,
-                description: AddRoutineData.description,
-                estimatedTime: AddRoutineData.estimatedTime,
-                user_id: userData.id as number,
-                patient_id: AddRoutineData.patient_id
-            }
-
-            await PostPutDataService.AddRoutineService(credentials)
-
-
-            behavior()
-            toast.success('Rutina añadida con éxito')
-            toggleModalAddRoutine()
         }
         else if (action === 'addExerciseToRoutine' && data) {
-            const AddExerciseToRoutineData = data as AddExerciseToRoutineDataTypes
 
-            const credentials = {
-                name: AddExerciseToRoutineData.name,
-                description: AddExerciseToRoutineData.description,
-                routine_name: AddExerciseToRoutineData.routine_name
+            try {
+
+                const AddExerciseToRoutineData = data as AddExerciseToRoutineDataTypes
+
+                const credentials = {
+                    name: AddExerciseToRoutineData.name,
+                    description: AddExerciseToRoutineData.description,
+                    routine_name: AddExerciseToRoutineData.routine_name
+                }
+
+
+                await PostPutDataService.AddExerciseToRoutineService(credentials)
+                behavior()
+                toast.success('Ejercicio añadido con éxito')
+                toggleModalAddExerciseToRoutine()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al añadir el ejercicio a la rutina')
             }
-
-
-            await PostPutDataService.AddExerciseToRoutineService(credentials)
-            behavior()
-            toast.success('Ejercicio añadido con éxito')
-            toggleModalAddExerciseToRoutine()
         }
         else if (action === 'deleteRoutine') {
-            await DeleteDataService.DeleteRoutine(data as number)
-            behavior()
-            toast.success('Rutina eliminada con éxito')
-            toggleModalDeleteRoutine()
+
+            try {
+
+                await DeleteDataService.DeleteRoutine(data as number)
+                behavior()
+                toast.success('Rutina eliminada con éxito')
+                toggleModalDeleteRoutine()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al eliminar la rutina')
+            }
         }
 
         else if (action === 'deleteExercise') {
-            await DeleteDataService.DeleteExercise(data as number)
-            behavior()
-            toast.success('Ejercicio eliminado con éxito')
-            toggleModalDeleteExercise()
+
+            try {
+
+                await DeleteDataService.DeleteExercise(data as number)
+                behavior()
+                toast.success('Ejercicio eliminado con éxito')
+                toggleModalDeleteExercise()
+
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al eliminar el ejercicio')
+            }
         }
         else {
             handleClose(event)

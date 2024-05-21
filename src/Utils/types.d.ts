@@ -86,6 +86,7 @@ export interface SearchCardProps {
     key: number;
     person: User;
     onRemove: (personId: number) => void;
+    setBehavior: (behavior: behaviorSearchListProps) => void;
 }
 
 export type authHeader = {
@@ -277,3 +278,9 @@ interface EditExerciseServiceProps {
     description: string | undefined;
     routine_ids: number[] | undefined;
 }
+
+interface behaviorSearchListProps {
+    onRemove: (personId: number) => void
+    toggleShowCard: () => void
+    person_Id: number
+  }
