@@ -174,9 +174,6 @@ export function useEditRoutine() {
         EditRoutineData?.patient_id?.toString() !== undefined &&
         rutina?.patient_id !== undefined
     ) {
-        console.log('EditRoutineData.patient_id: ', EditRoutineData?.patient_id)
-        console.log('rutina.patient_id: ', rutina?.patient_id)
-
         try {
             GetDataService.checkHasRoutine(EditRoutineData?.patient_id)
                 .then(({ hasRoutine }) => {

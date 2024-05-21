@@ -23,8 +23,8 @@ function App() {
   const setGlobalRoutines = useGlobalState(state => state.setRoutines)
   const setGlobalExercises = useGlobalState(state => state.setExercises)
 
-  useRefreshJWToken(user)
 
+  useRefreshJWToken(user)
 
   useEffect(() => {
     const newLocation = location.pathname
