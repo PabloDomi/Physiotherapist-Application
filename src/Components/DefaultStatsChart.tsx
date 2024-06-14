@@ -1,7 +1,10 @@
 import { ApexOptions } from 'apexcharts';
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 import Chart from 'react-apexcharts'
 import '../css/Estadisticas.css'
 import { mockStats } from "../utils/MockData"
+import { useRef } from 'react';
 
 const DefaultStatsChart = () => {
 
@@ -106,9 +109,42 @@ const DefaultStatsChart = () => {
         }
     ];
 
+    const chartRef = useRef<HTMLElement>(null)
+
+    const downloadPDF = () => {
+
+        if (chartRef.current) {
+            const input = chartRef.current;
+            if (!input) {
+                console.error('No chart ref');
+                return;
+            }
+
+            if (input instanceof HTMLElement) {
+                html2canvas(input).then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({
+                        orientation: 'landscape',
+                        unit: 'px',
+                        format: [canvas.width, canvas.height]
+                    });
+                    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+                    pdf.save('estadisticas.pdf');
+                }).catch((error) => {
+                    console.error('Error generating PDF', error);
+                });
+            } else {
+                console.error('Ref is not an HTMLElement');
+            }
+        }
+    };
+
     return (
         <>
-            <Chart options={options} series={series} type="line" height='100%' />
+            <section style={{ height: "100%" }} ref={chartRef}>
+                <Chart options={options} series={series} type="line" height='100%' />
+            </section>
+            <button onClick={downloadPDF}>Descargar PDF</button>
         </>
     )
 

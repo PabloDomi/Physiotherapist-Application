@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SearchCard from "./SearchCard";
 import { SearchListProps, behaviorSearchListProps } from "../utils/types";
 import useAreUSure from "../hooks/useAreUSure";

@@ -52,7 +52,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove, s
               {person.age + ' años'}
             </p>
           </button>
-          <IconButton onClick={handleDeleteClick} aria-label="delete" id="card-delete-button">
+          <IconButton onClick={handleDeleteClick} aria-label="delete-card-button" id="card-delete-button">
             <Clear fontSize="small" className={theme === 'dark' ? 'card-icon' : ''} />
           </IconButton>
         </div>
