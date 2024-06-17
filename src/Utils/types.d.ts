@@ -81,6 +81,14 @@ export interface EstadisticasProps {
     theme: Theme
 }
 
+export interface EjerciciosProps {
+    theme: Theme
+}
+
+export interface RoutinesProps {
+    theme: Theme
+}
+
 export interface SearchCardProps {
     chartTitle: (newTitle: number) => void
     key: number;
@@ -147,7 +155,7 @@ interface Exercise {
     name: string;
     description: string;
     routine_ids: Id[] | []
-    routine: RoutineData | null
+    routine?: RoutineData | null
 }
 
 interface RoutineData {

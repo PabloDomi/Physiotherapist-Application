@@ -8,10 +8,10 @@ import useEditExercise from "../hooks/useEditExercise";
 import ModalWindow from "../components/Modal";
 import useDeleteExercise from "../hooks/useDeleteExercise";
 import Loader from "../components/Loader";
+import { EjerciciosProps } from "../utils/types";
 
-const Ejercicios = () => {
+const Ejercicios = ({ theme }: EjerciciosProps) => {
 
-    const theme = useGlobalState(state => state.theme)
     const { isLoading } = usePatients()
 
     const routines = useGlobalState(state => state.routines)

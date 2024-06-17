@@ -6,7 +6,7 @@ import './index.css'
 import './App.css'
 import { useGlobalState } from './store/useGlobalState'
 import NotFound from './components/NotFound'
-import OutletWithNavBarAndFooter from './components/OutletWithNavBarAndFooter'
+import OutletWithNavBarAndFooter from './OutletWithNavBarAndFooter'
 import { useEffect } from 'react'
 import Landing from './views/Landing'
 import { theresUser, noUser } from './utils/Constants'
@@ -57,8 +57,8 @@ function App() {
           <Route element={<OutletWithNavBarAndFooter />} >
             <Route path='/' element={<Navigate to={'/home'} replace={true} />} />
             <Route path='home' element={<Estadisticas theme={theme} />} />
-            <Route path='rutinas' element={<Rutinas />} />
-            <Route path='ejercicios' element={<Ejercicios />} />
+            <Route path='rutinas' element={<Rutinas theme={theme} />} />
+            <Route path='ejercicios' element={<Ejercicios theme={theme} />} />
           </Route>
           <Route path='*' element={<NotFound type={theresUser} />} />
         </Routes>

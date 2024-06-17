@@ -45,7 +45,7 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove, s
       {showCard &&
         <div className="card-container shadow">
           <button className="card-div-button" onClick={handleClick}>
-            <h6 className={theme === 'light' ? 'card-name-light fw-bold' : 'card-name fw-bold'}>
+            <h6 className={theme === 'light' ? 'card-name-light ps-2 fw-bold' : 'card-name ps-2 fw-bold'}>
               {person.name + ' ' + person.surname}
             </h6>
             <p className={theme === 'light' ? 'card-age-light ps-2' : 'card-age ps-2'}>

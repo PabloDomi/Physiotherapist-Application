@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import CustomStatsChart from '../components/CustomStatsChart';
-import { CustomStatsData } from '../utils/types';
+import CustomStatsChart from '../../components/CustomStatsChart';
+import { CustomStatsData } from '../../utils/types';
 
 // Define un ejemplo de datos que se utilizarán en las historias
 const mockData: CustomStatsData = {
@@ -14,7 +14,7 @@ const mockData: CustomStatsData = {
 
 // Configuración de Storybook
 const meta: Meta<typeof CustomStatsChart> = {
-  title: 'Example/CustomStatsChart',
+  title: 'Components/CustomStatsChart',
   component: CustomStatsChart,
   parameters: {
     layout: 'centered',

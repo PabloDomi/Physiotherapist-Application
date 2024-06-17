@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { ButtonToggleTheme } from '../components/ButtonToggleTheme';
-import { ButtonToggleThemeProps } from '../utils/types';
+import { ButtonToggleTheme } from '../../components/ButtonToggleTheme';
+import { ButtonToggleThemeProps } from '../../utils/types';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<ButtonToggleThemeProps> = {
-  title: 'Example/ButtonToggleTheme',
+  title: 'Components/ButtonToggleTheme',
   component: ButtonToggleTheme,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: 'centered',
+    layout: 'padded',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],

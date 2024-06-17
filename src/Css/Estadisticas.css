@@ -100,10 +100,12 @@
 
 .card-name {
     color: #bbd2f7;
+    text-align: start;
 }
 
 .card-name-light {
     color: #27ab28;
+    text-align: start;
 }
 
 .card-age {
@@ -128,6 +130,7 @@
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
+    min-width: 140px;
 }
 
 .card-div-button {

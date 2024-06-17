@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import DefaultStatsChart from '../components/DefaultStatsChart';
-import { mockStats } from '../utils/MockData';
+import DefaultStatsChart from '../../components/DefaultStatsChart';
+import { mockStats } from '../../utils/MockData';
 
 const meta: Meta<typeof DefaultStatsChart> = {
-  title: 'Example/DefaultStatsChart',
+  title: 'Components/DefaultStatsChart',
   component: DefaultStatsChart,
   parameters: {
     layout: 'centered',

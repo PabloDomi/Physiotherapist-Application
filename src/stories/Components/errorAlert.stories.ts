@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ErrorAlert from '../components/ErrorAlert';
+import ErrorAlert from '../../components/ErrorAlert';
 
 // Configuración de Storybook
 const meta: Meta<typeof ErrorAlert> = {
-  title: 'Example/ErrorAlert',
+  title: 'Components/ErrorAlert',
   component: ErrorAlert,
   parameters: {
     layout: 'centered',

@@ -11,11 +11,11 @@ import useAddExerciseToRoutine from "../hooks/useAddExerciseToRoutine"
 import useEditRoutine from "../hooks/useEditRoutine";
 import { DeleteOutline, EditOutlined, AccessibilityNewOutlined, FitnessCenterOutlined } from "@mui/icons-material";
 import useDeleteRoutine from "../hooks/useDeleteRoutine";
+import { RoutinesProps } from "../utils/types";
 
 
-export const Rutinas = () => {
+export const Rutinas = ({ theme }: RoutinesProps) => {
 
-    const theme = useGlobalState(state => state.theme)
     const { isLoading } = usePatients()
     const setGlobalRoutines = useGlobalState(state => state.setRoutines)
     const globalRoutines = useGlobalState(state => state.routines)
