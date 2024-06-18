@@ -3,7 +3,7 @@ import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts'
 import '../css/Estadisticas.css'
 import { useRef } from "react";
-import { useDownloadPDF } from "../hooks/useDownloadPDF";
+import useDownloadPDF from "../hooks/useDownloadPDF";
 import { Button } from "@mui/material";
 
 interface customStatsChartProps {

@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs';
+import useDeleteRoutine from '../../hooks/useDeleteRoutine';
+
+<Meta title="BusinessLogic/Hooks/useDeleteRoutine" />
+
+# useDeleteRoutine
+
+El hook `useDeleteRoutine` se utiliza para gestionar el estado y la lógica necesaria para eliminar una rutina. Este hook proporciona un modal con un formulario que permite a los usuarios seleccionar la rutina que desean eliminar.
+
+## Ejemplo de implementación
+
+```typescript
+import React from 'react';
+import useDeleteRoutine from '../../hooks/useDeleteRoutine';
+
+const DeleteRoutineComponent = () => {
+    const { 
+        showModalDeleteRoutine, 
+        toggleModalDeleteRoutine, 
+        modalTitleDeleteRoutine, 
+        modalContentDeleteRoutine 
+    } = useDeleteRoutine();
+
+    return (
+        <div>
+            <button onClick={toggleModalDeleteRoutine}>Eliminar Rutina</button>
+            {showModalDeleteRoutine && (
+                <div>
+                    <h2>{modalTitleDeleteRoutine}</h2>
+                    {modalContentDeleteRoutine}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default DeleteRoutineComponent;
+
+
+```
+
+## Descripción de los elementos del hook
+
+### Estados
+
+-**showModalDeleteRoutine**:
+    - Tipo: boolean
+    - Descripción: Estado que indica si el modal para eliminar una rutina está visible o no.
+
+-**DeleteRoutineData**:
+    - Tipo: DeleteRoutineDataTypes | undefined
+    - Descripción: Datos de la rutina seleccionada para ser eliminada, contiene el ID de la rutina.
+
+### Métodos
+
+-**toggleModalDeleteRoutine**:
+    - Tipo: () => void
+    - Descripción: Función que alterna la visibilidad del modal para eliminar una rutina.
+
+### Constantes
+
+-**modalTitleDeleteRoutine**:
+    - Tipo: string
+    - Valor: 'Eliminar Rutina'
+    - Descripción: Título del modal para eliminar una rutina.
+
+-**modalContentDeleteRoutine**:
+    - Tipo: JSX.Element
+    - Descripción: Contenido del modal, que incluye un formulario con un campo de selección para elegir la rutina a eliminar.
+
+-**theme**:
+    - Tipo: string
+    - Descripción: Tema actual de la aplicación.

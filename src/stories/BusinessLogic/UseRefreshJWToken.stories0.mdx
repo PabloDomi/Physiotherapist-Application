@@ -1,0 +1,57 @@
+import { Meta } from '@storybook/addon-docs';
+import useRefreshJWToken from '../../hooks/useRefreshJWToken';
+
+<Meta title="BusinessLogic/Hooks/useRefreshJWToken" />
+
+# useRefreshJWToken
+
+El hook `useRefreshJWToken` se utiliza para gestionar la actualización automática del token JWT del usuario, basado en su actividad e inactividad. Este hook asegura que el token se actualice periódicamente y que se elimine después de un periodo de inactividad prolongada.
+
+## Ejemplo de implementación
+
+```typescript
+import React, { useState } from 'react';
+import useRefreshJWToken from '../../hooks/useRefreshJWToken';
+import { UserAdmin } from '../../utils/types';
+
+const MyApp = () => {
+    const [user, setUser] = useState<UserAdmin | null>(null);
+
+    useRefreshJWToken(user);
+
+    return (
+        <div>
+            {/* Tu aplicación */}
+        </div>
+    );
+};
+
+export default MyApp;
+
+```
+
+## Descripción de los elementos del hook
+
+### Parámetros
+- **user**:
+    - Tipo: `UserAdmin | null`
+    - Descripción: El usuario actual cuya sesión debe ser gestionada. Si el usuario es `null`, no se realizarán actualizaciones de token.
+
+### Funcionalidades
+- **Actualización de Token**:
+    - El hook actualiza el token JWT cada 3 minutos llamando al servicio `GetDataService.getAccessToken`.
+    - Almacena el token actualizado en `AuthorizationService` y actualiza la última actividad en el almacenamiento local.
+
+- **Verificación de Inactividad**:
+    - Verifica si el usuario ha estado inactivo durante más de 12 horas y, en caso afirmativo, elimina el token y los datos del usuario del almacenamiento local, recargando la página para limpiar cualquier dato específico del usuario en la memoria.
+
+- **Seguimiento de Actividad del Usuario**:
+    - Registra la actividad del usuario (movimientos del ratón y pulsaciones de teclas) y actualiza la última actividad en el almacenamiento local cada minuto, siempre que haya actividad.
+
+### Dependencias 
+Para utilizar este hook, necesitas instalar las siguientes dependencias:
+- `npm install react-router-dom`
+
+### Notas
+- Este hook depende de AuthorizationService para gestionar el token y GetDataService para obtener el token de acceso.
+- El hook debe ser utilizado en el contexto de una aplicación que maneje la autenticación de usuarios, asegurándose de que el usuario esté disponible en el estado global o local.

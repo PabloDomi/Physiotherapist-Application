@@ -3,7 +3,7 @@ import Chart from 'react-apexcharts'
 import '../css/Estadisticas.css'
 import { mockStats } from "../utils/MockData"
 import { useRef } from 'react';
-import { useDownloadPDF } from '../hooks/useDownloadPDF';
+import useDownloadPDF from '../hooks/useDownloadPDF';
 import { Button } from '@mui/material';
 
 const DefaultStatsChart = () => {

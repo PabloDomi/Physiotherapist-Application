@@ -1,0 +1,153 @@
+import { Meta } from '@storybook/addon-docs';
+import RegisterPatientService from '../../services/RegisterPatientService';
+
+<Meta title="BusinessLogic/Services/RegisterPatientService" />
+
+# RegisterPatientService
+
+El servicio `RegisterPatientService` se utiliza para registrar nuevos pacientes a través de solicitudes HTTP a la API. Este servicio maneja la autorización utilizando un token almacenado en el almacenamiento local.
+
+# Ejemplo de implementación
+```typescript
+import React, { useState } from 'react';
+import RegisterPatientService from '../../services/RegisterPatientService';
+import { registerPatientServiceProps } from '../../utils/types';
+
+const RegisterPatientComponent = () => {
+    const [patient, setPatient] = useState<registerPatientServiceProps>({
+        name: '',
+        surname: '',
+        age: 0,
+        gender: '',
+        routine_id: 0
+    });
+
+    const handleRegister = async () => {
+        try {
+            const response = await RegisterPatientService(patient);
+            console.log('Paciente registrado con éxito:', response);
+        } catch (error) {
+            console.error('Error en el registro de paciente:', error.message);
+        }
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                placeholder="Nombre"
+                value={patient.name}
+                onChange={(e) => setPatient({ ...patient, name: e.target.value })}
+            />
+            <input
+                type="text"
+                placeholder="Apellidos"
+                value={patient.surname}
+                onChange={(e) => setPatient({ ...patient, surname: e.target.value })}
+            />
+            <input
+                type="number"
+                placeholder="Edad"
+                value={patient.age}
+                onChange={(e) => setPatient({ ...patient, age: Number(e.target.value) })}
+            />
+            <select
+                value={patient.gender}
+                onChange={(e) => setPatient({ ...patient, gender: e.target.value })}
+            >
+                <option value="">Seleccionar género</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro</option>
+            </select>
+            <input
+                type="number"
+                placeholder="ID de la rutina"
+                value={patient.routine_id}
+                onChange={(e) => setPatient({ ...patient, routine_id: Number(e.target.value) })}
+            />
+            <button onClick={handleRegister}>Registrar Paciente</button>
+        </div>
+    );
+};
+
+export default RegisterPatientComponent;
+
+```
+
+## Métodos
+
+### authHeaders
+
+```typescript
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
+```
+- Descripción: Genera los encabezados de autorización necesarios para las solicitudes HTTP utilizando el token almacenado en el almacenamiento local.
+
+### RegisterPatientService
+```typescript
+import axios from 'axios'
+import { baseUrl } from '../utils/Constants'
+import { authHeader, registerPatientServiceProps } from '../utils/types'
+
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
+
+async function RegisterPatientService(credentials: registerPatientServiceProps) {
+    const authorizationHeader: authHeader = authHeaders();
+
+    try {
+        const { data } = await axios.post(`${baseUrl}patient_management/registerPatient`, credentials, authorizationHeader);
+        return data;
+    } catch (error) {
+        throw new Error("Error en el registro de paciente");
+    }
+}
+
+export default RegisterPatientService;
+
+```
+- Descripción: Realiza una solicitud HTTP POST para registrar un nuevo paciente.
+- Parámetros:
+    - **`credentials`**: Un objeto que contiene los datos necesarios para registrar al paciente.
+- Uso:
+```typescript
+import RegisterPatientService from '../../services/RegisterPatientService';
+
+const newPatient = {
+    name: 'Juan',
+    surname: 'Perez',
+    age: 30,
+    gender: 'Masculino',
+    routine_id: 1
+};
+
+RegisterPatientService(newPatient)
+    .then(response => {
+        console.log('Paciente registrado con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error en el registro de paciente:', error.message);
+    });
+
+```
+
+## Dependencias
+Para utilizar este servicio, necesitas instalar las siguientes dependencias:
+
+- `npm install axios`
+
+## Notas 
+- Asegúrate de que el token se maneje de manera segura y que no se exponga en lugares no seguros.
+- La URL base de la API debe estar correctamente configurada en ../utils/Constants.

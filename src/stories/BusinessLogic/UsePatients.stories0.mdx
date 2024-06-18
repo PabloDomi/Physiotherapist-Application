@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs';
+import usePatients from '../../hooks/usePatients';
+
+<Meta title="BusinessLogic/Hooks/usePatients" />
+
+# usePatients
+
+El hook `usePatients` se utiliza para obtener y gestionar la lista de pacientes desde el servicio de datos. Este hook maneja el estado de carga mientras se realiza la solicitud y almacena los datos de los pacientes en el estado global.
+
+## Ejemplo de implementación
+
+```typescript
+import React from 'react';
+import usePatients from '../../hooks/usePatients';
+
+const PatientsComponent = () => {
+    const { isLoading } = usePatients();
+
+    return (
+        <div>
+            {isLoading ? <p>Cargando pacientes...</p> : <p>Pacientes cargados.</p>}
+        </div>
+    );
+};
+
+export default PatientsComponent;
+
+```
+
+## Descripción de los elementos del hook
+### Estados
+- **isLoading**:
+    - Tipo: boolean
+    - Descripción: Estado que indica si los datos de los pacientes se están cargando.
+
+### Métodos
+- **usePatients**:
+    - Descripción: Hook que obtiene la lista de pacientes desde el servicio GetDataService y actualiza el estado global con los datos obtenidos.
+
+### Notas
+- Asegúrate de que el servicio GetDataService esté correctamente implementado y configurado para obtener los datos de los pacientes.
+- La función setPatients debe estar disponible en el estado global a través de useGlobalState.

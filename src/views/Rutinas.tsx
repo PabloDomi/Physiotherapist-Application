@@ -2,7 +2,7 @@ import { Button, List } from "@mui/material";
 import '../css/Rutinas.css';
 import { useGlobalState } from "../store/useGlobalState";
 import ListExpandRoutines from "../components/ListExpandRoutines";
-import { usePatients } from "../hooks/usePatients";
+import usePatients from "../hooks/usePatients";
 import Loader from "../components/Loader";
 import ModalWindow from "../components/Modal";
 import useAddRoutine from "../hooks/useAddRoutine";

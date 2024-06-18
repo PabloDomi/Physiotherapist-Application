@@ -1,0 +1,86 @@
+import { Meta } from '@storybook/addon-docs';
+import useDeleteAdmin from '../../hooks/useDeleteAdmin';
+
+<Meta title="BusinessLogic/Hooks/useDeleteAdmin" />
+
+# useDeleteAdmin
+
+El hook `useDeleteAdmin` se utiliza para gestionar el estado y la lógica necesaria para eliminar un administrador. Este hook proporciona un modal con un formulario que permite a los usuarios seleccionar el administrador que desean eliminar.
+
+## Ejemplo de implementación
+
+```typescript
+import React from 'react';
+import useDeleteAdmin from '../../hooks/useDeleteAdmin';
+
+const DeleteAdminComponent = () => {
+    const { 
+        showModalDeleteAdmin, 
+        toggleModalDeleteAdmin, 
+        modalTitleDeleteAdmin, 
+        modalContentDeleteAdmin 
+    } = useDeleteAdmin();
+
+    return (
+        <div>
+            <button onClick={toggleModalDeleteAdmin}>Eliminar Administrador</button>
+            {showModalDeleteAdmin && (
+                <div>
+                    <h2>{modalTitleDeleteAdmin}</h2>
+                    {modalContentDeleteAdmin}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default DeleteAdminComponent;
+
+
+```
+
+## Descripción de los elementos del hook
+
+### Estados
+
+- **showModalDeleteAdmin**:
+    - Tipo: boolean
+    - Descripción: Estado que indica si el modal para eliminar un administrador está visible o no.
+
+- **userSelected**:
+    - Tipo: string | undefined
+    - Descripción: Correo electrónico del administrador seleccionado para ser eliminado.
+
+- **admins**:
+    - Tipo: UserAdmin[] | undefined
+    - Descripción: Lista de administradores obtenida del servicio.
+
+### Métodos
+
+- **toggleModalDeleteAdmin**:
+    - Tipo: () => void
+    - Descripción: Función que alterna la visibilidad del modal para eliminar un administrador.
+
+- **handleChange**:
+    - Tipo: (`event: React.ChangeEvent<HTMLSelectElement>`) => void
+    - Descripción: Función que maneja el cambio de selección en el formulario del modal.
+
+### Constantes
+
+- **modalTitleDeleteAdmin**:
+    - Tipo: string
+    - Valor: 'Cambio de Contraseña'
+    - Descripción: Título del modal para eliminar un administrador.
+
+- **modalContentDeleteAdmin**:
+    - Tipo: JSX.Element
+    - Descripción: Contenido del modal, que incluye un formulario con un campo de selección para elegir el administrador a eliminar.
+
+- **theme**:
+    - Tipo: string
+    - Descripción: Tema actual de la aplicación.
+
+### Notas
+- Asegúrate de que los datos de administradores estén correctamente configurados en el estado global para que el hook funcione correctamente.
+- La función setUserSelected actualiza el estado del administrador seleccionado a medida que el usuario realiza la selección en el formulario.
+- El formulario está configurado para cambiar dinámicamente los datos del administrador basado en la entrada del usuario.

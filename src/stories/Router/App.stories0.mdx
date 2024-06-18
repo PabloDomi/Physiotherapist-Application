@@ -1,0 +1,143 @@
+import { Meta } from '@storybook/addon-docs';
+import App from '../../App';
+
+<Meta title="BusinessLogic/Router/App" />
+
+# App
+
+El componente `App` se utiliza principalmente como enrutador de la aplicación. Este componente gestiona las rutas y renderiza los componentes correspondientes en función del estado de autenticación del usuario. Además, maneja el tema de la aplicación y actualiza los estados globales según sea necesario.
+
+# Ejemplo de implementación
+```typescript
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+
+const Root = () => (
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+);
+
+export default Root;
+
+```
+
+## Descripción del componente
+
+### Importaciones
+
+```typescript
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Estadisticas } from './views/Estadisticas';
+import { Rutinas } from './views/Rutinas';
+import Ejercicios from './views/Ejercicios';
+import './index.css';
+import './App.css';
+import { useGlobalState } from './store/useGlobalState';
+import NotFound from './components/NotFound';
+import OutletWithNavBarAndFooter from './OutletWithNavBarAndFooter';
+import { useEffect } from 'react';
+import Landing from './views/Landing';
+import { theresUser, noUser } from './utils/Constants';
+import GetDataService from './services/GetDataService';
+import useRefreshJWToken from './hooks/useRefreshJWToken';
+```
+
+### Estados y Hooks
+- location: Obtenido de useLocation, utilizado para obtener la ubicación actual.
+- theme: Estado global que guarda el tema actual de la aplicación.
+- user: Estado global que guarda la información del usuario actual.
+- changeView: Método para cambiar la vista actual.
+- setGlobalRoutines: Método para establecer las rutinas globales.
+- setGlobalExercises: Método para establecer los ejercicios globales.
+
+### Efectos
+- useEffect: Actualiza la vista actual según la ubicación.
+- Obtiene las rutinas y los ejercicios si el usuario está autenticado.
+
+### Renderización del componente
+```typescript
+function App() {
+    const location = useLocation();
+    const theme = useGlobalState(state => state.theme);
+    const user = useGlobalState(state => state.user);
+    const changeView = useGlobalState(state => state.changeView);
+    const setGlobalRoutines = useGlobalState(state => state.setRoutines);
+    const setGlobalExercises = useGlobalState(state => state.setExercises);
+
+    useRefreshJWToken(user);
+
+    useEffect(() => {
+        const newLocation = location.pathname;
+        changeView(newLocation);
+    }, [changeView, location.pathname]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await GetDataService.getRoutines();
+                setGlobalRoutines(res);
+
+                const res2 = await GetDataService.getAllExercises();
+                setGlobalExercises(res2);
+            } catch (error) {
+                console.error("Error al obtener los datos de las rutinas y ejercicios", error);
+            }
+        };
+        if (user) {
+            fetchData();
+        }
+    }, [setGlobalRoutines, setGlobalExercises, user]);
+
+    return (
+        <>
+            {user ? (
+                <Routes>
+                    <Route element={<OutletWithNavBarAndFooter />}>
+                        <Route path="/" element={<Navigate to={'/home'} replace={true} />} />
+                        <Route path="home" element={<Estadisticas theme={theme} />} />
+                        <Route path="rutinas" element={<Rutinas theme={theme} />} />
+                        <Route path="ejercicios" element={<Ejercicios theme={theme} />} />
+                    </Route>
+                    <Route path="*" element={<NotFound type={theresUser} />} />
+                </Routes>
+            ) : (
+                <Routes>
+                    <Route path="/" element={<Landing />} />
+                    <Route path="*" element={<NotFound type={noUser} />} />
+                </Routes>
+            )}
+        </>
+    );
+}
+
+export default App;
+
+```
+
+### Descripción de las rutas
+- **Ruta raíz (/)**:
+    - Si el usuario está autenticado, redirige a /home.
+    - Si el usuario no está autenticado, renderiza Landing.
+
+- **Ruta /home**:
+    - Renderiza el componente Estadisticas con el tema actual.
+
+- **Ruta /rutinas**:
+    - Renderiza el componente Rutinas con el tema actual.
+
+- **Ruta /ejercicios**:
+    - Renderiza el componente Ejercicios con el tema actual.
+
+- **Rutas no encontradas (*)**:
+    - Si el usuario está autenticado, renderiza NotFound con theresUser.
+    - Si el usuario no está autenticado, renderiza NotFound con noUser.
+
+## Dependencias
+Para utilizar este componente, necesitas instalar las siguientes dependencias:
+- `npm install react-router-dom zustand`
+
+## Notas
+- Asegúrate de que todos los componentes y servicios importados estén correctamente implementados y disponibles.
+- La autenticación del usuario se maneja mediante el estado global user, y las rutas se renderizan en consecuencia.

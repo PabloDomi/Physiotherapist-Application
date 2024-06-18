@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/addon-docs';
+import useLogout from '../../hooks/useLogout';
+
+<Meta title="BusinessLogic/Hooks/useLogout" />
+
+# useLogout
+
+El hook `useLogout` se utiliza para gestionar el proceso de cierre de sesión de un usuario. Este hook se encarga de eliminar las credenciales del usuario almacenadas localmente, hacer una solicitud al servicio de cierre de sesión y redirigir al usuario a la página de inicio.
+
+## Ejemplo de implementación
+
+```typescript
+import React from 'react';
+import useLogout from '../../hooks/useLogout';
+
+const LogoutComponent = () => {
+    const { logout } = useLogout();
+
+    return (
+        <button onClick={logout}>Cerrar Sesión</button>
+    );
+};
+
+export default LogoutComponent;
+
+```
+
+## Descripción de los elementos del hook
+### Métodos
+- **logout**:
+    - Tipo: () => void
+    - Descripción: Función que gestiona el proceso de cierre de sesión. Elimina el token de autorización, remueve las credenciales del usuario del almacenamiento local, hace una llamada al servicio de cierre de sesión y redirige al usuario a la página de inicio, recargando la página.
+
+### Dependencias
+Para utilizar este hook, necesitas instalar las siguientes dependencias:
+- `npm install react-router-dom`
+
+### Notas
+- Este hook depende de react-router-dom para la navegación.
+- Asegúrate de que los servicios LoginService y AuthorizationService estén correctamente implementados y configurados.
+- La función logout se encarga de hacer la limpieza de las credenciales del usuario y redirigirlo a la página de inicio, asegurando que la sesión se cierra completamente.

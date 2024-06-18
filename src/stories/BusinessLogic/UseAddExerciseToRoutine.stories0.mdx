@@ -1,0 +1,95 @@
+import { Meta } from '@storybook/addon-docs';
+import { useAddExerciseToRoutine } from '../../hooks/useAddExerciseToRoutine';
+
+<Meta title="BusinessLogic/Hooks/useAddExerciseToRoutine" />
+
+# useAddExerciseToRoutine
+
+El hook `useAddExerciseToRoutine` se utiliza para gestionar el estado y la lógica necesaria para agregar un ejercicio a una rutina específica. Este hook proporciona un modal con un formulario que permite a los usuarios ingresar los detalles del ejercicio y seleccionar la rutina a la cual se agregará el ejercicio.
+
+## Ejemplo de implementación
+
+```typescript
+import useAddExerciseToRoutine from '../../hooks/useAddExerciseToRoutine';
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import { RoutineData } from '../../utils/types';
+
+const listRoutines: RoutineData[] = [
+    // Ejemplo de datos de rutinas
+    { id: 1, name: 'Rutina 1', description: 'Descripción de Rutina 1', estimatedTime: 30, patient_id: 1 },
+    { id: 2, name: 'Rutina 2', description: 'Descripción de Rutina 2', estimatedTime: 45, patient_id: 2 }
+];
+
+const AddExerciseToRoutineComponent = () => {
+    const { 
+        showModalAddExerciseToRoutine, 
+        toggleModalAddExerciseToRoutine, 
+        modalTitleAddExerciseToRoutine, 
+        modalContentAddExerciseToRoutine 
+    } = useAddExerciseToRoutine(listRoutines);
+
+    return (
+        <div>
+            <Button onClick={toggleModalAddExerciseToRoutine}>Agregar Ejercicio a Rutina</Button>
+            <Modal show={showModalAddExerciseToRoutine} onHide={toggleModalAddExerciseToRoutine}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{modalTitleAddExerciseToRoutine}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {modalContentAddExerciseToRoutine}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={toggleModalAddExerciseToRoutine}>
+                        Cerrar
+                    </Button>
+                    <Button variant="primary" type="submit">
+                        Guardar Cambios
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
+    );
+};
+
+export default AddExerciseToRoutineComponent;
+```
+
+## Descripción de los elementos del hook
+
+### Estados
+
+- `showModalAddExerciseToRoutine`:
+  - **Tipo**: `boolean`
+  - **Descripción**: Estado que indica si el modal para agregar un ejercicio a una rutina está visible o no.
+
+- `AddExerciseToRoutineData`:
+  - **Tipo**: `AddExerciseToRoutineDataTypes | null`
+  - **Descripción**: Objeto que contiene los datos del ejercicio que se va a agregar a la rutina. 
+
+### Métodos
+
+- `toggleModalAddExerciseToRoutine`:
+  - **Tipo**: `() => void`
+  - **Descripción**: Función que alterna la visibilidad del modal para agregar un ejercicio a una rutina.
+
+### Constantes
+
+- `modalTitleAddExerciseToRoutine`:
+  - **Tipo**: `string`
+  - **Valor**: 'Agregar Ejercicio a Rutina'
+  - **Descripción**: Título del modal para agregar un ejercicio a una rutina.
+
+- `modalContentAddExerciseToRoutine`:
+  - **Tipo**: `JSX.Element`
+  - **Descripción**: Contenido del modal, que incluye un formulario con los campos necesarios para agregar un ejercicio a una rutina.
+
+
+### Dependencias
+Para utilizar este hook, necesitas instalar las siguientes dependencias:
+- `npm install react-bootstrap` 
+
+### Notas
+- Asegúrate de que los datos de las rutinas estén correctamente configurados en el estado global para que el hook funcione correctamente.
+- La función setAddExerciseToRoutineData actualiza el estado del formulario a medida que el usuario ingresa datos.
+- El formulario está configurado para cambiar dinámicamente los datos del ejercicio basado en la entrada del usuario.

@@ -2,7 +2,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { RefObject } from "react";
 
-export function useDownloadPDF() {
+export default function useDownloadPDF() {
     const downloadPDF = (chartRef: RefObject<HTMLElement>) => {
         if (chartRef?.current) {
             const input = chartRef.current;

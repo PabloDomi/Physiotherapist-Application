@@ -1,0 +1,85 @@
+import { Meta } from '@storybook/addon-docs';
+import useEditExercise from '../../hooks/useEditExercise';
+
+<Meta title="BusinessLogic/Hooks/useEditExercise" />
+
+# useEditExercise
+
+El hook `useEditExercise` se utiliza para gestionar el estado y la lógica necesaria para editar una rutina de ejercicios. Este hook proporciona un modal con un formulario que permite a los usuarios seleccionar y actualizar los detalles de una rutina de ejercicios.
+
+## Ejemplo de implementación
+
+```typescript
+import React from 'react';
+import useEditExercise from '../../hooks/useEditExercise';
+
+const EditExerciseComponent = () => {
+    const { 
+        showModalEditExercise, 
+        toggleModalEditExercise, 
+        modalTitleEditExercise, 
+        modalContentEditExercise, 
+        setExercise 
+    } = useEditExercise();
+
+    return (
+        <div>
+            <button onClick={toggleModalEditExercise}>Actualizar Ejercicio</button>
+            {showModalEditExercise && (
+                <div>
+                    <h2>{modalTitleEditExercise}</h2>
+                    {modalContentEditExercise}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default EditExerciseComponent;
+```
+
+## Descripción de los elementos del hook
+
+### Estados
+
+- **showModalEditExercise**:
+    - Tipo: boolean
+    - Descripción: Estado que indica si el modal para editar una rutina de ejercicios está visible o no.
+- **exercise**:
+    - Tipo: Exercise | undefined
+    - Descripción: Ejercicio seleccionado para ser editado.
+- **EditExerciseData**:
+    - Tipo: EditExerciseDataTypes | undefined
+    - Descripción: Datos del ejercicio que se está editando.
+
+### Métodos
+
+- **toggleModalEditExercise**:
+    - Tipo: () => void
+    - Descripción: Función que alterna la visibilidad del modal para editar una rutina de ejercicios.
+- **setExercise**:
+    - Tipo: (exercise: Exercise | undefined) => void
+    - Descripción: Función que establece el ejercicio actual a ser editado.
+
+### Constantes
+
+- **modalTitleEditExercise**:
+    - Tipo: string
+    - Valor: 'Actualizar Rutina'
+    - Descripción: Título del modal para editar una rutina de ejercicios.
+- **modalContentEditExercise**:
+    - Tipo: JSX.Element
+    - Descripción: Contenido del modal, que incluye un formulario con campos para editar los detalles de la rutina de ejercicios.
+- **theme**:
+    - Tipo: string
+    - Descripción: Tema actual de la aplicación.
+
+### Dependencias
+
+Para utilizar este hook, necesitas instalar las siguientes dependencias:
+
+- `npm install react-bootstrap`
+
+### Notas
+- Asegúrate de que los datos de ejercicios y rutinas estén correctamente configurados en el estado global para que el hook funcione correctamente.
+- La función setExercise se utiliza para establecer el ejercicio que se va a editar antes de abrir el modal.

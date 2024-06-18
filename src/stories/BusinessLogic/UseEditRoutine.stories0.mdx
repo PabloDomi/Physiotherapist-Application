@@ -1,0 +1,88 @@
+import { Meta } from '@storybook/addon-docs';
+import useEditRoutine from '../../hooks/useEditRoutine';
+
+<Meta title="BusinessLogic/Hooks/useEditRoutine" />
+
+# useEditRoutine
+
+El hook `useEditRoutine` se utiliza para gestionar el estado y la lógica necesaria para editar una rutina. Este hook proporciona un modal con un formulario que permite a los usuarios seleccionar y actualizar los detalles de una rutina.
+
+## Ejemplo de implementación
+
+```typescript
+import useEditRoutine from '../../hooks/useEditRoutine';
+import React, { useRef } from 'react';
+
+const EditRoutineComponent = () => {
+    const { 
+        showModalEditRoutine, 
+        toggleModalEditRoutine, 
+        modalTitleEditRoutine, 
+        modalContentEditRoutine, 
+        setRutina 
+    } = useEditRoutine();
+
+    return (
+        <div>
+            <button onClick={toggleModalEditRoutine}>Actualizar Rutina</button>
+            {showModalEditRoutine && (
+                <div>
+                    <h2>{modalTitleEditRoutine}</h2>
+                    {modalContentEditRoutine}
+                </div>
+            )}
+        </div>
+    );
+};
+```
+
+## Descripción de los elementos del hook
+
+### Estados
+
+- **showModalEditRoutine**:
+    - Tipo: boolean
+    - Descripción: Estado que indica si el modal para editar una rutina está visible o no.
+
+- **rutina**:
+    - Tipo: RoutineData | undefined
+    - Descripción: Rutina seleccionada para ser editada.
+
+- **EditRoutineData**:
+    - Tipo: EditRoutineDataTypes | undefined
+    - Descripción: Datos de la rutina que se está editando.
+
+### Métodos
+
+- `**toggleModalEditRoutine**:
+    - Tipo: () => void
+    - Descripción: Función que alterna la visibilidad del modal para editar una rutina.
+
+- **setRutina**:
+    - Tipo: (rutina: RoutineData | undefined) => void
+    - Descripción: Función que establece la rutina actual a ser editada.
+
+### Constantes
+
+- **modalTitleEditRoutine**:
+    - Tipo: string
+    - Valor: 'Actualizar Rutina'
+    - Descripción: Título del modal para editar una rutina.
+
+- **modalContentEditRoutine**:
+    - Tipo: JSX.Element
+    - Descripción: Contenido del modal, que incluye un formulario con campos para editar los detalles de la rutina.
+
+- **theme**:
+    - Tipo: string
+    - Descripción: Tema actual de la aplicación.
+
+
+### Dependencias
+Para utilizar este hook, necesitas instalar las siguientes dependencias:
+- `npm install react-bootstrap sonner`
+
+### Notas
+- Asegúrate de que los datos de rutinas y pacientes estén correctamente configurados en el estado global para que el hook funcione correctamente.
+- La función setRutina se utiliza para establecer la rutina que se va a editar antes de abrir el modal.
+- El hook maneja la verificación de si un paciente ya tiene una rutina asignada y muestra un mensaje de error si es necesario.

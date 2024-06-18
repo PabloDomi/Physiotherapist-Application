@@ -1,0 +1,149 @@
+import { Meta } from '@storybook/addon-docs';
+import LoginService from '../../services/LoginService';
+
+<Meta title="BusinessLogic/Services/LoginService" />
+
+# LoginService
+
+El servicio `LoginService` se utiliza para gestionar el inicio y cierre de sesión de un usuario a través de solicitudes HTTP a la API. Este servicio maneja la autorización utilizando un token almacenado en el almacenamiento local.
+
+# Ejemplo de implementación
+```typescript
+import React from 'react';
+import LoginService from '../../services/LoginService';
+import { LoginServiceProps, LogoutServiceProps } from '../../utils/types';
+
+const LoginComponent = () => {
+    const handleLogin = async () => {
+        const credentials: LoginServiceProps = {
+            email: 'user@example.com',
+            password: 'password123'
+        };
+
+        try {
+            const response = await LoginService(credentials);
+            console.log('Inicio de sesión exitoso:', response);
+        } catch (error) {
+            console.error('Error en el inicio de sesión:', error.message);
+        }
+    };
+
+    const handleLogout = async () => {
+        const credentials: LogoutServiceProps = {
+            email: 'user@example.com'
+        };
+
+        try {
+            const response = await LoginService.LogoutService(credentials);
+            console.log('Cierre de sesión exitoso:', response);
+        } catch (error) {
+            console.error('Error en el cierre de sesión:', error.message);
+        }
+    };
+
+    return (
+        <div>
+            <button onClick={handleLogin}>Iniciar Sesión</button>
+            <button onClick={handleLogout}>Cerrar Sesión</button>
+        </div>
+    );
+};
+
+export default LoginComponent;
+
+```
+
+## Métodos
+
+### authHeaders
+
+```typescript
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
+```
+- Descripción: Genera los encabezados de autorización necesarios para las solicitudes HTTP utilizando el token almacenado en el almacenamiento local.
+
+### LoginService
+```typescript
+const LoginService = async (credentials: LoginServiceProps) => {
+    try {
+        const { data } = await axios.post(`${baseUrl}Sign/Login`, credentials)
+        AuthorizationService.setToken(data.access_token)
+        return data
+    } catch (error) {
+        throw new Error("Error en el login de usuario")
+    } 
+}
+
+```
+- Descripción: Realiza una solicitud HTTP POST para iniciar sesión con las credenciales del usuario.
+- Parámetros:
+    - **`credentials`**: Un objeto que contiene las credenciales de inicio de sesión del usuario.
+- Uso:
+```typescript
+import LoginService from '../../services/LoginService';
+
+const credentials = {
+    email: 'user@example.com',
+    password: 'password123'
+};
+
+LoginService(credentials)
+    .then(response => {
+        console.log('Inicio de sesión exitoso:', response);
+    })
+    .catch(error => {
+        console.error('Error en el inicio de sesión:', error.message);
+    });
+
+```
+
+### LogoutService
+```typescript
+const LogoutService = async (credentials: LogoutServiceProps) => {
+    const authorizationHeader: authHeader = authHeaders()
+
+    try {
+        const res = await axios.post(`${baseUrl}Sign/Logout`, credentials, authorizationHeader)
+        AuthorizationService.removeToken()
+        return res
+    } catch (error) {
+        console.error(error)
+        throw new Error("Error en el logout de usuario")
+    }
+}
+
+```
+- Descripción: Realiza una solicitud HTTP POST para cerrar sesión con las credenciales del usuario.
+- Parámetros:
+    - **`credentials`**: Un objeto que contiene las credenciales de cierre de sesión del usuario.
+- Uso:
+```typescript
+import LoginService from '../../services/LoginService';
+
+const credentials = {
+    email: 'user@example.com'
+};
+
+LoginService.LogoutService(credentials)
+    .then(response => {
+        console.log('Cierre de sesión exitoso:', response);
+    })
+    .catch(error => {
+        console.error('Error en el cierre de sesión:', error.message);
+    });
+
+```
+
+## Dependencias
+Para utilizar este servicio, necesitas instalar las siguientes dependencias:
+- `npm install axios`
+
+## Notas
+- Asegúrate de que el token se maneje de manera segura y que no se exponga en lugares no seguros.
+- La URL base de la API debe estar correctamente configurada en ../utils/Constants.

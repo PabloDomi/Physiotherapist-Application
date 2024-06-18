@@ -1,0 +1,191 @@
+import { Meta } from '@storybook/addon-docs';
+import { useGlobalState } from '../../store/useGlobalState';
+
+<Meta title="BusinessLogic/StateManagement/useGlobalState" />
+
+# useGlobalState
+
+La store `useGlobalState` se utiliza para gestionar estados globales en la aplicación utilizando `zustand`. Esta store maneja diferentes estados y métodos para actualizarlos.
+
+# Ejemplo de implementación
+```typescript
+import React from 'react';
+import { useGlobalState } from '../../store/useGlobalState';
+
+const ExampleComponent = () => {
+    const view = useGlobalState((state) => state.view);
+    const changeView = useGlobalState((state) => state.changeView);
+    const theme = useGlobalState((state) => state.theme);
+    const toggleTheme = useGlobalState((state) => state.toggleTheme);
+
+    return (
+        <div>
+            <h1>Vista Actual: {view}</h1>
+            <button onClick={() => changeView('Nueva Vista')}>Cambiar Vista</button>
+            <h2>Tema Actual: {theme}</h2>
+            <button onClick={toggleTheme}>Alternar Tema</button>
+        </div>
+    );
+};
+
+export default ExampleComponent;
+```
+
+## Estados y Métodos
+
+### view
+
+- Descripción: Estado que indica la vista actual de la aplicación.
+- Tipo: string
+- Método asociado: `changeView`
+- Descripción del método: Cambia la vista actual.
+- Uso:
+
+```typescript
+const view = useGlobalState((state) => state.view);
+const changeView = useGlobalState((state) => state.changeView);
+```
+
+### user 
+- Descripción: Estado que guarda la información del usuario actual.
+- Tipo: UserAdmin | null
+- Método asociado: setUser
+- Descripción del método: Establece un nuevo usuario y lo guarda en el almacenamiento local.
+- Uso:
+```typescript
+const user = useGlobalState((state) => state.user);
+const setUser = useGlobalState((state) => state.setUser);
+```
+
+### patients 
+- Descripción: Estado que guarda la lista de pacientes.
+- Tipo: User[]
+- Método asociado: setPatients
+- Descripción del método: Establece una nueva lista de pacientes.
+- Uso:
+```typescript
+const patients = useGlobalState((state) => state.patients);
+const setPatients = useGlobalState((state) => state.setPatients);
+```
+
+### customStatsData
+- Descripción: Estado que guarda datos personalizados de estadísticas.
+- Tipo: CustomStatsData | undefined
+- Método asociado: changeCustomStatsData, setCustomStatsDataUndefined
+- Descripción de los métodos:
+    - **`changeCustomStatsData`**: Cambia los datos personalizados de estadísticas.
+    - **`setCustomStatsDataUndefined`**: Establece customStatsData como undefined.
+- Uso:
+```typescript
+const customStatsData = useGlobalState((state) => state.customStatsData);
+const changeCustomStatsData = useGlobalState((state) => state.changeCustomStatsData);
+const setCustomStatsDataUndefined = useGlobalState((state) => state.setCustomStatsDataUndefined);
+```
+
+### theme
+- Descripción: Estado que guarda el tema actual de la aplicación.
+- Tipo: string
+- Método asociado: toggleTheme
+- Descripción del método: Alterna el tema entre 'light' y 'dark'.
+- Uso:
+```typescript
+const theme = useGlobalState((state) => state.theme);
+const toggleTheme = useGlobalState((state) => state.toggleTheme);
+```
+
+### routines 
+- Descripción: Estado que guarda la lista de rutinas.
+- Tipo: any[]
+- Método asociado: setRoutines
+- Descripción del método: Establece una nueva lista de rutinas.
+- Uso:
+```typescript
+const routines = useGlobalState((state) => state.routines);
+const setRoutines = useGlobalState((state) => state.setRoutines);
+```
+
+### exercises 
+- Descripción: Estado que guarda la lista de ejercicios.
+- Tipo: any[]
+- Método asociado: setExercises
+- Descripción del método: Establece una nueva lista de ejercicios.
+- Uso:
+```typescript
+const exercises = useGlobalState((state) => state.exercises);
+const setExercises = useGlobalState((state) => state.setExercises);
+```
+
+### Modales de la aplicación
+- **showChangePasswordModal**
+
+    - Descripción: Estado que indica si el modal de cambio de contraseña está visible.
+    - Tipo: boolean
+    - Método asociado: toggleChangePasswordModal
+    - Descripción del método: Alterna la visibilidad del modal de cambio de contraseña.
+
+- **showChangePasswordModal**
+    - Descripción: Estado que indica si el modal de cambio de contraseña está visible.
+    - Tipo: boolean
+    - Método asociado: toggleChangePasswordModal
+    - Descripción del método: Alterna la visibilidad del modal de cambio de contraseña.
+
+- **showRegisterPatientModal**
+    - Descripción: Estado que indica si el modal de registro de paciente está visible.
+    - Tipo: boolean
+    - Método asociado: toggleRegisterPatientModal
+    - Descripción del método: Alterna la visibilidad del modal de registro de paciente.
+
+- **showAreUSureModal**
+    - Descripción: Estado que indica si el modal de confirmación está visible.
+    - Tipo: boolean
+    - Método asociado: toggleAreUSureModal
+    - Descripción del método: Alterna la visibilidad del modal de confirmación.
+
+- **showDeleteAdminModal**
+    - Descripción: Estado que indica si el modal de eliminación de administrador está visible.
+    - Tipo: boolean
+    - Método asociado: toggleDeleteAdminModal
+    - Descripción del método: Alterna la visibilidad del modal de eliminación de administrador.
+
+- **showAddRoutineModal**
+    - Descripción: Estado que indica si el modal de adición de rutina está visible.
+    - Tipo: boolean
+    - Método asociado: toggleAddRoutineModal
+    - Descripción del método: Alterna la visibilidad del modal de adición de rutina.
+
+- **showAddExerciseToRoutineModal**
+    - Descripción: Estado que indica si el modal de adición de ejercicio a rutina está visible.
+    - Tipo: boolean
+    - Método asociado: toggleAddExerciseToRoutineModal
+    - Descripción del método: Alterna la visibilidad del modal de adición de ejercicio a rutina.
+
+- **showEditRoutineModal**
+    - Descripción: Estado que indica si el modal de edición de rutina está visible.
+    - Tipo: boolean
+    - Método asociado: toggleEditRoutineModal
+    - Descripción del método: Alterna la visibilidad del modal de edición de rutina.
+
+- **showDeleteRoutineModal**
+    - Descripción: Estado que indica si el modal de eliminación de rutina está visible.
+    - Tipo: boolean
+    - Método asociado: toggleDeleteRoutineModal
+    - Descripción del método: Alterna la visibilidad del modal de eliminación de rutina.
+
+- **showDeleteExerciseModal**
+    - Descripción: Estado que indica si el modal de eliminación de ejercicio está visible.
+    - Tipo: boolean
+    - Método asociado: toggleDeleteExerciseModal
+    - Descripción del método: Alterna la visibilidad del modal de eliminación de ejercicio.
+
+- **showEditExerciseModal**
+    - Descripción: Estado que indica si el modal de edición de ejercicio está visible.
+    - Tipo: boolean
+    - Método asociado: toggleEditExerciseModal
+    - Descripción del método: Alterna la visibilidad del modal de edición de ejercicio.
+
+## Dependencias
+Para utilizar esta store, necesitas instalar las siguientes dependencias:
+- `npm install zustand`
+
+## Notas
+- Asegúrate de manejar los estados globales de manera adecuada para evitar conflictos y mantener la coherencia en la aplicación.

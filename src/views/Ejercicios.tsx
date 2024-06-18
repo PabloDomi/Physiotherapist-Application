@@ -1,7 +1,7 @@
 import { Button, List } from "@mui/material";
 import '../css/Ejercicios.css';
 import { useGlobalState } from "../store/useGlobalState";
-import { usePatients } from "../hooks/usePatients";
+import usePatients from "../hooks/usePatients";
 import ListExpandExercisesCustom from "../components/ListExpandExercisesCustom";
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 import useEditExercise from "../hooks/useEditExercise";

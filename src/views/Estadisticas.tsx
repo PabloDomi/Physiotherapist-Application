@@ -1,7 +1,7 @@
 import { EstadisticasProps } from "../utils/types"
 import '../css/Estadisticas.css'
 import Search from "../components/Search"
-import { usePatients } from "../hooks/usePatients"
+import usePatients from "../hooks/usePatients"
 import DefaultStatsChart from "../components/DefaultStatsChart"
 import { useGlobalState } from "../store/useGlobalState"
 import CustomStatsChart from "../components/CustomStatsChart"

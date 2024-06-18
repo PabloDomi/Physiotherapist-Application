@@ -1,0 +1,118 @@
+import { Meta } from '@storybook/addon-docs';
+import RegisterService from '../../services/RegisterService';
+
+<Meta title="BusinessLogic/Services/RegisterService" />
+
+# RegisterService
+
+El servicio `RegisterService` se utiliza para registrar nuevos usuarios a través de solicitudes HTTP a la API.
+
+# Ejemplo de implementación
+```typescript
+import React, { useState } from 'react';
+import RegisterService from '../../services/RegisterService';
+import { RegisterServiceProps } from '../../utils/types';
+
+const RegisterComponent = () => {
+    const [user, setUser] = useState<RegisterServiceProps>({
+        name: '',
+        surname: '',
+        email: '',
+        password: ''
+    });
+
+    const handleRegister = async () => {
+        try {
+            const response = await RegisterService(user);
+            console.log('Usuario registrado con éxito:', response);
+        } catch (error) {
+            console.error('Error en el registro de usuario:', error.message);
+        }
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                placeholder="Nombre"
+                value={user.name}
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
+            />
+            <input
+                type="text"
+                placeholder="Apellidos"
+                value={user.surname}
+                onChange={(e) => setUser({ ...user, surname: e.target.value })}
+            />
+            <input
+                type="email"
+                placeholder="Email"
+                value={user.email}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+            />
+            <input
+                type="password"
+                placeholder="Contraseña"
+                value={user.password}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+            />
+            <button onClick={handleRegister}>Registrar Usuario</button>
+        </div>
+    );
+};
+
+export default RegisterComponent;
+
+```
+
+## Métodos
+
+### RegisterService
+
+```typescript
+import axios from 'axios'
+import { baseUrl } from '../utils/Constants'
+import { RegisterServiceProps } from '../utils/types'
+
+const RegisterService = async (credentials: RegisterServiceProps) => {
+    try {
+        const { data } = await axios.post(`${baseUrl}Sign/Register`, credentials)
+        return data
+    } catch (error) {
+        throw new Error("Error en el registro de usuario")
+    }
+}
+
+export default RegisterService;
+```
+- Descripción: Realiza una solicitud HTTP POST para registrar un nuevo usuario.
+- Parámetros:
+    - **`credentials`**: Un objeto que contiene los datos necesarios para registrar al usuario.
+- Uso:
+```typescript
+import RegisterService from '../../services/RegisterService';
+
+const newUser = {
+    name: 'Juan',
+    surname: 'Perez',
+    email: 'juan.perez@example.com',
+    password: 'password123'
+};
+
+RegisterService(newUser)
+    .then(response => {
+        console.log('Usuario registrado con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error en el registro de usuario:', error.message);
+    });
+
+```
+
+## Dependencias
+Para utilizar este servicio, necesitas instalar las siguientes dependencias:
+- `npm install axios`
+
+## Notas
+- La URL base de la API debe estar correctamente configurada en ../utils/Constants.
+- Asegúrate de manejar las credenciales y los datos del usuario de manera segura.
