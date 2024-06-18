@@ -1,0 +1,198 @@
+import { Meta } from '@storybook/addon-docs';
+import DeleteDataService from '../../services/DeleteDataService';
+
+<Meta title="BusinessLogic/Services/DeleteDataService" />
+
+# DeleteDataService
+
+El servicio `DeleteService` se utiliza para gestionar las solicitudes de eliminación de pacientes, administradores, rutinas y ejercicios a través de la API. Este servicio maneja la autorización utilizando un token almacenado en el almacenamiento local.
+
+# Ejemplo de implementación
+```typescript
+import DeleteService from '../../services/DeleteDataService';
+
+// Eliminar un paciente
+DeleteService.DeletePatient(1)
+    .then(response => {
+        console.log('Paciente eliminado:', response);
+    })
+    .catch(error => {
+        console.error('Error al eliminar paciente:', error);
+    });
+
+// Eliminar un administrador
+DeleteService.DeleteAdmin('admin@example.com')
+    .then(response => {
+        console.log('Administrador eliminado:', response);
+    })
+    .catch(error => {
+        console.error('Error al eliminar administrador:', error);
+    });
+
+// Eliminar una rutina
+DeleteService.DeleteRoutine(1)
+    .then(response => {
+        console.log('Rutina eliminada:', response);
+    })
+    .catch(error => {
+        console.error('Error al eliminar rutina:', error);
+    });
+
+// Eliminar un ejercicio
+DeleteService.DeleteExercise(1)
+    .then(response => {
+        console.log('Ejercicio eliminado:', response);
+    })
+    .catch(error => {
+        console.error('Error al eliminar ejercicio:', error);
+    });
+
+```
+
+## Métodos
+
+### authHeaders
+
+```typescript
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
+```
+- Descripción: Genera los encabezados de autorización necesarios para las solicitudes HTTP utilizando el token almacenado en el almacenamiento local.
+
+### DeletePatient
+
+```typescript
+const DeletePatient = async (id: Id) => {
+
+    const authorizationHeader: authHeader = authHeaders() 
+
+    try {
+        const res = await axios.delete(`${baseUrl}patient_management/patientDelete/${id}`, authorizationHeader)
+        return { res }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+```
+
+- Descripción: Realiza una solicitud HTTP DELETE para eliminar un paciente por su ID.
+- Parámetros:
+    - **`id`**: ID del paciente a eliminar.
+- Uso:
+```typescript
+DeleteService.DeletePatient(1)
+    .then(response => {
+        console.log('Paciente eliminado:', response);
+    })
+    .catch(error => {
+        console.error('Error al eliminar paciente:', error);
+    });
+
+```
+
+### DeleteAdmin
+```typescript
+const DeleteAdmin = async (email: string) => {
+
+    const authorizationHeader: authHeader = authHeaders() 
+
+    try {
+        const res = await axios.delete(`${baseUrl}user_management/deleteUser/${email}`, authorizationHeader)
+        return { res }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+```
+
+- Descripción: Realiza una solicitud HTTP DELETE para eliminar un administrador por su correo electrónico.
+- Parámetros:
+    - **`email`**: Correo electrónico del administrador a eliminar.
+- Uso:
+```typescript
+DeleteService.DeleteAdmin('admin@example.com')
+    .then(response => {
+        console.log('Administrador eliminado:', response);
+    })
+    .catch(error => {
+        console.error('Error al eliminar administrador:', error);
+    });
+
+```
+
+### DeleteRoutine
+```typescript
+const DeleteRoutine = async (id: Id) => {
+
+    const authorizationHeader: authHeader = authHeaders() 
+
+    try {
+        const res = await axios.delete(`${baseUrl}routine_management/deleteRoutine/${id}`, authorizationHeader)
+        return { res }
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+```
+- Descripción: Realiza una solicitud HTTP DELETE para eliminar una rutina por su ID.
+- Parámetros:
+    - **`id`**: ID de la rutina a eliminar.
+Uso:
+```typescript
+DeleteService.DeleteRoutine(1)
+    .then(response => {
+        console.log('Rutina eliminada:', response);
+    })
+    .catch(error => {
+        console.error('Error al eliminar rutina:', error);
+    });
+
+```
+
+### DeleteExercise
+```typescript
+const DeleteExercise = async (id: Id) => {
+
+    const authorizationHeader: authHeader = authHeaders() 
+
+    try {
+        const res = await axios.delete(`${baseUrl}routine_management/deleteExercise/${id}`, authorizationHeader)
+        return { res }
+    } catch (error) {
+        console.error(error)
+    }
+
+}
+
+```
+
+- Descripción: Realiza una solicitud HTTP DELETE para eliminar un ejercicio por su ID.
+- Parámetros:
+    - **`id`**: ID del ejercicio a eliminar.
+Uso:
+```typescript
+DeleteService.DeleteExercise(1)
+    .then(response => {
+        console.log('Ejercicio eliminado:', response);
+    })
+    .catch(error => {
+        console.error('Error al eliminar ejercicio:', error);
+    });
+
+```
+
+## Dependencias
+Para utilizar este servicio, necesitas instalar las siguientes dependencias:
+- `npm install axios`
+
+## Notas 
+- Asegúrate de que el token se maneje de manera segura y que no se exponga en lugares no seguros.
+- La URL base de la API debe estar correctamente configurada en ../utils/Constants.

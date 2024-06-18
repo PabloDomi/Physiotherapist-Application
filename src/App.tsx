@@ -6,11 +6,12 @@ import './index.css'
 import './App.css'
 import { useGlobalState } from './store/useGlobalState'
 import NotFound from './components/NotFound'
-import OutletWithNavBarAndFooter from './components/OutletWithNavBarAndFooter'
+import OutletWithNavBarAndFooter from './OutletWithNavBarAndFooter'
 import { useEffect } from 'react'
 import Landing from './views/Landing'
 import { theresUser, noUser } from './utils/Constants'
 import GetDataService from './services/GetDataService'
+import useRefreshJWToken from './hooks/useRefreshJWToken'
 
 function App() {
 
@@ -21,6 +22,9 @@ function App() {
   const changeView = useGlobalState(state => state.changeView)
   const setGlobalRoutines = useGlobalState(state => state.setRoutines)
   const setGlobalExercises = useGlobalState(state => state.setExercises)
+
+
+  useRefreshJWToken(user)
 
   useEffect(() => {
     const newLocation = location.pathname
@@ -37,11 +41,13 @@ function App() {
         setGlobalExercises(res2)
       } catch (error) {
         console.error(error)
-        throw new Error("Error al obtener los administradores")
+        throw new Error("Error al obtener los datos de las rutinas y ejercicios")
       }
     }
-    fetchData()
-  }, [setGlobalRoutines])
+    if (user) {
+      fetchData()
+    }
+  }, [setGlobalRoutines, setGlobalExercises, user])
 
   return (
     <>
@@ -51,8 +57,8 @@ function App() {
           <Route element={<OutletWithNavBarAndFooter />} >
             <Route path='/' element={<Navigate to={'/home'} replace={true} />} />
             <Route path='home' element={<Estadisticas theme={theme} />} />
-            <Route path='rutinas' element={<Rutinas />} />
-            <Route path='ejercicios' element={<Ejercicios />} />
+            <Route path='rutinas' element={<Rutinas theme={theme} />} />
+            <Route path='ejercicios' element={<Ejercicios theme={theme} />} />
           </Route>
           <Route path='*' element={<NotFound type={theresUser} />} />
         </Routes>

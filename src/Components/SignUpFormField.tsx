@@ -9,7 +9,7 @@ const SignUpFormField: React.FC<SignUpFormFieldProps> = ({
 }) => {
     return (
         <>
-            <label style={{ alignSelf: 'flex-start', marginLeft: '0.2rem' }}>{name.toUpperCase()}</label>
+            <label style={{ alignSelf: 'flex-start', marginLeft: '0.2rem', marginRight: '0.8rem' }}>{name.toUpperCase()}</label>
             <input
                 autoComplete='off'
                 placeholder={placeholder}

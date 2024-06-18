@@ -1,0 +1,51 @@
+import { Meta } from '@storybook/addon-docs';
+import useDownloadPDF from '../../hooks/useDownloadPDF';
+
+<Meta title="BusinessLogic/Hooks/useDownloadPDF" />
+
+# useDownloadPDF
+
+El hook `useDownloadPDF` se utiliza para generar y descargar un archivo PDF a partir de un elemento HTML referenciado. Utiliza las bibliotecas `html2canvas` y `jsPDF` para convertir el contenido del elemento en una imagen y luego insertar dicha imagen en un PDF.
+
+## Ejemplo de implementación
+
+```typescript
+import { useRef } from 'react';
+import useDownloadPDF from '../../hooks/useDownloadPDF';
+
+const DownloadPDFComponent = () => {
+    const { downloadPDF } = useDownloadPDF();
+    const chartRef = useRef<HTMLElement>(null);
+
+    return (
+        <div>
+            <div ref={chartRef}>
+                {/* Contenido del gráfico o cualquier otro elemento */}
+            </div>
+            <button onClick={() => downloadPDF(chartRef)}>Descargar PDF</button>
+        </div>
+    );
+};
+
+export default DownloadPDFComponent;
+
+```
+
+## Descripción de los elementos del hook
+
+El hook `useDownloadPDF` tiene los siguientes elementos:
+
+### Métodos
+
+- **downloadPDF**:
+    - Tipo: (`chartRef: RefObject<HTMLElement>`) => void
+    - Descripción: Esta función toma una referencia a un elemento HTML, captura su contenido como una imagen y genera un archivo PDF con dicha imagen. Luego, descarga automáticamente el PDF con el nombre 'estadisticas.pdf'.
+
+### Dependencias
+
+Para utilizar este hook, necesitas instalar las siguientes dependencias:
+- `npm install html2canvas jspdf`
+
+### Notas
+- Asegúrate de que el elemento HTML referenciado es visible y está completamente cargado antes de llamar a la función downloadPDF.
+- La función downloadPDF maneja errores comunes, como la ausencia del elemento referenciado o problemas al generar el PDF.

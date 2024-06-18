@@ -1,17 +1,14 @@
 import { EstadisticasProps } from "../utils/types"
 import '../css/Estadisticas.css'
 import Search from "../components/Search"
-import { usePatients } from "../hooks/usePatients"
+import usePatients from "../hooks/usePatients"
 import DefaultStatsChart from "../components/DefaultStatsChart"
 import { useGlobalState } from "../store/useGlobalState"
 import CustomStatsChart from "../components/CustomStatsChart"
-import { IonIcon } from "@ionic/react"
-import { home } from 'ionicons/icons'
-import { Button } from "react-bootstrap"
 import { useState } from "react"
 import PatientCard from "../components/PatientCard"
 import Loader from "../components/Loader"
-
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 
 export const Estadisticas = ({ theme }: EstadisticasProps) => {
@@ -30,8 +27,6 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
         setPatientId(null)
     }
 
-    // TODO: HACER QUE LA LISTA DE PACIENTES, AL PULSAR LA X, SE BORRE EL SELECCIONADO, NO EL ULTIMO AÑADIDO
-
     return (
         <>
             {isLoading && <Loader />}
@@ -41,12 +36,9 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                         {!customData &&
                             <>
                                 <div className="stats-header">
-                                    <Button
-                                        onClick={handleClick}
-                                        className={theme === 'light' ? 'button-home-icon' : 'button-home-icon-dark'}>
-                                        <IonIcon icon={home} />
-                                    </Button>
-                                    <h2 className="title">Estadísticas</h2>
+                                    <QueryStatsIcon sx={{ color: "#8db1eb", width: 50, height: 50, marginRight: "1rem" }} />
+                                    <h1>E</h1>
+                                    <h2 className="title">stadísticas</h2>
                                 </div>
                                 <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
                                     <DefaultStatsChart />
@@ -56,9 +48,6 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                         {customData &&
                             <>
                                 <div className="stats-header">
-                                    <Button onClick={handleClick} className={theme === 'light' ? 'button-home-icon' : 'button-home-icon-dark'}>
-                                        <IonIcon icon={home} />
-                                    </Button>
                                     <h2 className="title">Estadísticas de {`${patients?.find(paciente => paciente.id === patientId)?.name}`}</h2>
                                 </div>
                                 <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
@@ -73,7 +62,9 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                         </aside>
                     }
                     {patientId !== null &&
-                        <PatientCard patientId={patientId} />
+                        <>
+                            <PatientCard handleGoBack={handleClick} patientId={patientId} />
+                        </>
                     }
                 </main>
             }

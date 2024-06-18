@@ -1,0 +1,130 @@
+import { Meta } from '@storybook/addon-docs';
+import OutletWithNavBarAndFooter from '../../OutletWithNavBarAndFooter';
+
+<Meta title="BusinessLogic/Outlet/OutletWithNavBarAndFooter" />
+
+# OutletWithNavBarAndFooter
+
+El componente `OutletWithNavBarAndFooter` se utiliza para renderizar una estructura común que incluye una barra de navegación, un outlet para renderizar las rutas hijas y un pie de página. Este componente también permite alternar entre temas claro y oscuro utilizando un botón.
+
+## Descripción del componente
+
+### Props
+
+Este componente no recibe props directamente. En su lugar, utiliza el estado global y los componentes importados para su funcionalidad.
+
+### Ejemplo de implementación
+```typescript
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import OutletWithNavBarAndFooter from '../../components/OutletWithNavBarAndFooter';
+import HomePage from '../../pages/HomePage';
+import AboutPage from '../../pages/AboutPage';
+
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<OutletWithNavBarAndFooter />}>
+                    <Route index element={<HomePage />} />
+                    <Route path="about" element={<AboutPage />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
+};
+
+export default App;
+```
+
+## Uso:
+```typescript
+import OutletWithNavBarAndFooter from '../../components/OutletWithNavBarAndFooter';
+
+// Dentro de tu configuración de rutas
+<BrowserRouter>
+    <Routes>
+        <Route path="/" element={<OutletWithNavBarAndFooter />}>
+            {/* Definir rutas hijas aquí */}
+        </Route>
+    </Routes>
+</BrowserRouter>
+```
+
+## Estructura del componente
+
+### Importaciones
+```typescript
+import { NavBar } from "./components/Navbar"
+import { Outlet } from "react-router-dom"
+import { BrandName } from "./utils/Constants"
+import imagePath from './assets/physiotherapist-logo.png'
+import { ButtonToggleTheme } from "./components/ButtonToggleTheme"
+import './css/Navbar.css'
+import { useGlobalState } from "./store/useGlobalState"
+```
+
+### Descripción de los elementos
+- NavBar: Componente de la barra de navegación.
+- Outlet: Componente de react-router-dom que renderiza las rutas hijas.
+- BrandName: Constante que almacena el nombre de la marca.
+- imagePath: Ruta de la imagen del logo.
+- ButtonToggleTheme: Componente para alternar entre temas claro y oscuro.
+- useGlobalState: Hook de zustand para manejar el estado global.
+
+### Estados
+- **theme**:
+    - Tipo: string
+    - Descripción: Estado que guarda el tema actual de la aplicación.
+
+- **toggleTheme**:
+    - Tipo: () => void
+    - Descripción: Función para alternar el tema entre claro y oscuro.
+
+### Renderización del componente
+```typescript
+const OutletWithNavBarAndFooter = () => {
+    const theme = useGlobalState(state => state.theme)
+    const toggleTheme = useGlobalState(state => state.toggleTheme)
+
+    return (
+        <>
+            <NavBar
+                styledClassName={theme === 'light'
+                    ? "navbar-light bg-white shadow pe-3 background-gradient-light"
+                    : "navbar-dark bg-dark shadow pe-3 background-gradient-dark"
+                }
+                brandName={BrandName}
+                imageSrcPath={imagePath}
+            />
+            <Outlet />
+            <footer className={theme === 'light'
+                ? 'footer-dark footer-container background-light'
+                : 'footer-light footer-container background-dark'
+            }>
+                <div className='footer-container'>
+                    <p className='footer-text font-tilt-neon'>Derechos de autor © 2024</p>
+                </div>
+            </footer>
+            <ButtonToggleTheme toggleTheme={toggleTheme} theme={theme} />
+        </>
+    )
+}
+
+export default OutletWithNavBarAndFooter
+
+```
+
+### Descripción de los elementos renderizados
+- NavBar: Renderiza la barra de navegación con una clase de estilo que cambia según el tema actual.
+- Outlet: Renderiza el contenido de las rutas hijas definidas en react-router-dom.
+- footer: Renderiza el pie de página con una clase de estilo que cambia según el tema actual.
+- ButtonToggleTheme: Renderiza un botón para alternar entre los temas claro y oscuro.
+
+## Dependencias
+Para utilizar este componente, necesitas instalar las siguientes dependencias:
+- `npm install react-router-dom zustand`
+
+## Notas
+- Asegúrate de definir correctamente las rutas hijas dentro del componente OutletWithNavBarAndFooter para que Outlet pueda renderizarlas.
+- El componente ButtonToggleTheme debe estar implementado para cambiar el tema de la aplicación correctamente.

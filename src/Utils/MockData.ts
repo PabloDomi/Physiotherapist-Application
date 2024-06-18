@@ -1,341 +1,452 @@
 
-export const mockUsers = [
-    
+export const mockPatients = [
     {
         id: 1,
-        name:"Mikkel Wartonby",
+        name: "Mikkel",
+        surname: "Wartonby",
         age: 18,
-        gender:"Male"
-    },
-    {   
-        id:2,
-        name:"Hammad Whissell",
-        age:57,
-        gender:"Male"
+        gender: "Male",
+        routine_id: 100
     },
     {
-        id:3,
-        name:"Filberto Paylor",
-        age:76,
-        gender:"Male"
+        id: 2,
+        name: "Hammad",
+        surname: "Whissell",
+        age: 57,
+        gender: "Male",
+        routine_id: 101
     },
     {
-        id:4,
-        name:"Imelda Gives",
-        age:36,
-        gender:"Female"
+        id: 3,
+        name: "Filberto",
+        surname: "Paylor",
+        age: 76,
+        gender: "Male",
+        routine_id: 102
     },
     {
-        id:5,
-        name:"Abbott L'Amie",
-        age:40,
-        gender:"Agender"
+        id: 4,
+        name: "Imelda",
+        surname: "Gives",
+        age: 36,
+        gender: "Female",
+        routine_id: 103
     },
     {
-        id:6,
-        name:"Walt Dorot",
-        age:79,
-        gender:"Male"
+        id: 5,
+        name: "Abbott",
+        surname: "L'Amie",
+        age: 40,
+        gender: "Agender",
+        routine_id: 104
     },
     {
-        id:7,
-        name:"Nickie Mallen",
-        age:31,
-        gender:"Female"
+        id: 6,
+        name: "Walt",
+        surname: "Dorot",
+        age: 79,
+        gender: "Male",
+        routine_id: 105
     },
     {
-        id:8,
-        name:"Georgina Sussans",
-        age:25,
-        gender:"Female"
+        id: 7,
+        name: "Nickie",
+        surname: "Mallen",
+        age: 31,
+        gender: "Female",
+        routine_id: 106
     },
     {
-        id:9,
-        name:"Krystal Cowell",
-        age:74,
-        gender:"Female"
+        id: 8,
+        name: "Georgina",
+        surname: "Sussans",
+        age: 25,
+        gender: "Female",
+        routine_id: 107
     },
     {
-        id:10,
-        name:"Zared Giovannilli",
-        age:27,
-        gender:"Agender"
+        id: 9,
+        name: "Krystal",
+        surname: "Cowell",
+        age: 74,
+        gender: "Female",
+        routine_id: 108
     },
     {
-        id:11,
-        name:"Glenine Klimke",
-        age:21,
-        gender:"Female"
+        id: 10,
+        name: "Zared",
+        surname: "Giovannilli",
+        age: 27,
+        gender: "Agender",
+        routine_id: 109
     },
     {
-        id:12,
-        name:"Loren Fogarty",
-        age:72,
-        gender:"Female"
+        id: 11,
+        name: "Glenine",
+        surname: "Klimke",
+        age: 21,
+        gender: "Female",
+        routine_id: 110
     },
     {
-        id:13,
-        name:"Elaina Quantrill",
-        age:59,
-        gender:"Female"
+        id: 12,
+        name: "Loren",
+        surname: "Fogarty",
+        age: 72,
+        gender: "Female",
+        routine_id: 111
     },
     {
-        id:14,
-        name:"Georgine Dockwra",
-        age:80,
-        gender:"Female"
+        id: 13,
+        name: "Elaina",
+        surname: "Quantrill",
+        age: 59,
+        gender: "Female",
+        routine_id: 112
     },
     {
-        id:15,
-        name:"Amos Faulder",
-        age:52,
-        gender:"Polygender"
+        id: 14,
+        name: "Georgine",
+        surname: "Dockwra",
+        age: 80,
+        gender: "Female",
+        routine_id: 113
     },
     {
-        id:16,
-        name:"Marijo Jolin",
-        age:20,
-        gender:"Female"
+        id: 15,
+        name: "Amos",
+        surname: "Faulder",
+        age: 52,
+        gender: "Polygender",
+        routine_id: 114
     },
     {
-        id:17,
-        name:"Stacy Colbeck",
-        age:52,
-        gender:"Male"
+        id: 16,
+        name: "Marijo",
+        surname: "Jolin",
+        age: 20,
+        gender: "Female",
+        routine_id: 115
     },
     {
-        id:18,
-        name:"Clevey Profit",
-        age:45,
-        gender:"Male"
+        id: 17,
+        name: "Stacy",
+        surname: "Colbeck",
+        age: 52,
+        gender: "Male",
+        routine_id: 116
     },
     {
-        id:19,
-        name:"Penrod Bunney",
-        age:68,
-        gender:"Male"
+        id: 18,
+        name: "Clevey",
+        surname: "Profit",
+        age: 45,
+        gender: "Male",
+        routine_id: 117
     },
     {
-        id:20,
-        name:"Ashleigh Heinke",
-        age:61,
-        gender:"Female"
+        id: 19,
+        name: "Penrod",
+        surname: "Bunney",
+        age: 68,
+        gender: "Male",
+        routine_id: 118
     },
     {
-        id:21,
-        name:"Salomone Mapston",
-        age:48,
-        gender:"Male"
+        id: 20,
+        name: "Ashleigh",
+        surname: "Heinke",
+        age: 61,
+        gender: "Female",
+        routine_id: 119
     },
     {
-        id:22,
-        name:"Frayda Grisley",
-        age:34,
-        gender:"Female"
+        id: 21,
+        name: "Salomone",
+        surname: "Mapston",
+        age: 48,
+        gender: "Male",
+        routine_id: 120
     },
     {
-        id:23,
-        name:"Palmer Happel",
-        age:76,
-        gender:"Male"
+        id: 22,
+        name: "Frayda",
+        surname: "Grisley",
+        age: 34,
+        gender: "Female",
+        routine_id: 121
     },
     {
-        id:24,
-        name:"James Fauning",
-        age:70,
-        gender:"Male"
+        id: 23,
+        name: "Palmer",
+        surname: "Happel",
+        age: 76,
+        gender: "Male",
+        routine_id: 122
     },
     {
-        id:25,
-        name:"Freemon Stuckford",
-        age:27,
-        gender:"Male"
+        id: 24,
+        name: "James",
+        surname: "Fauning",
+        age: 70,
+        gender: "Male",
+        routine_id: 123
     },
     {
-        id:26,
-        name:"Marla Alvarez",
-        age:31,
-        gender:"Female"
+        id: 25,
+        name: "Freemon",
+        surname: "Stuckford",
+        age: 27,
+        gender: "Male",
+        routine_id: 124
     },
     {
-        id:27,
-        name:"Hal Broom",
-        age:75,
-        gender:"Male"
+        id: 26,
+        name: "Marla",
+        surname: "Alvarez",
+        age: 31,
+        gender: "Female",
+        routine_id: 125
     },
     {
-        id:28,
-        name:"Lindon Oury",
-        age:30,
-        gender:"Male"
+        id: 27,
+        name: "Hal",
+        surname: "Broom",
+        age: 75,
+        gender: "Male",
+        routine_id: 126
     },
     {
-        id:29,
-        name:"Matthieu Cowburn",
-        age:47,
-        gender:"Male"
+        id: 28,
+        name: "Lindon",
+        surname: "Oury",
+        age: 30,
+        gender: "Male",
+        routine_id: 127
     },
     {
-        id:30,
-        name:"Bayard Senchenko",
-        age:54,
-        gender:"Male"
+        id: 29,
+        name: "Matthieu",
+        surname: "Cowburn",
+        age: 47,
+        gender: "Male",
+        routine_id: 128
     },
     {
-        id:31,
-        name:"Amata Derx",
-        age:78,
-        gender:"Female"
+        id: 30,
+        name: "Bayard",
+        surname: "Senchenko",
+        age: 54,
+        gender: "Male",
+        routine_id: 129
     },
     {
-        id:32,
-        name:"Selena Bromont",
-        age:32,
-        gender:"Female"
+        id: 31,
+        name: "Amata",
+        surname: "Derx",
+        age: 78,
+        gender: "Female",
+        routine_id: 130
     },
     {
-        id:33,
-        name:"Sada Waterstone",
-        age:68,
-        gender:"Female"
+        id: 32,
+        name: "Selena",
+        surname: "Bromont",
+        age: 32,
+        gender: "Female",
+        routine_id: 131
     },
     {
-        id:34,
-        name:"Hirsch Pyrke",
-        age:54,
-        gender:"Male"
+        id: 33,
+        name: "Sada",
+        surname: "Waterstone",
+        age: 68,
+        gender: "Female",
+        routine_id: 132
     },
     {
-        id:35,
-        name:"Shanta Bertson",
-        age:51,
-        gender:"Female"
+        id: 34,
+        name: "Hirsch",
+        surname: "Pyrke",
+        age: 54,
+        gender: "Male",
+        routine_id: 133
     },
     {
-        id:36,
-        name:"Libbie Probert",
-        age:36,
-        gender:"Female"
+        id: 35,
+        name: "Shanta",
+        surname: "Bertson",
+        age: 51,
+        gender: "Female",
+        routine_id: 134
     },
     {
-        id:37,
-        name:"Norah Duligal",
-        age:80,
-        gender:"Female"
+        id: 36,
+        name: "Libbie",
+        surname: "Probert",
+        age: 36,
+        gender: "Female",
+        routine_id: 135
     },
     {
-        id:38,
-        name:"Jule Hilldrop",
-        age:51,
-        gender:"Male"
+        id: 37,
+        name: "Norah",
+        surname: "Duligal",
+        age: 80,
+        gender: "Female",
+        routine_id: 136
     },
     {
-        id:39,
-        name:"Nickie Schurcke",
-        age:33,
-        gender:"Male"
+        id: 38,
+        name: "Jule",
+        surname: "Hilldrop",
+        age: 51,
+        gender: "Male",
+        routine_id: 137
     },
     {
-        id:40,
-        name:"Pooh Dufaire",
-        age:53,
-        gender:"Male"
+        id: 39,
+        name: "Nickie",
+        surname: "Schurcke",
+        age: 33,
+        gender: "Male",
+        routine_id: 138
     },
     {
-        id:41,
-        name:"Stefanie Kubu",
-        age:64,
-        gender:"Bigender"
+        id: 40,
+        name: "Pooh",
+        surname: "Dufaire",
+        age: 53,
+        gender: "Male",
+        routine_id: 139
     },
     {
-        id:42,
-        name:"Currie Clohessy",
-        age:35,
-        gender:"Male"
+        id: 41,
+        name: "Stefanie",
+        surname: "Kubu",
+        age: 64,
+        gender: "Bigender",
+        routine_id: 140
     },
     {
-        id:43,
-        name:"Ardyce Dawkes",
-        age:52,
-        gender:"Female"
+        id: 42,
+        name: "Currie",
+        surname: "Clohessy",
+        age: 35,
+        gender: "Male",
+        routine_id: 141
     },
     {
-        id:44,
-        name:"Desiree Strettell",
-        age:27,
-        gender:"Female"
+        id: 43,
+        name: "Ardyce",
+        surname: "Dawkes",
+        age: 52,
+        gender: "Female",
+        routine_id: 142
     },
     {
-        id:45,
-        name:"Monte Flipek",
-        age:49,
-        gender:"Male"
+        id: 44,
+        name: "Desiree",
+        surname: "Strettell",
+        age: 27,
+        gender: "Female",
+        routine_id: 143
     },
     {
-        id:46,
-        name:"Mathilda Horbath",
-        age:74,
-        gender:"Female"
+        id: 45,
+        name: "Monte",
+        surname: "Flipek",
+        age: 49,
+        gender: "Male",
+        routine_id: 144
     },
     {
-        id:47,
-        name:"Shelba Aldiss",
-        age:62,
-        gender:"Female"
+        id: 46,
+        name: "Mathilda",
+        surname: "Horbath",
+        age: 74,
+        gender: "Female",
+        routine_id: 145
     },
     {
-        id:48,
-        name:"Charley Milillo",
-        age:65,
-        gender:"Male"
+        id: 47,
+        name: "Shelba",
+        surname: "Aldiss",
+        age: 62,
+        gender: "Female",
+        routine_id: 146
     },
     {
-        id:49,
-        name:"Berthe McVane",
-        age:57,
-        gender:"Female"
+        id: 48,
+        name: "Charley",
+        surname: "Milillo",
+        age: 65,
+        gender: "Male",
+        routine_id: 147
     },
     {
-        id:50,
-        name:"Hastings Iorns",
-        age:59,
-        gender:"Bigender"
+        id: 49,
+        name: "Berthe",
+        surname: "McVane",
+        age: 57,
+        gender: "Female",
+        routine_id: 148
+    },
+    {
+        id: 50,
+        name: "Hastings",
+        surname: "Iorns",
+        age: 59,
+        gender: "Bigender",
+        routine_id: 149
     },
     {
         id: 51,
-        name: "John Doe",
+        name: "John",
+        surname: "Doe",
         age: 30,
-        gender: "Male"
+        gender: "Male",
+        routine_id: 150
     },
     {
         id: 52,
-        name: "Jane Smith",
+        name: "Jane",
+        surname: "Smith",
         age: 25,
-        gender: "Female"
+        gender: "Female",
+        routine_id: 151
     },
     {
         id: 53,
-        name: "Alice Johnson",
+        name: "Alice",
+        surname: "Johnson",
         age: 35,
-        gender: "Female"
+        gender: "Female",
+        routine_id: 152
     },
     {
         id: 54,
-        name: "Bob Williams",
+        name: "Bob",
+        surname: "Williams",
         age: 40,
-        gender: "Male"
+        gender: "Male",
+        routine_id: 153
     },
     {
         id: 55,
-        name: "Sarah Davis",
+        name: "Sarah",
+        surname: "Davis",
         age: 28,
-        gender: "Female"
+        gender: "Female",
+        routine_id: 154
     },
     {
         id: 56,
-        name: "Michael Brown",
+        name: "Michael",
+        surname: "Brown",
         age: 32,
-        gender: "Male"
+        gender: "Male",
+        routine_id: 155
     }
 ];
 
@@ -362,87 +473,131 @@ export const mockCustomStats =
 
 
 export const mockRoutines = 
-{
-    routine1Data: {
+[
+    {
         id: 1,
         name: 'Rutina de Manuel',
         description: 'Rutina para mejorar la fuerza en las piernas',
-        ejercicios: {
-            ej1: {
+        exercises: [
+            {
+                id: 1,
                 name: 'Sentadillas',
-                description: '3 series - 10 repeticiones'
+                description: '3 series - 10 repeticiones',
+                routine_ids: [1],
+                routine: null
             },
-            ej2: {
+            {
+                id: 2,
                 name: 'Zancadas',
-                description: '3 series - 10 repeticiones'
+                description: '3 series - 10 repeticiones',
+                routine_ids: [1],
+                routine: null
             },
-            ej3: {
+            {
+                id: 3,
                 name: 'Prensa de piernas',
-                description: '3 series - 10 repeticiones'
+                description: '3 series - 10 repeticiones',
+                routine_ids: [1],
+                routine: null
             }
-        },
-        tiempoEstimado: 40
+        ],
+        estimatedTime: 40,
+        user_id: 1,
+        patient_id: 1
     },
-    routine2Data: {
+    {
         id: 2,
         name: "Rutina de Ana",
         description: "Rutina para mejorar la flexibilidad",
-        ejercicios: {
-            ej1: {
+        exercises: [
+            {
+                id: 4,
                 name: "Estiramientos de piernas",
-                description: "5 series - 15 segundos cada estiramiento"
+                description: "5 series - 15 segundos cada estiramiento",
+                routine_ids: [2],
+                routine: null
             },
-            ej2: {
+            {
+                id: 5,
                 name: "Estiramientos de brazos",
-                description: "4 series - 20 segundos cada estiramiento"
+                description: "4 series - 20 segundos cada estiramiento",
+                routine_ids: [2],
+                routine: null
             },
-            ej3: {
+            {
+                id: 6,
                 name: "Estiramientos de espalda",
-                description: "3 series - 30 segundos cada estiramiento"
+                description: "3 series - 30 segundos cada estiramiento",
+                routine_ids: [2],
+                routine: null
             }
-        },
-        "tiempoEstimado": 50
+        ],
+        estimatedTime: 50,
+        user_id: 1,
+        patient_id: 2
     },
-    routine3Data: {
+    {
         id: 3,
         name: "Rutina de Javier",
         description: "Rutina para mejorar la resistencia cardiovascular",
-        ejercicios: {
-            ej1: {
+        exercises: [
+            {
+                id: 7,
                 name: "Carrera continua",
-                description: "30 minutos de carrera a ritmo moderado"
+                description: "30 minutos de carrera a ritmo moderado",
+                routine_ids: [3],
+                routine: null
             },
-            ej2: {
+            {
+                id: 8,
                 name: "Saltos de cuerda",
-                description: "4 series - 1 minuto de saltos con 30 segundos de descanso"
+                description: "4 series - 1 minuto de saltos con 30 segundos de descanso",
+                routine_ids: [3],
+                routine: null
             },
-            ej3: {
+            {
+                id: 9,
                 name: "Ciclismo",
-                description: "1 hora de ciclismo en terreno plano"
+                description: "1 hora de ciclismo en terreno plano",
+                routine_ids: [3],
+                routine: null
             }
-        },
-        tiempoEstimado: 90
+        ],
+        estimatedTime: 90,
+        user_id: 1,
+        patient_id: 3
     },
-    routine4Data: {
+    {
         id: 4,
         name: "Rutina de María",
         description: "Rutina para fortalecer el core",
-        ejercicios: {
-            ej1: {
+        exercises: [
+            {
+                id: 10,
                 name: "Planchas",
-                description: "3 series - 30 segundos cada serie"
+                description: "3 series - 30 segundos cada serie",
+                routine_ids: [4],
+                routine: null
             },
-            ej2: {
+            {
+                id: 11,
                 name: "Elevación de piernas",
-                description: "4 series - 15 repeticiones cada serie"
+                description: "4 series - 15 repeticiones cada serie",
+                routine_ids: [4],
+                routine: null
             },
-            ej3: {
+            {
+                id: 12,
                 name: "Giros rusos",
-                description: "3 series - 20 repeticiones cada serie"
+                description: "3 series - 20 repeticiones cada serie",
+                routine_ids: [4],
+                routine: null
             }
-        },
-        tiempoEstimado: 75
+        ],
+        estimatedTime: 75,
+        user_id: 1,
+        patient_id: 4
     } 
-}
+]
 
 

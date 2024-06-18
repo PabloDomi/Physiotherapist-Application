@@ -1,16 +1,17 @@
 import { Button, List } from "@mui/material";
 import '../css/Ejercicios.css';
 import { useGlobalState } from "../store/useGlobalState";
-import { usePatients } from "../hooks/usePatients";
+import usePatients from "../hooks/usePatients";
 import ListExpandExercisesCustom from "../components/ListExpandExercisesCustom";
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 import useEditExercise from "../hooks/useEditExercise";
 import ModalWindow from "../components/Modal";
 import useDeleteExercise from "../hooks/useDeleteExercise";
+import Loader from "../components/Loader";
+import { EjerciciosProps } from "../utils/types";
 
-const Ejercicios = () => {
+const Ejercicios = ({ theme }: EjerciciosProps) => {
 
-    const theme = useGlobalState(state => state.theme)
     const { isLoading } = usePatients()
 
     const routines = useGlobalState(state => state.routines)
@@ -44,13 +45,7 @@ const Ejercicios = () => {
 
     return (
         <>
-            {isLoading &&
-                <div className="text-center text-success mt-4">
-                    <div className="spinner-border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-            }
+            {isLoading && <Loader />}
             {!isLoading &&
                 <section className={theme === 'light' ? 'rutinas-section rutinas-background-light' : 'rutinas-section rutinas-background-dark'}>
                     <h1 id="title-exercises">Lista de Ejercicios</h1>

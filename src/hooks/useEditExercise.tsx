@@ -101,7 +101,6 @@ export function useEditExercise() {
 
     const isChecked = (routine: RoutineData) => {
         EditExerciseData?.routine_ids?.push(routine.id)
-        console.log(EditExerciseData?.routine_ids)
     }
 
     const isUnchecked = (routine: RoutineData) => {
@@ -109,7 +108,6 @@ export function useEditExercise() {
         if (index !== undefined) {
             EditExerciseData?.routine_ids?.splice(index, 1)
         }
-        console.log(EditExerciseData?.routine_ids)
     }
 
     const modalContentEditExercise =

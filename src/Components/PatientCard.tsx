@@ -1,8 +1,10 @@
-import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { Button, Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import { useGlobalState } from "../store/useGlobalState";
 import { Id } from "../utils/types";
+import '../css/Estadisticas.css'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export default function PatientCard({ patientId }: { patientId: Id }) {
+export default function PatientCard({ patientId, handleGoBack }: { patientId: Id, handleGoBack: (event: React.MouseEvent<HTMLButtonElement>) => void }) {
 
     const theme = useGlobalState(state => state.theme)
     const patients = useGlobalState(state => state.patients)
@@ -13,6 +15,11 @@ export default function PatientCard({ patientId }: { patientId: Id }) {
         <Card
             id={theme === 'dark' ? 'patient-card-dark' : 'patient-card-light'}
         >
+            <Button
+                onClick={handleGoBack}
+                id={theme === 'light' ? 'button-home-icon' : 'button-home-icon-dark'}>
+                <ArrowBackIcon />
+            </Button>
             <CardActionArea>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

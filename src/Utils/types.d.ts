@@ -81,11 +81,27 @@ export interface EstadisticasProps {
     theme: Theme
 }
 
+export interface EjerciciosProps {
+    theme: Theme
+}
+
+export interface RoutinesProps {
+    theme: Theme
+}
+
 export interface SearchCardProps {
     chartTitle: (newTitle: number) => void
     key: number;
     person: User;
+    onRemove: (personId: number) => void;
+    setBehavior: (behavior: behaviorSearchListProps) => void;
 }
+
+export type authHeader = {
+    headers: { 
+        Authorization: string 
+    }
+};
 
 interface GlobalState {
     view: string
@@ -139,7 +155,7 @@ interface Exercise {
     name: string;
     description: string;
     routine_ids: Id[] | []
-    routine: RoutineData | null
+    routine?: RoutineData | null
 }
 
 interface RoutineData {
@@ -187,6 +203,10 @@ interface RegisterServiceProps {
 interface LoginServiceProps {
         email: string;
         password: string;
+}
+
+interface LogoutServiceProps {
+    email: string;
 }
 
 interface RegisterPatientFormProps {
@@ -266,3 +286,9 @@ interface EditExerciseServiceProps {
     description: string | undefined;
     routine_ids: number[] | undefined;
 }
+
+interface behaviorSearchListProps {
+    onRemove: (personId: number) => void
+    toggleShowCard: () => void
+    person_Id: number
+  }

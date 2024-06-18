@@ -1,0 +1,438 @@
+import { Meta } from '@storybook/addon-docs';
+import GetDataService from '../../services/GetDataService';
+
+<Meta title="BusinessLogic/Services/GetDataService" />
+
+# GetDataService
+
+El servicio `GetDataService` se utiliza para realizar varias solicitudes HTTP a la API, incluyendo la obtención de rutinas, pacientes, usuarios, ejercicios y la verificación de correos electrónicos.
+
+# Ejemplo de implementación
+```typescript
+import GetDataService from '../../services/GetDataService';
+
+// Obtener rutinas
+GetDataService.GetRoutines()
+    .then(routines => {
+        console.log('Rutinas obtenidas:', routines);
+    })
+    .catch(error => {
+        console.error('Error al obtener rutinas:', error);
+    });
+
+// Obtener pacientes
+GetDataService.GetPatients()
+    .then(patients => {
+        console.log('Pacientes obtenidos:', patients);
+    })
+    .catch(error => {
+        console.error('Error al obtener pacientes:', error);
+    });
+
+// Verificar si un correo electrónico existe
+GetDataService.CheckEmailExists('user@example.com')
+    .then(exists => {
+        console.log('Correo verificado:', exists);
+    })
+    .catch(error => {
+        console.error('Error al verificar correo:', error);
+    });
+
+// Obtener usuarios
+GetDataService.GetUsers()
+    .then(users => {
+        console.log('Usuarios obtenidos:', users);
+    })
+    .catch(error => {
+        console.error('Error al obtener usuarios:', error);
+    });
+
+// Obtener ejercicios por nombre de rutina
+GetDataService.GetExercisesByRoutineName('Rutina 1')
+    .then(exercises => {
+        console.log('Ejercicios obtenidos:', exercises);
+    })
+    .catch(error => {
+        console.error('Error al obtener ejercicios:', error);
+    });
+
+// Verificar si un paciente tiene una rutina asignada
+GetDataService.CheckHasRoutine(1)
+    .then(hasRoutine => {
+        console.log('Paciente tiene rutina:', hasRoutine);
+    })
+    .catch(error => {
+        console.error('Error al verificar rutina del paciente:', error);
+    });
+
+// Obtener una rutina por su ID
+GetDataService.GetRoutineById(1)
+    .then(routine => {
+        console.log('Rutina obtenida:', routine);
+    })
+    .catch(error => {
+        console.error('Error al obtener rutina:', error);
+    });
+
+// Obtener un ejercicio por su ID
+GetDataService.GetExerciseById('1')
+    .then(exercise => {
+        console.log('Ejercicio obtenido:', exercise);
+    })
+    .catch(error => {
+        console.error('Error al obtener ejercicio:', error);
+    });
+
+// Obtener todos los ejercicios
+GetDataService.GetAllExercises()
+    .then(exercises => {
+        console.log('Ejercicios obtenidos:', exercises);
+    })
+    .catch(error => {
+        console.error('Error al obtener ejercicios:', error);
+    });
+
+// Refrescar token JWT
+GetDataService.RefreshJWToken()
+    .then(token => {
+        console.log('Token refrescado:', token);
+    })
+    .catch(error => {
+        console.error('Error al refrescar token:', error);
+    });
+
+// Obtener token de acceso
+GetDataService.GetAccessToken('user@example.com')
+    .then(token => {
+        console.log('Token de acceso obtenido:', token);
+    })
+    .catch(error => {
+        console.error('Error al obtener token de acceso:', error);
+    });
+
+```
+
+## Métodos
+
+### authHeaders
+
+```typescript
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
+```
+- Descripción: Genera los encabezados de autorización necesarios para las solicitudes HTTP utilizando el token almacenado en el almacenamiento local.
+
+### GetRoutines
+```typescript
+const GetRoutines = async () => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}routines`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Obtiene todas las rutinas.
+- Uso:
+```typescript
+GetDataService.GetRoutines()
+    .then(routines => {
+        console.log('Rutinas obtenidas:', routines);
+    })
+    .catch(error => {
+        console.error('Error al obtener rutinas:', error);
+    });
+
+```
+
+### GetPatients
+```typescript
+const GetPatients = async () => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}patients`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Obtiene todos los pacientes.
+- Uso:
+```typescript
+GetDataService.GetPatients()
+    .then(patients => {
+        console.log('Pacientes obtenidos:', patients);
+    })
+    .catch(error => {
+        console.error('Error al obtener pacientes:', error);
+    });
+
+```
+
+### CheckEmailExists
+```typescript
+const CheckEmailExists = async (email: string) => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}user_management/checkEmail/${email}`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+-Descripción: Verifica si un correo electrónico existe.
+- Parámetros:
+    - **`email`**: Correo electrónico a verificar.
+- Uso:
+```typescript
+GetDataService.CheckEmailExists('user@example.com')
+    .then(exists => {
+        console.log('Correo verificado:', exists);
+    })
+    .catch(error => {
+        console.error('Error al verificar correo:', error);
+    });
+
+```
+
+### GetUsers
+```typescript
+const GetUsers = async () => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}users`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Obtiene todos los usuarios.
+- Uso:
+```typescript
+GetDataService.GetUsers()
+    .then(users => {
+        console.log('Usuarios obtenidos:', users);
+    })
+    .catch(error => {
+        console.error('Error al obtener usuarios:', error);
+    });
+
+```
+
+### GetExercisesByRoutineName
+```typescript
+const GetExercisesByRoutineName = async (routineName: string) => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}routine_management/getExercisesFromRoutine/${routineName}`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Obtiene los ejercicios por el nombre de la rutina.
+- Parámetros:
+    - **`routineName`**: Nombre de la rutina.
+- Uso:
+```typescript
+GetDataService.GetExercisesByRoutineName('Rutina 1')
+    .then(exercises => {
+        console.log('Ejercicios obtenidos:', exercises);
+    })
+    .catch(error => {
+        console.error('Error al obtener ejercicios:', error);
+    });
+
+```
+
+### CheckHasRoutine
+```typescript
+const CheckHasRoutine = async (patientId: number | undefined) => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        if (patientId === undefined) {
+            console.error("Patient ID is undefined");
+            return;
+        }
+        const response = await axios.get(`${baseUrl}routine_management/checkHasRoutine/${patientId}`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Verifica si un paciente tiene una rutina asignada.
+- Parámetros:
+    - **`patientId`**: ID del paciente.
+- Uso:
+```typescript
+GetDataService.CheckHasRoutine(1)
+    .then(hasRoutine => {
+        console.log('Paciente tiene rutina:', hasRoutine);
+    })
+    .catch(error => {
+        console.error('Error al verificar rutina del paciente:', error);
+    });
+
+```
+
+### GetRoutineById
+```typescript
+const GetRoutineById = async (routineId: number) => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}routine_management/getRoutineById/${routineId}`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Obtiene una rutina por su ID.
+- Parámetros:
+    - **`routineId`**: ID de la rutina.
+- Uso:
+```typescript
+GetDataService.GetRoutineById(1)
+    .then(routine => {
+        console.log('Rutina obtenida:', routine);
+    })
+    .catch(error => {
+        console.error('Error al obtener rutina:', error);
+    });
+
+```
+
+### GetExercisesById
+```typescript
+const GetExerciseById = async (exerciseId: string) => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}routine_management/getExerciseById/${exerciseId}`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Obtiene un ejercicio por su ID.
+- Parámetros:
+    - **`exerciseId`**: ID del ejercicio.
+- Uso:
+```typescript
+GetDataService.GetExerciseById('1')
+    .then(exercise => {
+        console.log('Ejercicio obtenido:', exercise);
+    })
+    .catch(error => {
+        console.error('Error al obtener ejercicio:', error);
+    });
+
+```
+
+### GetAllExercises
+```typescript
+const GetAllExercises = async () => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}exercises`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Obtiene todos los ejercicios.
+- Uso:
+```typescript
+GetDataService.GetAllExercises()
+    .then(exercises => {
+        console.log('Ejercicios obtenidos:', exercises);
+    })
+    .catch(error => {
+        console.error('Error al obtener ejercicios:', error);
+    });
+
+```
+
+### RefreshJWToken
+```typescript
+const RefreshJWToken = async () => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.post(`${baseUrl}Sign/RefreshJWToken`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Refresca el token JWT.
+- Uso:
+```typescript
+GetDataService.RefreshJWToken()
+    .then(token => {
+        console.log('Token refrescado:', token);
+    })
+    .catch(error => {
+        console.error('Error al refrescar token:', error);
+    });
+
+```
+
+### GetAccessToken
+```typescript
+const GetAccessToken = async (email: string) => {
+    const authorizationHeader: authHeader = authHeaders();
+    try {
+        const response = await axios.get(`${baseUrl}Sign/getAccessToken/${email}`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+```
+- Descripción: Obtiene un token de acceso utilizando el correo electrónico del usuario.
+- Parámetros:
+    - **`email`**: Correo electrónico del usuario.
+- Uso: 
+```typescript
+GetDataService.GetAccessToken('user@example.com')
+    .then(token => {
+        console.log('Token de acceso obtenido:', token);
+    })
+    .catch(error => {
+        console.error('Error al obtener token de acceso:', error);
+    });
+
+```
+
+## Dependencias
+Para utilizar este servicio, necesitas instalar las siguientes dependencias:
+- `npm install axios`
+
+## Notas
+- Asegúrate de que el token se maneje de manera segura y que no se exponga en lugares no seguros.
+- La URL base de la API debe estar correctamente configurada en ../utils/Constants.

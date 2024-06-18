@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import GetDataService from "../services/GetDataService"
 import { useGlobalState } from "../store/useGlobalState"
 
-export function usePatients() {
+export default function usePatients() {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const setPatients = useGlobalState(state => state.setPatients)

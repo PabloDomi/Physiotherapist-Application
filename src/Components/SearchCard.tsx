@@ -5,26 +5,14 @@ import { useGlobalState } from "../store/useGlobalState";
 import { mockCustomStats } from "../utils/MockData";
 import { IconButton } from "@mui/material";
 import { Clear } from '@mui/icons-material';
-import useAreUSure from "../hooks/useAreUSure";
-import ModalWindow from "./Modal";
 
 
-const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person }) => {
+const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove, setBehavior }) => {
 
   const theme = useGlobalState(state => state.theme)
-
-  const information = '¿Está seguro de que desea eliminar este paciente y toda su información relacionada?'
-
   const [showCard, setShowCard] = useState<boolean>(true)
 
   const toggleShowCard = () => setShowCard(!showCard)
-
-  const {
-    showModalAreUSure,
-    toggleModalAreUSure,
-    modalTitleAreUSure,
-    modalContentAreUSure
-  } = useAreUSure(information)
 
   // Función para actualizar el valor de custom data y recarga automatica de los datos en estadisticas
   const changeCustomStatsData = useGlobalState(state => state.changeCustomStatsData)
@@ -45,32 +33,28 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person }) => {
 
   const handleDeleteClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-
-    toggleModalAreUSure()
+    setBehavior({
+      onRemove: onRemove,
+      toggleShowCard: toggleShowCard,
+      person_Id: person.id
+    })
   }
-
 
   return (
     <>
       {showCard &&
         <div className="card-container shadow">
           <button className="card-div-button" onClick={handleClick}>
-            <h6 className={theme === 'light' ? 'card-name-light fw-bold' : 'card-name fw-bold'}>{person.name + ' ' + person.surname}</h6>
-            <p className={theme === 'light' ? 'card-age-light ps-2' : 'card-age ps-2'}>{person.age + ' años'}</p>
+            <h6 className={theme === 'light' ? 'card-name-light ps-2 fw-bold' : 'card-name ps-2 fw-bold'}>
+              {person.name + ' ' + person.surname}
+            </h6>
+            <p className={theme === 'light' ? 'card-age-light ps-2' : 'card-age ps-2'}>
+              {person.age + ' años'}
+            </p>
           </button>
-          <IconButton onClick={handleDeleteClick} aria-label="delete" id="card-delete-button">
+          <IconButton onClick={handleDeleteClick} aria-label="delete-card-button" id="card-delete-button">
             <Clear fontSize="small" className={theme === 'dark' ? 'card-icon' : ''} />
           </IconButton>
-          {showModalAreUSure &&
-            <ModalWindow
-              show={showModalAreUSure}
-              title={modalTitleAreUSure}
-              content={modalContentAreUSure}
-              action='deletePatient'
-              data={person.id}
-              behavior={toggleShowCard}
-            />
-          }
         </div>
       }
     </>

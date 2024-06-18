@@ -2,6 +2,9 @@ import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts'
 import '../css/Estadisticas.css'
 import { mockStats } from "../utils/MockData"
+import { useRef } from 'react';
+import useDownloadPDF from '../hooks/useDownloadPDF';
+import { Button } from '@mui/material';
 
 const DefaultStatsChart = () => {
 
@@ -106,9 +109,21 @@ const DefaultStatsChart = () => {
         }
     ];
 
+    const chartRef = useRef<HTMLElement>(null)
+    const { downloadPDF } = useDownloadPDF()
+
+    const handleDownloadPDF = () => {
+        downloadPDF(chartRef)
+    }
+
     return (
         <>
-            <Chart options={options} series={series} type="line" height='100%' />
+            <section style={{ height: "100%" }} ref={chartRef}>
+                <Chart options={options} series={series} type="line" height='100%' />
+            </section>
+            <div style={{ display: "flex", justifyContent: "center", margin: "2rem" }}>
+                <Button sx={{ backgroundColor: "#527cdd" }} variant='contained' onClick={handleDownloadPDF}>Descargar PDF</Button>
+            </div>
         </>
     )
 

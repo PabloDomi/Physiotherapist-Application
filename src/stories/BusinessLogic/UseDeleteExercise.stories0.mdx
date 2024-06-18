@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs';
+import useDeleteExercise from '../../hooks/useDeleteExercise';
+
+<Meta title="BusinessLogic/Hooks/useDeleteExercise" />
+
+# useDeleteExercise
+
+El hook `useDeleteExercise` se utiliza para gestionar el estado y la lógica necesaria para eliminar un ejercicio. Este hook proporciona un modal con un formulario que permite a los usuarios seleccionar el ejercicio que desean eliminar.
+
+## Ejemplo de implementación
+
+```typescript
+import React from 'react';
+import useDeleteExercise from '../../hooks/useDeleteExercise';
+
+const DeleteExerciseComponent = () => {
+    const { 
+        showModalDeleteExercise, 
+        toggleModalDeleteExercise, 
+        modalTitleDeleteExercise, 
+        modalContentDeleteExercise 
+    } = useDeleteExercise();
+
+    return (
+        <div>
+            <button onClick={toggleModalDeleteExercise}>Eliminar Ejercicio</button>
+            {showModalDeleteExercise && (
+                <div>
+                    <h2>{modalTitleDeleteExercise}</h2>
+                    {modalContentDeleteExercise}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default DeleteExerciseComponent;
+
+
+```
+
+## Descripción de los elementos del hook
+
+### Estados
+
+- **showModalDeleteExercise**:
+    - Tipo: boolean
+    - Descripción: Estado que indica si el modal para eliminar un ejercicio está visible o no.
+
+- **DeleteExerciseData**:
+    - Tipo: number | undefined
+    - Descripción: ID del ejercicio seleccionado para ser eliminado.
+
+### Métodos
+
+- **toggleModalDeleteExercise**:
+    - Tipo: () => void
+    - Descripción: Función que alterna la visibilidad del modal para eliminar un ejercicio.
+
+### Constantes
+
+- **modalTitleDeleteExercise**:
+    - Tipo: string
+    - Valor: 'Eliminar ejercicio'
+    - Descripción: Título del modal para eliminar un ejercicio.
+
+- **modalContentDeleteExercise**:
+    - Tipo: JSX.Element
+    - Descripción: Contenido del modal, que incluye un formulario con un campo de selección para elegir el ejercicio a eliminar.
+
+- **theme**:
+    - Tipo: string
+    - Descripción: Tema actual de la aplicación.

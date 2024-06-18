@@ -1,0 +1,255 @@
+import { Meta } from '@storybook/addon-docs';
+import PostPutDataService from '../../services/PostPutDataService';
+
+<Meta title="BusinessLogic/Services/PostPutDataService" />
+
+# PostPutDataService
+
+El servicio `PostPutDataService` se utiliza para gestionar las solicitudes HTTP POST y PUT relacionadas con las rutinas y los ejercicios. Este servicio maneja la autorización utilizando un token almacenado en el almacenamiento local.
+
+# Ejemplo de implementación
+```typescript
+import PostPutDataService from '../../services/PostPutDataService';
+
+// Añadir una rutina
+const newRoutine = {
+    name: 'Nueva Rutina',
+    description: 'Descripción de la nueva rutina',
+    estimatedTime: 30,
+    patient_id: 1
+};
+
+PostPutDataService.AddRoutineService(newRoutine)
+    .then(response => {
+        console.log('Rutina añadida con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error añadiendo la rutina:', error.message);
+    });
+
+// Añadir un ejercicio a una rutina
+const newExercise = {
+    name: 'Nuevo Ejercicio',
+    description: 'Descripción del nuevo ejercicio',
+    routine_name: 'Rutina 1'
+};
+
+PostPutDataService.AddExerciseToRoutineService(newExercise)
+    .then(response => {
+        console.log('Ejercicio añadido con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error añadiendo el ejercicio a la rutina:', error.message);
+    });
+
+// Editar una rutina
+const updatedRoutine = {
+    routine_id: 1,
+    name: 'Rutina Actualizada',
+    description: 'Descripción actualizada',
+    estimatedTime: 45,
+    patient_id: 1
+};
+
+PostPutDataService.EditRoutineService(updatedRoutine)
+    .then(response => {
+        console.log('Rutina editada con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error editando la rutina:', error.message);
+    });
+
+// Editar un ejercicio
+const updatedExercise = {
+    id: 1,
+    name: 'Ejercicio Actualizado',
+    description: 'Descripción actualizada',
+    routine_ids: [1, 2],
+    routine: [{ id: 1, name: 'Rutina 1' }, { id: 2, name: 'Rutina 2' }]
+};
+
+PostPutDataService.EditExerciseService(updatedExercise)
+    .then(response => {
+        console.log('Ejercicio editado con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error editando el ejercicio:', error.message);
+    });
+
+```
+
+## Métodos
+
+### authHeaders
+
+```typescript
+const authHeaders = () => {
+    return {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }
+}
+```
+- Descripción: Genera los encabezados de autorización necesarios para las solicitudes HTTP utilizando el token almacenado en el almacenamiento local.
+
+### AddRoutineService
+```typescript
+async function AddRoutineService(credentials: AddRoutineServiceProps) {
+    const authorizationHeader: authHeader = authHeaders();
+
+    try {
+        const { data } = await axios.post(`${baseUrl}routine_management/addRoutine`, credentials, authorizationHeader);
+        return data;
+    } catch (error) {
+        throw new Error("Error añadiendo la rutina");
+    }
+}
+
+```
+- Descripción: Realiza una solicitud HTTP POST para añadir una nueva rutina.
+- Parámetros:
+    - **`credentials`**: Un objeto que contiene los datos de la rutina a añadir.
+- Uso:
+```typescript
+import PostPutDataService from '../../services/PostPutDataService';
+
+const newRoutine = {
+    name: 'Nueva Rutina',
+    description: 'Descripción de la nueva rutina',
+    estimatedTime: 30,
+    patient_id: 1
+};
+
+PostPutDataService.AddRoutineService(newRoutine)
+    .then(response => {
+        console.log('Rutina añadida con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error añadiendo la rutina:', error.message);
+    });
+
+```
+
+### AddExerciseToRoutineService
+```typescript
+async function AddExerciseToRoutineService(credentials: AddExerciseToRoutineServiceProps) {
+    const authorizationHeader: authHeader = authHeaders();
+
+    try {
+        const { data } = await axios.post(`${baseUrl}routine_management/addExerciseToRoutine`, credentials, authorizationHeader);
+        return data;
+    } catch (error) {
+        throw new Error("Error añadiendo el ejercicio a la rutina");
+    }
+}
+
+```
+- Descripción: Realiza una solicitud HTTP POST para añadir un ejercicio a una rutina existente.
+- Parámetros:
+    - **`credentials`**: Un objeto que contiene los datos del ejercicio a añadir.
+- Uso:
+```typescript
+import PostPutDataService from '../../services/PostPutDataService';
+
+const newExercise = {
+    name: 'Nuevo Ejercicio',
+    description: 'Descripción del nuevo ejercicio',
+    routine_name: 'Rutina 1'
+};
+
+PostPutDataService.AddExerciseToRoutineService(newExercise)
+    .then(response => {
+        console.log('Ejercicio añadido con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error añadiendo el ejercicio a la rutina:', error.message);
+    });
+
+```
+
+### EditRoutineService
+```typescript
+async function EditRoutineService(credentials: EditRoutineDataTypes) {
+    const authorizationHeader: authHeader = authHeaders();
+
+    try {
+        const { data } = await axios.put(`${baseUrl}routine_management/updateRoutine`, credentials, authorizationHeader);
+        return data;
+    } catch (error) {
+        throw new Error("Error editando la rutina");
+    }
+}
+
+```
+- Descripción: Realiza una solicitud HTTP PUT para editar una rutina existente.
+- Parámetros:
+    - **`credentials`**: Un objeto que contiene los datos de la rutina a editar.
+- Uso:
+```typescript
+import PostPutDataService from '../../services/PostPutDataService';
+
+const updatedRoutine = {
+    routine_id: 1,
+    name: 'Rutina Actualizada',
+    description: 'Descripción actualizada',
+    estimatedTime: 45,
+    patient_id: 1
+};
+
+PostPutDataService.EditRoutineService(updatedRoutine)
+    .then(response => {
+        console.log('Rutina editada con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error editando la rutina:', error.message);
+    });
+
+```
+
+### EditExerciseService
+```typescript
+async function EditExerciseService(credentials: EditExerciseServiceProps) {
+    const authorizationHeader: authHeader = authHeaders();
+
+    try {
+        const { data } = await axios.put(`${baseUrl}routine_management/updateExercise`, credentials, authorizationHeader);
+        return data;
+    } catch (error) {
+        throw new Error("Error editando el ejercicio");
+    }
+}
+
+```
+- Descripción: Realiza una solicitud HTTP PUT para editar un ejercicio existente.
+- Parámetros:
+    - **`credentials`**: Un objeto que contiene los datos del ejercicio a editar.
+- Uso:
+```typescript
+import PostPutDataService from '../../services/PostPutDataService';
+
+const updatedExercise = {
+    id: 1,
+    name: 'Ejercicio Actualizado',
+    description: 'Descripción actualizada',
+    routine_ids: [1, 2],
+    routine: [{ id: 1, name: 'Rutina 1' }, { id: 2, name: 'Rutina 2' }]
+};
+
+PostPutDataService.EditExerciseService(updatedExercise)
+    .then(response => {
+        console.log('Ejercicio editado con éxito:', response);
+    })
+    .catch(error => {
+        console.error('Error editando el ejercicio:', error.message);
+    });
+
+```
+
+## Dependencias
+Para utilizar este servicio, necesitas instalar las siguientes dependencias:
+- `npm install axios`
+
+## Notas
+- Asegúrate de que el token se maneje de manera segura y que no se exponga en lugares no seguros.
+- La URL base de la API debe estar correctamente configurada en ../utils/Constants.

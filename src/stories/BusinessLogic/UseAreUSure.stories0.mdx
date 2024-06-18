@@ -1,0 +1,81 @@
+import { Meta } from '@storybook/addon-docs';
+import { useAreUSure } from '../../hooks/useAreUSure';
+
+<Meta title="BusinessLogic/Hooks/useAreUSure" />
+
+# useAreUSure
+
+El hook `useAreUSure` se utiliza para gestionar el estado y la lógica necesaria para mostrar un modal de confirmación cuando el usuario realiza una acción que requiere confirmación.
+
+## Ejemplo de implementación
+
+```typescript
+import React from 'react';
+import useAreUSure from '../../hooks/useAreUSure';
+import { Modal, Button } from 'react-bootstrap';
+
+const AreUSureComponent = () => {
+    const { 
+        showModalAreUSure, 
+        toggleModalAreUSure, 
+        modalTitleAreUSure, 
+        modalContentAreUSure 
+    } = useAreUSure('¿Está seguro de que desea realizar esta acción?');
+
+    return (
+        <div>
+            <Button onClick={toggleModalAreUSure}>Confirmar Acción</Button>
+            <Modal show={showModalAreUSure} onHide={toggleModalAreUSure}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{modalTitleAreUSure}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {modalContentAreUSure}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={toggleModalAreUSure}>
+                        Cancelar
+                    </Button>
+                    <Button variant="primary" onClick={() => { /* Acción de confirmación */ }}>
+                        Confirmar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
+    );
+};
+
+export default AreUSureComponent;
+
+```
+
+## Descripción de los elementos del hook
+
+### Estados
+- **showModalAreUSure**:
+  - Tipo: boolean
+  - Descripción: Estado que indica si el modal de confirmación está visible o no.
+  
+### Métodos
+- **toggleModalAreUSure**:
+  - Tipo: () => void
+  - Descripción: Función que alterna la visibilidad del modal de confirmación.
+
+### Constantes
+- **modalTitleAreUSure**:
+  - Tipo: string
+  - Valor: '¿Está seguro de los cambios?'
+  - Descripción: Título del modal de confirmación.
+  
+- **modalContentAreUSure**:
+  - Tipo: JSX.Element
+  - Descripción: Contenido del modal, que incluye un mensaje de información sobre la acción a confirmar.
+
+- **theme**:
+  - Tipo: string
+  - Descripción: Tema actual de la aplicación.
+
+### Notas
+- Asegúrate de que los estados globales showAreUSureModal y toggleAreUSureModal estén correctamente configurados en tu estado global.
+- La función toggleModalAreUSure se utiliza para abrir y cerrar el modal de confirmación.
+- El contenido del modal y su título se pueden personalizar mediante los parámetros proporcionados al hook.

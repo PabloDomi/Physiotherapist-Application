@@ -1,0 +1,102 @@
+import { Meta } from '@storybook/addon-docs';
+import useRegisterPatient from '../../hooks/useRegisterPatient';
+
+<Meta title="BusinessLogic/Hooks/useRegisterPatient" />
+
+# useRegisterPatient
+
+El hook `useRegisterPatient` se utiliza para gestionar el registro de un paciente. Este hook maneja el estado del formulario de registro y las validaciones, además de mostrar mensajes de error en caso de que los datos no cumplan con los requisitos.
+
+## Ejemplo de implementación
+
+```typescript
+import useRegisterPatient from '../../hooks/useRegisterPatient';
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
+
+const RegisterPatientComponent = () => {
+    const { 
+        errorMessage, 
+        showModalRegisterPatient, 
+        toggleModalRegisterPatient, 
+        modalTitleRegisterPatient, 
+        modalContentRegisterPatient 
+    } = useRegisterPatient();
+
+    return (
+        <div>
+            <Button onClick={toggleModalRegisterPatient}>Registrar Paciente</Button>
+            <Modal show={showModalRegisterPatient} onHide={toggleModalRegisterPatient}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{modalTitleRegisterPatient}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {modalContentRegisterPatient}
+                    {errorMessage.message && (
+                        <div className={`alert alert-${errorMessage.severity}`} role="alert">
+                            {errorMessage.message}
+                        </div>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={toggleModalRegisterPatient}>
+                        Cerrar
+                    </Button>
+                    <Button variant="primary" type="submit">
+                        Guardar Cambios
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
+    );
+};
+
+export default RegisterPatientComponent;
+
+```
+
+## Descripción de los elementos del hook
+
+### Estados
+
+- **errorMessage**:
+    - Tipo: `{ message: string, severity: 'error' | 'warning' | 'info' | 'success' }`
+    - Descripción: Mensaje de error actual que se muestra en el formulario.
+- **showModalRegisterPatient**:
+    - Tipo: `boolean`
+    - Descripción: Estado que indica si el modal para registrar un paciente está visible o no.
+- **registerPatientData**:
+    - Tipo: `RegisterPatientDataTypes | undefined`
+    - Descripción: Datos del paciente que se está registrando.
+
+### Métodos
+
+- **toggleModalRegisterPatient**:
+    - Tipo: `() => void`
+    - Descripción: Función que alterna la visibilidad del modal para registrar un paciente.
+- **handleRegisterPatientSubmit**:
+    - Tipo: `(data: RegisterPatientSchema) => void`
+    - Descripción: Función que maneja el envío del formulario de registro de paciente.
+
+### Constantes
+
+- **modalTitleRegisterPatient**:
+    - Tipo: `string`
+    - Valor: `'Registro de Paciente'`
+    - Descripción: Título del modal para registrar un paciente.
+- **modalContentRegisterPatient**:
+    - Tipo: `JSX.Element`
+    - Descripción: Contenido del modal, que incluye un formulario con campos para registrar los detalles del paciente.
+- **theme**:
+    - Tipo: `string`
+    - Descripción: Tema actual de la aplicación.
+
+### Dependencias
+Para utilizar este hook, necesitas instalar las siguientes dependencias:
+- `npm install react-bootstrap react-hook-form @hookform/resolvers zod`
+
+### Notas
+- Asegúrate de que el esquema registerPatientFormSchema esté correctamente definido en ../utils/schemas.
+- La validación del formulario y la gestión de los datos del paciente se manejan utilizando react-hook-form y zod.
+- La función setRegisterPatientData actualiza el estado del formulario a medida que el usuario ingresa datos.
+- Los mensajes de error se muestran en función de las validaciones definidas en el esquema registerPatientFormSchema.
