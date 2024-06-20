@@ -132,6 +132,15 @@
     background-color: #22242a;
 }
 
+.dropdown-content-button-light:hover {
+    outline: 2px solid #27ab28d9;
+}
+
+.dropdown-content-button-light {
+    background-color: #ffffffd9;
+    color: #27ab28d9
+}
+
 .btn-options:hover {
     transition: ease-in-out 0.3s;
     box-shadow: 0 0 20px rgb(83, 83, 83);
@@ -160,14 +169,24 @@
 
 .dark-input {
     background-color: #555;
-    color: #4570D6;
-    border-color: #333;
+    color: #a0bdff;
+    border-color: #a0bdff;
+
+    &&::placeholder {
+        color: #a0bdff;
+        opacity: 0.5;
+    }
 }
 
 .dark-input2 {
-    background-color: #555;
+    background-color: #ffffff;
     color: #4570D6;
     border-color: #4570D6;
+
+    &&::placeholder {
+        color: #4570D6;
+        opacity: 0.5;
+    }
 }
 
 .dark-input:focus {

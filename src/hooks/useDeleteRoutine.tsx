@@ -23,7 +23,6 @@ export function useDeleteRoutine() {
                 <Form.Group className="mb-3" controlId="DeleteRoutineForm.Select1" onClick={(event) => event.stopPropagation()}>
                     <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione la rutina a eliminar</Form.Label>
                     <Form.Select
-                        style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                         onChange={(event) => {
                             event.stopPropagation()
                             setDeleteRoutineData(

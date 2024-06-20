@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterPatientDataTypes } from "../utils/types"
+import '../css/Estadisticas.css'
 
 // TODO -> Las validaciones de este hook no funcionan porque el boton de submit no está aqui,
 // sino en el componente "Modal", y no, poniendo el boton del modal con tipo submit tampoco funciona
@@ -153,6 +154,7 @@ export function useRegisterPatient() {
                         }
                     )}
                     aria-label="Default select"
+                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                 /* {...control.register("gender")} */
                 >
                     <option>Seleccionar entre...</option>
