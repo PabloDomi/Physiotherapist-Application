@@ -103,21 +103,21 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                 </Navbar.Collapse>
                 <div className='dropdown'>
                     <Button className={theme === 'light' ? 'btn-options' : 'btn-options-dark'}>
-                        <IonIcon icon={options} id='main-color7' className='btn-options-image' />
+                        <IonIcon icon={options} id={theme === "dark" ? 'main-color7' : 'main-color3'} className='btn-options-image' />
                     </Button>
                     <ul className='dropdown-content'>
                         <li className='dropdown-content-li dropdown-content-li-1'>
                             <button
                                 onClick={logout}
                                 className={theme === 'light'
-                                    ? 'dropdown-content-button'
+                                    ? 'dropdown-content-button dropdown-content-button-light'
                                     : 'dropdown-content-button dropdown-content-button-dark'
                                 } >LogOut</button>
                         </li>
                         <li className='dropdown-content-li dropdown-content-li-2'>
                             <button onClick={handleClickChangePassword}
                                 className={theme === 'light'
-                                    ? 'dropdown-content-button'
+                                    ? 'dropdown-content-button dropdown-content-button-light'
                                     : 'dropdown-content-button dropdown-content-button-dark'
                                 } >Cambiar Contraseña
                             </button>
@@ -137,7 +137,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                             <button
                                 onClick={handleDeleteAdmin}
                                 className={theme === 'light'
-                                    ? 'dropdown-content-button'
+                                    ? 'dropdown-content-button dropdown-content-button-light'
                                     : 'dropdown-content-button dropdown-content-button-dark'
                                 } >Borrar Cuenta Administrador
                             </button>
@@ -157,7 +157,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                             <button
                                 onClick={handleRegisterPatient}
                                 className={theme === 'light'
-                                    ? 'dropdown-content-button'
+                                    ? 'dropdown-content-button dropdown-content-button-light'
                                     : 'dropdown-content-button dropdown-content-button-dark'
                                 } >Registrar Usuario
                             </button>

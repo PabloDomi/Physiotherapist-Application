@@ -33,14 +33,13 @@ export function useDeleteAdmin() {
         setUserSelected(event.target.value)
     }
 
-    const modalTitleDeleteAdmin = 'Cambio de Contraseña'
+    const modalTitleDeleteAdmin = 'Dar de baja a un administrador'
 
     const modalContentDeleteAdmin =
         <Form>
             <Form.Group className="mb-3" controlId="changePasswordForm.ControlInput1">
                 <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione el administrador a eliminar</Form.Label>
                 <Form.Select
-                    style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                     onChange={handleChange}
                     autoFocus
                     aria-label="Default select"

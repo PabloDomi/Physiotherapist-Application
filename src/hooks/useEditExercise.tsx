@@ -17,7 +17,7 @@ export function useEditExercise() {
 
     const routines = useGlobalState(state => state.routines)
 
-    const modalTitleEditExercise = 'Actualizar Rutina'
+    const modalTitleEditExercise = 'Editar ejercicio'
 
     const [EditExerciseData, setEditExerciseData] = useState<EditExerciseDataTypes | undefined>(
         {
@@ -115,9 +115,8 @@ export function useEditExercise() {
             {!exercise &&
                 <Form>
                     <Form.Group className="mb-3" controlId="EditExerciseForm.Select1" onClick={(event) => event.stopPropagation()}>
-                        <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione la rutina a actualizar</Form.Label>
+                        <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione el ejercicio a editar</Form.Label>
                         <Form.Select
-                            style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                             onChange={(event) => {
                                 event.stopPropagation()
                                 GetDataService.getExerciseById(event.target.value)
@@ -129,7 +128,7 @@ export function useEditExercise() {
                             aria-label="Default select"
                             className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                         >
-                            <option>Seleccione la rutina a actualizar</option>
+                            <option>Seleccione un ejercicio</option>
                             {globalExercises?.map((exercise, index) => {
                                 return <option key={index} value={exercise.id}>{exercise.name}</option>
                             })}
@@ -181,7 +180,6 @@ export function useEditExercise() {
                         <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione a que rutinas agregar el ejercicio</Form.Label>
                         <Form.Check
                             type={"checkbox"}
-                            style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                             onChange={(event) => {
                                 event.stopPropagation()
                                 setEditExerciseData({
@@ -193,7 +191,7 @@ export function useEditExercise() {
                             aria-label="Default select"
                             className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                         >
-                            <ul>
+                            <ul style={{ marginBottom: '0px' }}>
                                 {
                                     routineOfExercises().map((r, index) => {
                                         return <li style={{ margin: '0.2rem' }} key={index}>

@@ -292,3 +292,8 @@ interface behaviorSearchListProps {
     toggleShowCard: () => void
     person_Id: number
   }
+
+interface verifyTokenCredentialsProps {
+    email: string;
+    validationToken: string;
+}

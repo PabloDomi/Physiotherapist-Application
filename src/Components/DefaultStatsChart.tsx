@@ -118,7 +118,7 @@ const DefaultStatsChart = () => {
 
     return (
         <>
-            <section style={{ height: "100%" }} ref={chartRef}>
+            <section style={{ height: "100%", minHeight: "400px", minWidth: "500px" }} ref={chartRef}>
                 <Chart options={options} series={series} type="line" height='100%' />
             </section>
             <div style={{ display: "flex", justifyContent: "center", margin: "2rem" }}>

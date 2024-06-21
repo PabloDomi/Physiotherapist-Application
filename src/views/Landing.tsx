@@ -10,6 +10,7 @@ import LoginFormField from '../components/LoginFormField';
 import LoginService from '../services/LoginService';
 import RegisterService from '../services/RegisterService';
 import { useGlobalState } from '../store/useGlobalState';
+import { Link } from 'react-router-dom';
 
 type ErrorMessage = {
     message: string
@@ -169,7 +170,9 @@ const Landing = () => {
                             inputType='password'
                             formControl={formLogin.control}
                         />
-                        <a href="#">¿Olvidaste la contraseña?</a>
+                        <Link to={'/activateAccount/false'}>
+                            ¿Olvidaste la contraseña?
+                        </Link >
                         <button>Iniciar Sesión</button>
                     </form>
                 </div>

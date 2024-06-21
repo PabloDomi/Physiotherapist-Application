@@ -35,10 +35,10 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                     <section className="stats">
                         {!customData &&
                             <>
-                                <div className="stats-header">
-                                    <QueryStatsIcon sx={{ color: "#8db1eb", width: 50, height: 50, marginRight: "1rem" }} />
+                                <div className={theme === 'dark' ? 'stats-header' : 'stats-header-light'}>
+                                    <QueryStatsIcon sx={theme === 'dark' ? { color: "#8db1eb", width: 50, height: 50, marginRight: "1rem" } : { color: "#527cdd", width: 50, height: 50, marginRight: "1rem" }} />
                                     <h1>E</h1>
-                                    <h2 className="title">stadísticas</h2>
+                                    <h2 className={theme === 'dark' ? 'title' : 'title-light'}>stadísticas</h2>
                                 </div>
                                 <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
                                     <DefaultStatsChart />

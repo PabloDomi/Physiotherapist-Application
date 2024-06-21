@@ -36,6 +36,17 @@ const LogoutService = async (credentials: LogoutServiceProps) => {
     }
 }
 
+const PasswordRecoveryService = async (email: string) => {
+    try {
+        const res = await axios.post(`${baseUrl}Sign/passwordRecovery`, { email })
+        return res
+    } catch (error) {
+        console.error(error)
+        throw new Error("Error en el envío de correo de recuperación")
+    }
 
 
-export default { LoginService, LogoutService }
+}
+
+
+export default { LoginService, LogoutService, PasswordRecoveryService }

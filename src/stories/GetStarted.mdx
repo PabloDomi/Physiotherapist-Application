@@ -1,0 +1,68 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Get Started" />
+
+# Get Started with Storybook
+
+Bienvenido a la documentación de Storybook de la aplicación Physiotherapist. Este documento le proporcionará una descripción general de la estructura de la documentación y del código fuente de la aplicación, facilitando a los desarrolladores la comprensión y el mantenimiento del sistema.
+
+## Estructura de la documentación
+
+La documentación está organizada en las siguientes secciones principales:
+
+### BusinessLogic
+
+En esta sección se documentan los diferentes aspectos de la lógica de negocio de la aplicación. Está subdividida en varias subsecciones:
+
+- **[Services](?path=/docs/businesslogic-services-authorizationservice--docs)**: Aquí se encuentran los servicios que gestionan las llamadas a la API y otras operaciones asíncronas.
+- **[Outlet](?path=/docs/businesslogic-outlet-outletwithnavbarandfooter--docs)**: Documentación relacionada con los componentes que actúan como contenedores para otras vistas o componentes.
+- **[Hooks](?path=/docs/businesslogic-hooks-useaddexercisetoroutine--docs)**: Contiene la documentación de los hooks personalizados utilizados en la aplicación.
+- **[StateManagement](?path=/docs/businesslogic-statemanagement-useglobalstate--docs)**: Documentación sobre la gestión del estado global de la aplicación utilizando zustand.
+- **[EntryPoint](?path=/docs/businesslogic-entrypoint-main--docs)**: Aquí se documenta el punto de entrada de la aplicación.
+- **[Router](?path=/docs/businesslogic-router-app--docs)**: Documentación sobre la configuración del enrutamiento de la aplicación utilizando react-router-dom.
+
+### Components
+
+Esta carpeta contiene todos los componentes reutilizables de la interfaz de usuario. Los componentes son las piezas fundamentales de la aplicación y se utilizan para construir la interfaz de manera modular y escalable. Cada componente está documentado con ejemplos de uso, propiedades (props) y estados para facilitar su comprensión y reutilización.
+
+Algunos ejemplos de componentes incluyen:
+
+- **[ButtonToggleTheme](?path=/story/components-buttontoggletheme--light-theme)**: Permite alternar entre los temas claro y oscuro de la aplicación.
+- **[CustomStatsChart](?path=/story/components-customstatschart--default)**: Un componente de gráfico personalizado que muestra estadísticas específicas según los parámetros proporcionados.
+- **[DefaultStatsChart](?path=/story/components-defaultstatschart--default)**: Un componente de gráfico que muestra estadísticas predeterminadas de la aplicación.
+- **[ErrorAlert](?path=/story/components-erroralert--default)**: Un componente de alerta que muestra mensajes de error.
+- **[ListExpandExercises](?path=/story/components-listexpandexercises--default)**: Un componente que muestra una lista expandible de ejercicios.
+- **[ListExpandRoutines](?path=/story/components-listexpandroutines--default)**: Un componente que muestra una lista expandible de rutinas.
+- **[ListExpandExercisesCustom](?path=/story/components-listexpandexercisescustom--default)**: Un componente que muestra una lista expandible de ejercicios personalizados.
+- **[Loader](?path=/story/components-loader--default)**: Un componente de cargador que indica que una operación está en progreso.
+- **[LoginFormField](?path=/story/components-loginformfield--default)**: Un componente de campo de formulario para el inicio de sesión.
+- **[ModalWindow](?path=/story/components-modalwindow--default)**: Un componente de ventana modal utilizado para mostrar diálogos y formularios.
+- **[NavBar](?path=/story/components-NavBar--default)**: La barra de navegación principal que se utiliza en la parte superior de la interfaz.
+- **[NotFound](?path=/story/components-notfound--default)**: Un componente que muestra una página de "No encontrado" cuando la ruta no existe.
+- **[PatientCard](?path=/story/components-patientcard--default)**: Un componente que muestra información detallada de un paciente.
+- **[Search](?path=/story/components-search--default)**: Un componente de búsqueda que permite a los usuarios buscar información específica.
+- **[SearchCard](?path=/story/components-searchcard--default)**: Un componente de tarjeta que muestra resultados de búsqueda.
+- **[SearchList](?path=/story/components-searchlist--default)**: Un componente que muestra una lista de resultados de búsqueda.
+- **[SignUpFormField](?path=/story/components-signupformfield--default)**: Un componente de campo de formulario para el registro de nuevos usuarios.
+
+Cada componente está acompañado de historias en Storybook que muestran cómo se ven y se comportan en diferentes escenarios, lo que facilita a los desarrolladores ver cómo integrarlos y utilizarlos en diferentes partes de la aplicación.
+
+### Views
+
+En esta carpeta se encuentran las diferentes vistas o páginas de la aplicación. Las vistas representan las pantallas completas que el usuario final verá y con las que interactuará. Cada vista está compuesta de varios componentes y puede incluir lógica específica para manejar la presentación y la interacción con los datos.
+
+Algunos ejemplos de vistas incluyen:
+
+- **[Estadísticas](?path=/story/views-Estadisticas--default)**: Muestra datos estadísticos relevantes y gráficos interactivos.
+- **[Rutinas](?path=/story/views-Rutinas--default)**: Permite a los usuarios ver y gestionar rutinas de ejercicios.
+- **[Ejercicios](?path=/story/views-Ejercicios--default)**: Proporciona una lista de ejercicios disponibles y permite la gestión de estos.
+- **[Landing](?path=/story/views-Landing--default)**: Es la vista que permite registrarse e ingresar a la aplicación mediante email y contraseña.
+
+Las vistas también están documentadas en Storybook para mostrar cómo se ensamblan los diferentes componentes y cómo se integran con el estado global y los servicios de datos. Esto permite a los desarrolladores entender cómo se construyen las páginas completas y cómo pueden extenderse o modificarse.
+
+## Cómo acceder a Storybook
+
+Para acceder a la documentación de Storybook en su entorno local, puede ejecutar el siguiente comando en su terminal:
+
+```sh
+npm run storybook

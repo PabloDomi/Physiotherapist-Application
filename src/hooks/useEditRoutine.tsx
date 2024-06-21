@@ -54,7 +54,6 @@ export function useEditRoutine() {
                     <Form.Group className="mb-3" controlId="EditRoutineForm.Select1" onClick={(event) => event.stopPropagation()}>
                         <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione la rutina a actualizar</Form.Label>
                         <Form.Select
-                            style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                             onChange={(event) => {
                                 event.stopPropagation()
                                 GetDataService.getRoutineById(Number(event.target.value))
@@ -139,7 +138,6 @@ export function useEditRoutine() {
                     <Form.Group className="mb-3" controlId="EditRoutineForm.Select1" onClick={(event) => event.stopPropagation()}>
                         <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione el paciente para la rutina actualizada</Form.Label>
                         <Form.Select
-                            style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                             onChange={(event) => {
                                 event.stopPropagation()
                                 setEditRoutineData(

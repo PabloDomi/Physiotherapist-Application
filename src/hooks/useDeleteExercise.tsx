@@ -22,7 +22,6 @@ export function useDeleteExercise() {
                 <Form.Group className="mb-3" controlId="DeleteExerciseForm.Select1" onClick={(event) => event.stopPropagation()}>
                     <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione la ejercicio a eliminar</Form.Label>
                     <Form.Select
-                        style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                         onChange={(event) => {
                             event.stopPropagation()
                             setDeleteExerciseData(Number(event.target.value))

@@ -5,13 +5,14 @@ import Ejercicios from './views/Ejercicios'
 import './index.css'
 import './App.css'
 import { useGlobalState } from './store/useGlobalState'
-import NotFound from './components/NotFound'
+import NotFound from './views/NotFound'
 import OutletWithNavBarAndFooter from './OutletWithNavBarAndFooter'
 import { useEffect } from 'react'
 import Landing from './views/Landing'
 import { theresUser, noUser } from './utils/Constants'
 import GetDataService from './services/GetDataService'
 import useRefreshJWToken from './hooks/useRefreshJWToken'
+import PasswordRecovery from './views/PasswordRecovery'
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
         :
         <Routes>
           <Route path='/' element={<Landing />} />
+          <Route path='/activateAccount/:commingFromEmail' element={<PasswordRecovery />} />
           <Route path='*' element={<NotFound type={noUser} />} />
         </Routes>
       }

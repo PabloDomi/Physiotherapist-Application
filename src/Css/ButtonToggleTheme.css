@@ -1,13 +1,13 @@
 /* ================ CSS PARA EL BOTÓN DE TOGGLE THEME ================ */
 
 .btn-light {
-    background: #ABE8AB;
+    background: #ffffff;
     border-color: #ABE8AB;
     border-radius: 35px;
 }
 
 .btn-dark {
-    background: #333;
+    background: #000000;
     border-color: #333;
     border-radius: 35px;
 }

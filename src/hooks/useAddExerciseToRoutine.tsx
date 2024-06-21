@@ -49,9 +49,8 @@ export function useAddExerciseToRoutine(listRoutines: RoutineData[] | undefined)
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="AddExerciseToRoutineForm.Select1">
-                <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione el paciente para la rutina</Form.Label>
+                <Form.Label style={{ marginLeft: '0.2rem' }}>Seleccione la rutina a la que agregar este ejercicio</Form.Label>
                 <Form.Select
-                    style={{ color: theme === 'dark' ? '#8ed88f' : '#27ab28' }}
                     onChange={(event) => setAddExerciseToRoutineData(
                         {
                             name: AddExerciseToRoutineData?.name,
