@@ -4,7 +4,7 @@ import NotFound from '../../views/NotFound';
 import '../../css/NotFound.css'; // Importa los estilos del componente
 
 const meta: Meta<typeof NotFound> = {
-    title: 'Components/NotFound',
+    title: 'Views/NotFound',
     component: NotFound,
     parameters: {
         layout: 'centered',
