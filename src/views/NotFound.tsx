@@ -10,9 +10,9 @@ const NotFound = (props: NotFoundProps) => {
     const { type } = props;
 
     return (
-        <div className='not-found' >
-            <h1 className='not-found-h1'>404</h1>
-            <h2 className='not-found-h2'>
+        <div className='style-format' >
+            <h1 className='style-format-h1'>404</h1>
+            <h2 className='style-format-h2'>
                 {
                     type === 'User'
                         ? '¡Ups! Parece que la página que buscas no existe. Puedes volver a la página de inicio haciendo click '
@@ -20,8 +20,8 @@ const NotFound = (props: NotFoundProps) => {
                 }
                 {
                     type === 'User'
-                        ? <Link className='not-found-link' to="/home">aquí</Link>
-                        : <Link className='not-found-link' to="/">aquí</Link>
+                        ? <Link className='style-format-link' to="/home">aquí</Link>
+                        : <Link className='style-format-link' to="/">aquí</Link>
                 }
             </h2>
         </div>

@@ -1,12 +1,12 @@
 /* ================ CSS PARA LA VIEW NOT FOUND ================ */
 
-.not-found {
+.style-format {
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100vh;
     font-family: "Tilt Neon";
-    color: #333;
+    color: #141414;
     box-sizing: border-box;
     background-color: #749C74;
     background-image: radial-gradient(circle at center, 
@@ -16,15 +16,44 @@
                       rgba(0, 0, 0, 0.1) 100%);
 }
 
-.not-found-h1 {
+.style-format-h1 {
     align-self: center;
     font-size: 100px;
 }
 
-.not-found-h2 {
+.style-format-h2 {
     font-size: 20px;
     align-self: center;
 }
-.not-found-link {
+
+.style-format-text {
+    font-size: 60px;
+    align-self: center;
+}
+
+.style-format-link {
     color: blue;
+}
+
+.password-recovery-input {
+    width: 40dvw;
+    padding: 10px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.password-recovery-control {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #333;
+}
+
+#password-recovery-button {
+    background-color: #141414; 
+    color: #ffffff;
+    font-family: "Tilt Neon";
 }

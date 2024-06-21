@@ -107,7 +107,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                     newPassword: data?.newPassword
                 }
 
-                await ChangePasswordService(credentials)
+                await ChangePasswordService.ChangePasswordService(credentials)
                 behavior()
                 toggleChangePasswordModal()
 

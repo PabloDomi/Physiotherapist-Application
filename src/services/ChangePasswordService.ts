@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseUrl } from '../utils/Constants'
-import { ChangePasswordServiceProps, authHeader } from '../utils/types'
+import { ChangePasswordServiceProps, authHeader, verifyTokenCredentialsProps } from '../utils/types'
 
 const authHeaders = () => {
     return {
@@ -22,4 +22,22 @@ async function ChangePasswordService(credentials: ChangePasswordServiceProps | u
     }
 }
 
-export default ChangePasswordService
+async function ChangePasswordServiceWithoutToken(credentials: ChangePasswordServiceProps | undefined) {
+    try {
+        const { data } = await axios.put(`${baseUrl}user_management/changePasswordWithoutToken`, credentials)
+        return data
+    } catch (error) {
+        throw new Error("Error en el cambio de contraseña")
+    }
+}
+
+async function verifyValidationToken(verifyTokenCredentials: verifyTokenCredentialsProps) {
+    try {
+        const { data } = await axios.post(`${baseUrl}user_management/verifyValidationToken`, verifyTokenCredentials)
+        return data
+    } catch (error) {
+        throw new Error("Error en la verificación del token")
+    }
+}
+
+export default { ChangePasswordService, ChangePasswordServiceWithoutToken, verifyValidationToken }

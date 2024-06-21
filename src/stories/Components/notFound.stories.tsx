@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
-import NotFound from '../../components/NotFound';
+import NotFound from '../../views/NotFound';
 import '../../css/NotFound.css'; // Importa los estilos del componente
 
 const meta: Meta<typeof NotFound> = {
