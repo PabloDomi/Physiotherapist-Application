@@ -107,7 +107,6 @@ const Landing = () => {
             container?.classList.remove('active')
         } catch (error) {
             throw new Error("Error en el registro de usuario")
-            console.error(error)
         }
     }
 
