@@ -114,6 +114,7 @@ const Landing = () => {
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (values: LoginSchema) => {
         try {
             const data = await LoginService.LoginService(values)
+            localStorage.setItem('user', JSON.stringify(data))
             setUser(data)
             setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
 

@@ -99,6 +99,11 @@
     transition-delay: calc(60ms * var(--delay));
 }
 
+.dropdown-content-li-5 {
+    --delay: 5;
+    transition-delay: calc(60ms * var(--delay));
+}
+
 .btn-options:focus-within + .dropdown-content li {
     left: 0;
 }

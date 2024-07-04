@@ -59,4 +59,17 @@ const DeleteExercise = async (id: Id) => {
 
 }
 
-export default { DeleteExercise, DeletePatient, DeleteAdmin, DeleteRoutine }
+async function DeleteTablet(tablet_id: number) {
+    
+    const authorizationHeader: authHeader = authHeaders()
+
+    try {
+        const { data } = await axios.delete(`${baseUrl}patient_management/deleteTablet/${tablet_id}`, authorizationHeader)
+        return data
+    } catch (error) {
+        throw new Error("Error eliminando la tablet")
+    }
+
+}
+
+export default { DeleteTablet, DeleteExercise, DeletePatient, DeleteAdmin, DeleteRoutine }
