@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseUrl } from '../utils/Constants'
-import { AddExerciseToRoutineServiceProps, AddRoutineServiceProps, EditExerciseServiceProps, EditRoutineDataTypes, authHeader } from '../utils/types'
+import { AddExerciseToRoutineServiceProps, AddRoutineServiceProps, CreateTabletServiceProps, EditExerciseServiceProps, EditRoutineDataTypes, UpdateTabletServiceProps, authHeader } from '../utils/types'
 
 const authHeaders = () => {
     return {
@@ -60,4 +60,31 @@ async function EditExerciseService(credentials: EditExerciseServiceProps) {
     }
 }
 
-export default { EditExerciseService, AddRoutineService, AddExerciseToRoutineService, EditRoutineService }
+async function CreateTablet(credentials: CreateTabletServiceProps) {
+
+    const authorizationHeader: authHeader = authHeaders()
+
+    try {
+        const { data } = await axios.post(`${baseUrl}patient_management/createTablet`, credentials, authorizationHeader)
+        return data
+    } catch (error) {
+        throw new Error("Error añadiendo la tablet")
+    }
+}
+
+async function UpdateTablet(credentials: UpdateTabletServiceProps) {
+    
+        const authorizationHeader: authHeader = authHeaders()
+    
+        try {
+            const { data } = await axios.put(`${baseUrl}patient_management/updateTablet`, credentials, authorizationHeader)
+            return data
+        } catch (error) {
+            throw new Error("Error actualizando la tablet")
+        }
+}
+
+export default { 
+    CreateTablet, EditExerciseService, AddRoutineService, AddExerciseToRoutineService, 
+    EditRoutineService, UpdateTablet 
+}

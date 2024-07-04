@@ -139,6 +139,8 @@ interface GlobalState {
     toggleDeleteExerciseModal: () => void
     showEditExerciseModal: ModalType
     toggleEditExerciseModal: () => void
+    showManageTabletsModal: ModalType
+    toggleManageTabletsModal: () => void
   }
 
 export interface CustomStatsData {
@@ -296,4 +298,32 @@ interface behaviorSearchListProps {
 interface verifyTokenCredentialsProps {
     email: string;
     validationToken: string;
+}
+
+interface ManageTabletsDataTypes {
+    tablet_id: number | undefined;
+    patient_id: number | undefined;
+    treatment_time: number | undefined;
+    treatment_cadence: number | undefined;
+    operation: string | undefined;
+}
+
+interface TabletsTypes {
+    id: number;
+    patient_id: number;
+    treatment_time: number;
+    treatment_cadence: number;
+}
+
+interface CreateTabletServiceProps {
+    patient_id: number | undefined;
+    treatment_time: number | undefined;
+    treatment_cadence: number | undefined;
+}
+
+interface UpdateTabletServiceProps {
+    id: number | undefined;
+    patient_id: number | undefined;
+    treatment_time: number | undefined;
+    treatment_cadence: number | undefined;
 }

@@ -154,9 +154,20 @@ const GetAccessToken = async (email: string) => {
     
 }
 
+const GetTablets = async () => {
+    const authorizationHeader: authHeader = authHeaders()
+
+    try {
+        const response = await axios.get(`${baseUrl}patient_management/getTablets`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export default { 
     refreshJWToken: RefreshJWToken, getExerciseById: GetExerciseById, getAllExercises: GetAllExercises, 
     getRoutineById: GetRoutineById, getPatients: GetPatients, checkEmailExists: CheckEmailExists, getUsers: GetUsers, 
     getRoutines: GetRoutines, getExercisesByRoutineName: GetExercisesByRoutineName, checkHasRoutine: CheckHasRoutine,
-    getAccessToken: GetAccessToken 
+    getAccessToken: GetAccessToken, getTablets: GetTablets 
 }

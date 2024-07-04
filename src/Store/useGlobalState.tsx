@@ -8,7 +8,6 @@ export const useGlobalState = create<GlobalState>((set) => {
 
     user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null,
     setUser: (newUser: UserAdmin) => {
-      localStorage.setItem('user', JSON.stringify(newUser))
       set({ user: newUser })
     },
 
@@ -57,5 +56,8 @@ export const useGlobalState = create<GlobalState>((set) => {
 
     showEditExerciseModal: false,
     toggleEditExerciseModal: () => set((state) => ({ showEditExerciseModal: !state.showEditExerciseModal })),
+
+    showManageTabletsModal: false,
+    toggleManageTabletsModal: () => set((state) => ({ showManageTabletsModal: !state.showManageTabletsModal })),
   }
 });

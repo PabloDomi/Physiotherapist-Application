@@ -1,4 +1,4 @@
-import { AddExerciseToRoutineDataTypes, AddRoutineDataTypes, ChangePasswordDataTypes, EditExerciseDataTypes, EditExerciseServiceProps, EditRoutineDataTypes, RegisterPatientDataTypes, type ModalProps } from "../utils/types"
+import { AddExerciseToRoutineDataTypes, AddRoutineDataTypes, ChangePasswordDataTypes, EditExerciseDataTypes, EditExerciseServiceProps, EditRoutineDataTypes, ManageTabletsDataTypes, RegisterPatientDataTypes, type ModalProps } from "../utils/types"
 import '../css/Modal.css'
 import { Button, Modal } from 'react-bootstrap'
 import { IonIcon } from "@ionic/react"
@@ -27,6 +27,7 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
     const toggleModalDeleteRoutine = useGlobalState(state => state.toggleDeleteRoutineModal)
     const toggleModalEditExercise = useGlobalState(state => state.toggleEditExerciseModal)
     const toggleModalDeleteExercise = useGlobalState(state => state.toggleDeleteExerciseModal)
+    const toggleModalManageTablets = useGlobalState(state => state.toggleManageTabletsModal)
 
 
     const alreadyHasRoutineError = () => {
@@ -75,6 +76,10 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                 toggleModalDeleteExercise()
                 toast.info('Acción cancelada')
                 break
+            case 'manageTablets':
+                toggleModalManageTablets()
+                toast.info('Acción cancelada')
+                break
             case 'editExercise':
                 toggleModalEditExercise()
                 behavior()
@@ -116,6 +121,43 @@ const ModalWindow = ({ show, title, content, action, data, behavior }: ModalProp
                 toast.error('Error al cambiar la contraseña')
             }
 
+        }
+        else if (action === 'manageTablets' && data) {
+            try {
+                const manageTabletsData = data as ManageTabletsDataTypes
+
+                if (manageTabletsData.operation === 'create') {
+                    const credentials = {
+                        patient_id: manageTabletsData.patient_id,
+                        treatment_time: manageTabletsData.treatment_time,
+                        treatment_cadence: manageTabletsData.treatment_cadence
+                    }
+
+                    await PostPutDataService.CreateTablet(credentials)
+                }
+
+                if (manageTabletsData.operation === 'update') {
+                    const credentials = {
+                        id: manageTabletsData.tablet_id,
+                        patient_id: manageTabletsData.patient_id,
+                        treatment_time: manageTabletsData.treatment_time,
+                        treatment_cadence: manageTabletsData.treatment_cadence
+                    }
+
+                    await PostPutDataService.UpdateTablet(credentials)
+                }
+
+                if (manageTabletsData.operation === 'delete' && manageTabletsData.tablet_id) {
+                    await DeleteDataService.DeleteTablet(manageTabletsData.tablet_id)
+                }
+
+                behavior()
+                toggleModalManageTablets()
+                toast.success('Tableta asignada con éxito')
+            } catch (error) {
+                console.error(error)
+                toast.error('Error al asignar la tableta')
+            }
         }
         else if (action === 'registerPatient' && data) {
 

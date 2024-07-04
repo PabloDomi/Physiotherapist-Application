@@ -11,6 +11,7 @@ import { useGlobalState } from '../store/useGlobalState'
 import GetDataService from '../services/GetDataService'
 import { toast, Toaster } from 'sonner'
 import useDeleteAdmin from '../hooks/useDeleteAdmin'
+import useManageTablets from '../hooks/useManageTablets'
 
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
@@ -43,6 +44,15 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
         toggleModalRegisterPatient
     } = useRegisterPatient()
 
+    const {
+        showModalManageTablets,
+        toggleModalManageTablets,
+        modalTitleManageTablets,
+        modalContentManageTablets,
+        manageTabletsData,
+        setTablets
+    } = useManageTablets()
+
     const handleClickChangePassword = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault()
         toggleModalChangePassword()
@@ -58,6 +68,11 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
         toggleModalDeleteAdmin()
     }
 
+    const handleManageTablets = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault()
+        toggleModalManageTablets()
+    }
+
     const refetchPatientData = async () => {
         try {
             const res = await GetDataService.getPatients()
@@ -65,6 +80,25 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
         } catch (error) {
             console.error(error)
             throw new Error("Error al obtener los pacientes")
+        }
+    }
+
+    const handleGetTabletId = async () => {
+        try {
+            if (manageTabletsData?.operation === 'create') {
+                const tablets = await GetDataService.getTablets()
+                const lastTablet = tablets[tablets.length - 1];
+                const lastTabletId = lastTablet.id;
+                return toast.info(`Tablet registrada con el ID: ${lastTabletId}`);
+            }
+
+            refetchPatientData()
+            const tabletsRefetched = await GetDataService.getTablets()
+            setTablets(tabletsRefetched)
+
+        } catch (error) {
+            console.error(error)
+            throw new Error("Error al obtener las tablets")
         }
     }
 
@@ -169,6 +203,26 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
                                     action='registerPatient'
                                     data={registerPatientData}
                                     behavior={refetchPatientData}
+                                >
+                                </ModalWindow>
+                            }
+                        </li>
+                        <li className='dropdown-content-li dropdown-content-li-5'>
+                            <button
+                                onClick={handleManageTablets}
+                                className={theme === 'light'
+                                    ? 'dropdown-content-button dropdown-content-button-light'
+                                    : 'dropdown-content-button dropdown-content-button-dark'
+                                } >Administrar Tablets
+                            </button>
+                            {showModalManageTablets &&
+                                <ModalWindow
+                                    show={showModalManageTablets}
+                                    title={modalTitleManageTablets}
+                                    content={modalContentManageTablets}
+                                    action='manageTablets'
+                                    data={manageTabletsData}
+                                    behavior={handleGetTabletId}
                                 >
                                 </ModalWindow>
                             }
