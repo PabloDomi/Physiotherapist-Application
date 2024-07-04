@@ -49,9 +49,9 @@ export function useManageTablets() {
                         className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                     >
                         <option value="select">Seleccione una acción</option>
-                        <option value="delete">Borrar</option>
-                        <option value="update">Actualizar</option>
-                        <option value="create">Crear</option>
+                        <option value="delete">Borrar tablet</option>
+                        <option value="update">Actualizar tablet existente</option>
+                        <option value="create">Añadir nueva tablet al sistema</option>
                     </Form.Select>
                 </Form.Group>
             </Form>
@@ -94,18 +94,13 @@ export function useManageTablets() {
                                 className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                             >
                                 <option value="select">Seleccione un paciente</option>
-                                {patients?.filter(patient => patient.id === tablets.find(tablet => tablet.id === manageTabletsData?.tablet_id)?.patient_id)?.map((patient, index) => {
-                                    return <option key={index} value={patient.id}>{patient.name + ' ' + patient.surname}</option>
-                                })}
                                 {operation === 'update' &&
-                                    patients?.filter(patient => !tablets.some(tablet => tablet.patient_id === patient.id))?.map((patient, index) => {
+                                    patients?.filter(patient => patient.id === tablets.find(tablet => tablet.id === manageTabletsData?.tablet_id)?.patient_id)?.map((patient, index) => {
                                         return <option key={index} value={patient.id}>{patient.name + ' ' + patient.surname}</option>
-                                    })
-                                }
-                                {operation === 'create' &&
-                                    patients?.filter(patient => !tablets.some(tablet => tablet.patient_id === patient.id))?.map((patient, index) => {
-                                        return <option key={index} value={patient.id}>{patient.name + ' ' + patient.surname}</option>
-                                    })
+                                    })}
+                                {patients?.filter(patient => !tablets.some(tablet => tablet.patient_id === patient.id))?.map((patient, index) => {
+                                    return <option key={index} value={patient.id}>{patient.name + ' ' + patient.surname}</option>
+                                })
                                 }
                             </Form.Select>
                         </Form.Group>
