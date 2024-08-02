@@ -11,7 +11,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build-storybook-docs": "storybook build --docs",
-    "chromatic": "npx chromatic --project-token=chpt_d755f20d58890b7"
+    "chromatic": "npx chromatic --project-token=chpt_d755f20d58890b7",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -41,14 +42,15 @@
     "@mdx-js/react": "^3.0.1",
     "@storybook/addon-docs": "^8.1.10",
     "@storybook/addon-essentials": "^8.1.10",
-    "@storybook/addon-interactions": "^8.1.9",
+    "@storybook/addon-interactions": "^8.2.7",
     "@storybook/addon-links": "^8.1.9",
     "@storybook/addon-onboarding": "^8.1.9",
     "@storybook/addon-themes": "^8.1.10",
     "@storybook/blocks": "^8.1.9",
     "@storybook/react": "^8.1.10",
     "@storybook/react-vite": "^8.1.10",
-    "@storybook/test": "^8.1.9",
+    "@storybook/test": "^8.2.7",
+    "@storybook/test-runner": "^0.19.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
