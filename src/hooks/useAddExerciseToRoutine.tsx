@@ -2,6 +2,7 @@ import { Form } from "react-bootstrap"
 import { useGlobalState } from "../store/useGlobalState"
 import { useState } from "react"
 import { AddExerciseToRoutineDataTypes, RoutineData } from "../utils/types"
+import { ejercicios } from "../utils/Constants"
 
 export function useAddExerciseToRoutine(listRoutines: RoutineData[] | undefined) {
 
@@ -18,7 +19,7 @@ export function useAddExerciseToRoutine(listRoutines: RoutineData[] | undefined)
         <Form>
             <Form.Group className="mb-3" controlId="AddExerciseToRoutineForm.ControlInput1">
                 <Form.Label>Nombre</Form.Label>
-                <Form.Control
+                <Form.Select
                     onChange={(event) => setAddExerciseToRoutineData(
                         {
                             name: event.target.value,
@@ -26,11 +27,16 @@ export function useAddExerciseToRoutine(listRoutines: RoutineData[] | undefined)
                             routine_name: AddExerciseToRoutineData?.routine_name
                         }
                     )}
-                    type="text"
-                    placeholder="Ingrese el nombre del ejercicio"
                     autoFocus
+                    aria-label="Default select"
                     className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                />
+                >
+                    <option>Seleccione el ejercicio</option>
+                    {ejercicios.map((exercise, index) => {
+                        return <option key={index} value={exercise}>{exercise}</option>
+                    })
+                    }
+                </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3" controlId="AddExerciseToRoutineForm.ControlInput2">
                 <Form.Label>Descripción del Ejercicio</Form.Label>

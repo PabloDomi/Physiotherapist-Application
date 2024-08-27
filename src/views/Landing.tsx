@@ -116,7 +116,7 @@ const Landing = () => {
             const data = await LoginService.LoginService(values)
             const dataFormatted = JSON.stringify(data)
             await localStorage.setItem('user', dataFormatted)
-            setUser(data)
+            await setUser(data)
             setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
 
         } catch (error) {

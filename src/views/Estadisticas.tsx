@@ -45,13 +45,13 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                                 </div>
                             </>
                         }
-                        {customData &&
+                        {customData && patientId !== null &&
                             <>
                                 <div className="stats-header">
                                     <h2 className="title">Estadísticas de {`${patients?.find(paciente => paciente.id === patientId)?.name}`}</h2>
                                 </div>
                                 <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
-                                    <CustomStatsChart data={customData} />
+                                    <CustomStatsChart patient_id={patientId} />
                                 </div>
                             </>
                         }

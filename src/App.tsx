@@ -33,6 +33,9 @@ function App() {
   }, [changeView, location.pathname])
 
   useEffect(() => {
+
+    // console.log('Se actualizó user: ', user)
+
     const fetchData = async () => {
       try {
         const res = await GetDataService.getRoutines()

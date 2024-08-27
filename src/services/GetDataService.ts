@@ -165,9 +165,31 @@ const GetTablets = async () => {
     }
 }
 
+const GetStats = async () => {
+    const authorizationHeader: authHeader = authHeaders()
+
+    try {
+        const response = await axios.get(`${baseUrl}user_management/getStats`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const GetPatientStats = async (patient_id: number) => {
+    const authorizationHeader: authHeader = authHeaders()
+
+    try {
+        const response = await axios.get(`${baseUrl}user_management/getPatientStats/${patient_id}`, authorizationHeader);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export default { 
     refreshJWToken: RefreshJWToken, getExerciseById: GetExerciseById, getAllExercises: GetAllExercises, 
     getRoutineById: GetRoutineById, getPatients: GetPatients, checkEmailExists: CheckEmailExists, getUsers: GetUsers, 
     getRoutines: GetRoutines, getExercisesByRoutineName: GetExercisesByRoutineName, checkHasRoutine: CheckHasRoutine,
-    getAccessToken: GetAccessToken, getTablets: GetTablets 
+    getAccessToken: GetAccessToken, getTablets: GetTablets, getStats: GetStats, getPatientStats: GetPatientStats  
 }

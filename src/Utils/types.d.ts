@@ -103,6 +103,15 @@ export type authHeader = {
     }
 };
 
+interface StatsTypes {
+    patient_id: number;
+    exercise_name: string;
+    total_time: number;
+    average_series_time: number;
+    average_time_between_reps: number;
+    reps_per_series: [number];
+}
+
 interface GlobalState {
     view: string
     user: UserAdmin | null

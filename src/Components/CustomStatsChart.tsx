@@ -1,22 +1,77 @@
-import { CustomStatsData } from "../utils/types"
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts'
 import '../css/Estadisticas.css'
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import useDownloadPDF from "../hooks/useDownloadPDF";
 import { Button } from "@mui/material";
+import { useGlobalState } from "../store/useGlobalState";
+import GetDataService from '../services/GetDataService';
 
-interface customStatsChartProps {
-    data: CustomStatsData
-}
+function CustomStatsChart(patient_id: { patient_id: number }) {
 
-function CustomStatsChart(customStatsChartProps: customStatsChartProps) {
+    // TODO: FALTA CAMBIAR QUE EN VEZ DE COGER LAS STATS DE TODOS LOS PACIENTES, SOLO LAS DE LOS PACIENTES CON ID PATIENT
+    // Y PEDIRLE A CHATGPT QUE ME HAGA ALGO PARECIDO A LO OTRO PERO CON LOS DATOS DE ESE PACIENTE
 
-    const { data } = customStatsChartProps
+    const theme = useGlobalState(state => state.theme)
+    const [colors, setColors] = useState({
+        textColor: '',
+        azulChart: '',
+        naranjaOscuroChart: '',
+        moradoChart: '',
+    })
 
-    const textColor = '#4dc45c'
-    const azulChart = '#527cdd'
-    const verdeChart = '#27ab28'
+    useEffect(() => {
+        if (theme === 'light') {
+            setColors(prevColors => ({
+                ...prevColors,
+                textColor: '#105a08',
+                azulChart: '#05138e',
+                naranjaOscuroChart: '#c33206',
+                moradoChart: '#7a098a',
+            }));
+        } else {
+            setColors(prevColors => ({
+                ...prevColors,
+                textColor: '#7ce489',
+                azulChart: '#777ef9',
+                naranjaOscuroChart: '#fd8f6d',
+                moradoChart: '#e38def',
+            }));
+        }
+    }, [theme]);
+
+    const [data, setData] = useState({
+        labels: [],
+        porcentualData: [],
+        timeData: [],
+        repsData: [],
+        titleChart: "Estadísticas de Ejercicios",
+        yaxisTitle: "Tiempo Total (segundos)",
+        yaxisTitleOpposite: "Tiempo Promedio por Serie (segundos)",
+        yaxisTitleReps: "Media de repeticiones por serie"
+    });
+
+    useEffect(() => {
+        GetDataService.getPatientStats(patient_id.patient_id).then((res) => {
+            const labels = res.map((item: { exercise_name: string; }) => item.exercise_name);
+            const porcentualData = res.map((item: { total_time: number; }) => item.total_time);
+            const timeData = res.map((item: { average_series_time: number; }) => item.average_series_time);
+
+            // Para las repeticiones, se aplanan los arrays y se calculan las sumas
+            const repsData = res.map((item: { reps_per_series: number[]; }) => {
+                const totalReps = item.reps_per_series.reduce((a, b) => a + b, 0);
+                return Math.round(totalReps / item.reps_per_series.length);
+            });
+
+            setData((prevData) => ({
+                ...prevData,
+                labels: labels,
+                porcentualData: porcentualData,
+                timeData: timeData,
+                repsData: repsData
+            }));
+        });
+    }, [patient_id]);
 
     const options: ApexOptions = {
         chart: {
@@ -25,7 +80,7 @@ function CustomStatsChart(customStatsChartProps: customStatsChartProps) {
             fontFamily: 'Tilt Neon, Roboto, system-ui'
         },
         stroke: {
-            width: [0, 4]
+            width: [0, 4, 4]
         },
         theme: {
             mode: 'light',
@@ -45,14 +100,18 @@ function CustomStatsChart(customStatsChartProps: customStatsChartProps) {
         },
         dataLabels: {
             enabled: true,
-            enabledOnSeries: [1]
+            enabledOnSeries: [1, 2],
+            style: {
+                colors: ['#7a098a', '#c33206'],
+                fontSize: '14px',
+            }
         },
         labels: data.labels,
         xaxis: {
             type: 'category',
             labels: {
                 style: {
-                    colors: textColor // Color del texto en el eje x
+                    colors: colors.textColor // Color del texto en el eje x
                 }
             }
         },
@@ -60,28 +119,47 @@ function CustomStatsChart(customStatsChartProps: customStatsChartProps) {
             title: {
                 text: data.yaxisTitle,
                 style: {
-                    color: textColor // Color del texto en el eje y
+                    color: colors.azulChart // Color del texto en el eje y
                 }
             },
             labels: {
                 formatter: function (val) {
-                    return val + "%";
+                    return Math.round(val).toFixed(0) + " s";
                 },
                 style: {
-                    colors: textColor // Color del texto en las etiquetas del eje y
+                    colors: colors.textColor // Color del texto en las etiquetas del eje y
                 }
             }
         }, {
             opposite: true,
             title: {
-                text: data.yaxisTitleOpposite,
+                text: data.yaxisTitleOpposite,  // Texto del eje Y opuesto (e.g., "Tiempo promedio por serie (segundos)")
                 style: {
-                    color: textColor // Color del texto en el eje y (opuesto)
+                    color: colors.naranjaOscuroChart
                 }
             },
             labels: {
+                formatter: function (val) {
+                    return Math.round(val).toFixed(0) + "s";  // Formato para mostrar valores redondeados en segundos
+                },
                 style: {
-                    colors: textColor // Color del texto en las etiquetas del eje y (opuesto)
+                    colors: colors.textColor
+                }
+            }
+        }, {
+            opposite: true,
+            title: {
+                text: data.yaxisTitleReps,
+                style: {
+                    color: colors.moradoChart // Color del texto en el eje y (opuesto)
+                }
+            },
+            labels: {
+                formatter: function (val) {
+                    return Math.round(val).toFixed(0) + " reps";
+                },
+                style: {
+                    colors: colors.textColor // Color del texto en las etiquetas del eje y (opuesto)
                 }
             }
         }],
@@ -91,11 +169,26 @@ function CustomStatsChart(customStatsChartProps: customStatsChartProps) {
                 columnWidth: '55%'
             }
         },
-        colors: [azulChart, verdeChart], // Color del texto para otros elementos si es necesario
+        grid: {
+            borderColor: theme === 'light' ? '#222322' : '#e7e7e7', // Color de las líneas de borde de la cuadrícula
+            position: 'back', // Posición de la cuadrícula (frente o detrás del gráfico)
+            strokeDashArray: 0, // Tipo de línea (discontinua, continua, etc.)
+            yaxis: {
+                lines: {
+                    show: true // Mostrar u ocultar líneas en el eje Y
+                }
+            },
+            xaxis: {
+                lines: {
+                    show: false // Mostrar u ocultar líneas en el eje X
+                }
+            }
+        },
+        colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart], // Color del texto para otros elementos si es necesario
         legend: {
             offsetY: 6,
             labels: {
-                colors: [azulChart, verdeChart] // Color del texto en la leyenda
+                colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart] // Color del texto en la leyenda
             }
         }
     };
@@ -110,6 +203,10 @@ function CustomStatsChart(customStatsChartProps: customStatsChartProps) {
             name: data.yaxisTitleOpposite,
             type: 'line',
             data: data.timeData
+        }, {
+            name: data.yaxisTitleReps,
+            type: 'line',
+            data: data.repsData
         }
     ];
 

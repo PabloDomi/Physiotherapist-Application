@@ -138,25 +138,6 @@ export function useEditExercise() {
             }
             {exercise &&
                 <Form>
-                    <Form.Group className="mb-3" controlId="EditExerciseForm.ControlInput1" onClick={(event) => event.stopPropagation()}>
-                        <Form.Label>Nombre</Form.Label>
-                        <Form.Control
-                            onChange={(event) => {
-                                event.stopPropagation()
-                                setEditExerciseData(
-                                    {
-                                        ...(EditExerciseData as EditExerciseDataTypes),
-                                        name: event.target.value
-                                    }
-                                )
-                            }}
-                            defaultValue={exercise?.name}
-                            type="text"
-                            placeholder='Nombre de la rutina'
-                            autoFocus
-                            className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                        />
-                    </Form.Group>
                     <Form.Group className="mb-3" controlId="EditExerciseForm.ControlInput2" onClick={(event) => event.stopPropagation()}>
                         <Form.Label>Descripción</Form.Label>
                         <Form.Control
