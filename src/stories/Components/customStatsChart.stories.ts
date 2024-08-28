@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CustomStatsChart from '../../components/CustomStatsChart';
-import { CustomStatsData } from '../../utils/types';
 
-// Define un ejemplo de datos que se utilizarán en las historias
-const mockData: CustomStatsData = {
-  titleChart: 'Example Chart',
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-  yaxisTitle: 'Percentage',
-  yaxisTitleOpposite: 'Time',
-  porcentualData: [10, 20, 30, 40, 50],
-  timeData: [1, 2, 3, 4, 5],
+const mockData = {
+  labels: ['Sentadilla', 'Press de banca', 'Peso muerto', 'Dominadas', 'Flexiones'],
+  porcentualData: [120, 150, 180, 110, 140],
+  timeData: [30, 35, 40, 28, 32],
+  repsData: [12, 12, 15, 9, 10],
+  titleChart: "Estadísticas de Ejercicios del Paciente",
+  yaxisTitle: "Tiempo Total (s)",
+  yaxisTitleOpposite: "Tiempo Promedio por Serie (s)",
+  yaxisTitleReps: "Media de Repeticiones por Serie"
 };
 
 // Configuración de Storybook
@@ -21,20 +21,20 @@ const meta: Meta<typeof CustomStatsChart> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    data: {
-      control: 'object',
-    },
-  },
-  args: {
-    data: mockData,
+    patient_id: { control: 'number', defaultValue: 1 },
+    mockData: { control: 'object' },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof CustomStatsChart>;
 
+// Definir datos simulados para la historia
+
+// Historia principal para el componente
 export const Default: Story = {
   args: {
-    data: mockData,
-  },
+    patient_id: 1, // Puedes simular un `patient_id` si es necesario
+    mockData: mockData,
+  }
 };

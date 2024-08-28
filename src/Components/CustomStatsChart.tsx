@@ -7,7 +7,24 @@ import { Button } from "@mui/material";
 import { useGlobalState } from "../store/useGlobalState";
 import GetDataService from '../services/GetDataService';
 
-function CustomStatsChart(patient_id: { patient_id: number }) {
+interface dataTypes {
+    labels: string[],
+    porcentualData: number[],
+    timeData: number[],
+    repsData: number[],
+    titleChart: string,
+    yaxisTitle: string,
+    yaxisTitleOpposite: string,
+    yaxisTitleReps: string
+}
+
+interface CustomStatsChartProps {
+    patient_id: number,
+    mockData?: dataTypes
+}
+
+// Hacer mockData opcional
+function CustomStatsChart(props: CustomStatsChartProps) {
 
     // Y PEDIRLE A CHATGPT QUE ME HAGA ALGO PARECIDO A LO OTRO PERO CON LOS DATOS DE ESE PACIENTE
 
@@ -39,7 +56,7 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
         }
     }, [theme]);
 
-    const [data, setData] = useState({
+    const [data, setData] = useState<dataTypes>({
         labels: [],
         porcentualData: [],
         timeData: [],
@@ -51,26 +68,28 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
     });
 
     useEffect(() => {
-        GetDataService.getPatientStats(patient_id.patient_id).then((res) => {
-            const labels = res.map((item: { exercise_name: string; }) => item.exercise_name);
-            const porcentualData = res.map((item: { total_time: number; }) => item.total_time);
-            const timeData = res.map((item: { average_series_time: number; }) => item.average_series_time);
+        if (props.mockData) {
+            setData(props.mockData);
+        } else {
+            GetDataService.getPatientStats(props.patient_id).then((res) => {
+                const labels = res.map((item: { exercise_name: string; }) => item.exercise_name);
+                const porcentualData = res.map((item: { total_time: number; }) => item.total_time);
+                const timeData = res.map((item: { average_series_time: number; }) => item.average_series_time);
+                const repsData = res.map((item: { reps_per_series: number[]; }) => {
+                    const totalReps = item.reps_per_series.reduce((a, b) => a + b, 0);
+                    return Math.round(totalReps / item.reps_per_series.length);
+                });
 
-            // Para las repeticiones, se aplanan los arrays y se calculan las sumas
-            const repsData = res.map((item: { reps_per_series: number[]; }) => {
-                const totalReps = item.reps_per_series.reduce((a, b) => a + b, 0);
-                return Math.round(totalReps / item.reps_per_series.length);
+                setData((prevData) => ({
+                    ...prevData,
+                    labels: labels,
+                    porcentualData: porcentualData,
+                    timeData: timeData,
+                    repsData: repsData
+                }));
             });
-
-            setData((prevData) => ({
-                ...prevData,
-                labels: labels,
-                porcentualData: porcentualData,
-                timeData: timeData,
-                repsData: repsData
-            }));
-        });
-    }, [patient_id]);
+        }
+    }, [props.patient_id, props.mockData]);
 
     const options: ApexOptions = {
         chart: {

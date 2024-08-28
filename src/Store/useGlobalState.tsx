@@ -11,7 +11,7 @@ export const useGlobalState = create<GlobalState>((set) => {
       set({ user: newUser })
     },
 
-    patients: [],
+    patients: [], // Asegurando que sea un array vacío por defecto
     setPatients: (newPatients: User[]) => set({ patients: newPatients }),
 
     customStatsData: undefined,
@@ -21,10 +21,10 @@ export const useGlobalState = create<GlobalState>((set) => {
     theme: localStorage.getItem('theme') || 'dark',
     toggleTheme: () => set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
 
-    routines: [],
+    routines: [], // Inicializando como un array vacío
     setRoutines: (newRoutines) => set({ routines: newRoutines }),
 
-    exercises: [],
+    exercises: [], // Inicializando como un array vacío
     setExercises: (newExercises) => set({ exercises: newExercises }),
 
     showChangePasswordModal: false,

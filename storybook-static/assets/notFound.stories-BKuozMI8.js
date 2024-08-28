@@ -1,0 +1,5 @@
+import{j as e}from"./jsx-runtime-DoxjgJx5.js";import{B as i}from"./index-1VaAFRt_.js";import{N as p}from"./NotFound-CyFgMrNy.js";/* empty css                 */import"./index-Cu9bd8lq.js";import"./index-Ckls47V4.js";import"./index-CeseEJRd.js";const R={title:"Views/NotFound",component:p,parameters:{layout:"centered"},tags:["autodocs"],argTypes:{type:{control:"select",options:["User","Admin"]}}},c=u=>e.jsx(i,{children:e.jsx(p,{...u})}),r=c.bind({});r.args={type:"User"};const o=c.bind({});o.args={type:"Admin"};var s,t,a;r.parameters={...r.parameters,docs:{...(s=r.parameters)==null?void 0:s.docs,source:{originalSource:`args => <BrowserRouter>\r
+        <NotFound {...args} />\r
+    </BrowserRouter>`,...(a=(t=r.parameters)==null?void 0:t.docs)==null?void 0:a.source}}};var n,m,d;o.parameters={...o.parameters,docs:{...(n=o.parameters)==null?void 0:n.docs,source:{originalSource:`args => <BrowserRouter>\r
+        <NotFound {...args} />\r
+    </BrowserRouter>`,...(d=(m=o.parameters)==null?void 0:m.docs)==null?void 0:d.source}}};const y=["UserNotFound","AdminNotFound"];export{o as AdminNotFound,r as UserNotFound,y as __namedExportsOrder,R as default};

@@ -9,8 +9,22 @@ import GetDataService from '../services/GetDataService';
 import { useGlobalState } from '../store/useGlobalState';
 // import { StatsTypes } from '../utils/types';
 
+interface DataTypes {
+    labels: string[],
+    porcentualData: number[],
+    timeData: number[],
+    repsData: number[],
+    titleChart: string,
+    yaxisTitle: string,
+    yaxisTitleOpposite: string,
+    yaxisTitleReps: string
+}
 
-const DefaultStatsChart = () => {
+interface DefaultStatsChartProps {
+    data?: DataTypes
+}
+
+const DefaultStatsChart = (props: DefaultStatsChartProps) => {
 
     const theme = useGlobalState(state => state.theme)
     const [colors, setColors] = useState({
@@ -40,7 +54,7 @@ const DefaultStatsChart = () => {
         }
     }, [theme]);
 
-    const [data, setData] = useState({
+    const [data, setData] = useState<DataTypes>({
         labels: [],
         porcentualData: [],
         timeData: [],
@@ -52,6 +66,9 @@ const DefaultStatsChart = () => {
     });
 
     useEffect(() => {
+        if (props.data) {
+            setData(props.data);
+        }
         GetDataService.getStats().then((res) => {
             const labels = res.map((item: { exercise_name: string; }) => item.exercise_name);
             const porcentualData = res.map((item: { total_time: number; }) => item.total_time);
@@ -71,7 +88,7 @@ const DefaultStatsChart = () => {
                 repsData: repsData
             }));
         });
-    }, []);
+    }, [props.data]);
 
     const options: ApexOptions = {
         chart: {

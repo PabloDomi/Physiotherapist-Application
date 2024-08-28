@@ -16,7 +16,7 @@ import useManageTablets from '../hooks/useManageTablets'
 export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps) => {
 
     const theme = useGlobalState(state => state.theme)
-    const setPatients = useGlobalState(state => state.setPatients)
+    const setPatients = useGlobalState(state => state.setPatients) || []
 
     const {
         showModalDeleteAdmin,

@@ -2,8 +2,7 @@ import type { Meta, StoryFn } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
 import { NavBar } from '../../components/Navbar';
 import '../../css/Navbar.css'; // Importa los estilos del componente
-import imagePath from '../../assets/physiotherapist-logo.png'
-
+import imagePath from '../../assets/physiotherapist-logo.png';
 
 const meta: Meta<typeof NavBar> = {
     title: 'Components/NavBar',

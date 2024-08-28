@@ -6,10 +6,10 @@ import GetDataService from "../services/GetDataService"
 
 export function useManageTablets() {
 
-    const theme = useGlobalState(state => state.theme)
-    const patients = useGlobalState(state => state.patients)
+    const theme = useGlobalState(state => state.theme || 'dark')
+    const patients = useGlobalState(state => state.patients || [])
 
-    const showModalManageTablets = useGlobalState(state => state.showManageTabletsModal)
+    const showModalManageTablets = useGlobalState(state => state.showManageTabletsModal || false)
     const toggleModalManageTablets = useGlobalState(state => state.toggleManageTabletsModal)
 
     const [operation, setOperation] = useState('');
@@ -20,6 +20,10 @@ export function useManageTablets() {
         GetDataService.getTablets().then((data) => {
             setTablets(data)
         })
+            .catch((error) => {
+                console.error("Error fetching tablets:", error);
+                setTablets([]); // Set an empty array if there's an error
+            })
     }, [])
 
     const modalTitleManageTablets = 'Administración de Tablets'
@@ -71,7 +75,7 @@ export function useManageTablets() {
                                 autoFocus
                                 className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
                             >
-                                {tablets.map((tablet, index) => {
+                                {Array.isArray(tablets) && tablets.map((tablet, index) => {
                                     return <option key={index} value={tablet.id}>{tablet.id}</option>
                                 })}
                             </Form.Select>
