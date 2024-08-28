@@ -6,22 +6,7 @@ import useDownloadPDF from "../hooks/useDownloadPDF";
 import { Button } from "@mui/material";
 import { useGlobalState } from "../store/useGlobalState";
 import GetDataService from '../services/GetDataService';
-
-interface dataTypes {
-    labels: string[],
-    porcentualData: number[],
-    timeData: number[],
-    repsData: number[],
-    titleChart: string,
-    yaxisTitle: string,
-    yaxisTitleOpposite: string,
-    yaxisTitleReps: string
-}
-
-interface CustomStatsChartProps {
-    patient_id: number,
-    mockData?: dataTypes
-}
+import { CustomStatsChartProps, DataTypes } from '../utils/types';
 
 // Hacer mockData opcional
 function CustomStatsChart(props: CustomStatsChartProps) {
@@ -56,7 +41,7 @@ function CustomStatsChart(props: CustomStatsChartProps) {
         }
     }, [theme]);
 
-    const [data, setData] = useState<dataTypes>({
+    const [data, setData] = useState<DataTypes>({
         labels: [],
         porcentualData: [],
         timeData: [],

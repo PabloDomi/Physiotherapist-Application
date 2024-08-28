@@ -11,7 +11,7 @@ import Loader from "../components/Loader"
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 
-export const Estadisticas = ({ theme }: EstadisticasProps) => {
+export const Estadisticas = ({ theme, defaultMockData, customMockData }: EstadisticasProps) => {
 
     const { isLoading } = usePatients()
     const [patientId, setPatientId] = useState<number | null>(null)
@@ -41,7 +41,7 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                                     <h2 className={theme === 'dark' ? 'title' : 'title-light'}>stadísticas</h2>
                                 </div>
                                 <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
-                                    <DefaultStatsChart />
+                                    <DefaultStatsChart data={defaultMockData} />
                                 </div>
                             </>
                         }
@@ -51,7 +51,7 @@ export const Estadisticas = ({ theme }: EstadisticasProps) => {
                                     <h2 className="title">Estadísticas de {`${patients?.find(paciente => paciente.id === patientId)?.name}`}</h2>
                                 </div>
                                 <div className={theme === 'dark' ? 'stats-chart-dark' : 'stats-chart-light'}>
-                                    <CustomStatsChart patient_id={patientId} />
+                                    <CustomStatsChart patient_id={patientId} mockData={customMockData} />
                                 </div>
                             </>
                         }

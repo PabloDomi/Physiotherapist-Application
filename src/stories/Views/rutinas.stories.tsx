@@ -38,11 +38,6 @@ export default meta;
 
 const Template: StoryFn = (args) => <Rutinas theme={args.theme} />;
 
-export const DarkThemedRoutines = Template.bind({});
-DarkThemedRoutines.args = {
-    theme: 'dark',
-};
-
 export const LightThemedRoutines = Template.bind({});
 LightThemedRoutines.args = {
     theme: 'light',

@@ -37,10 +37,6 @@ const meta: Meta<typeof Ejercicios> = {
 export default meta;
 
 const Template: StoryFn = (args) => <Ejercicios theme={args.theme} />
-export const DarkThemedEjercicios = Template.bind({});
-DarkThemedEjercicios.args = {
-    theme: 'dark',
-};
 
 export const LightThemedEjercicios = Template.bind({});
 LightThemedEjercicios.args = {

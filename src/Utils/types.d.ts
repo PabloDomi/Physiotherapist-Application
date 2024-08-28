@@ -77,8 +77,30 @@ export interface SearchListProps {
     filteredPersons: User[] | undefined
 }
 
+interface DataTypes {
+    labels: string[],
+    porcentualData: number[],
+    timeData: number[],
+    repsData: number[],
+    titleChart: string,
+    yaxisTitle: string,
+    yaxisTitleOpposite: string,
+    yaxisTitleReps: string
+}
+
+interface DefaultStatsChartProps {
+    data?: DataTypes
+}
+
+interface CustomStatsChartProps {
+    patient_id: number,
+    mockData?: dataTypes
+}
+
 export interface EstadisticasProps {
     theme: Theme
+    defaultMockData?: DataTypes
+    customMockData?: DataTypes
 }
 
 export interface EjerciciosProps {

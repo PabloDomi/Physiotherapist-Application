@@ -7,22 +7,10 @@ import useDownloadPDF from '../hooks/useDownloadPDF';
 import { Button } from '@mui/material';
 import GetDataService from '../services/GetDataService';
 import { useGlobalState } from '../store/useGlobalState';
+import { DataTypes, DefaultStatsChartProps } from '../utils/types';
 // import { StatsTypes } from '../utils/types';
 
-interface DataTypes {
-    labels: string[],
-    porcentualData: number[],
-    timeData: number[],
-    repsData: number[],
-    titleChart: string,
-    yaxisTitle: string,
-    yaxisTitleOpposite: string,
-    yaxisTitleReps: string
-}
 
-interface DefaultStatsChartProps {
-    data?: DataTypes
-}
 
 const DefaultStatsChart = (props: DefaultStatsChartProps) => {
 
