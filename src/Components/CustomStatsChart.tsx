@@ -9,7 +9,6 @@ import GetDataService from '../services/GetDataService';
 
 function CustomStatsChart(patient_id: { patient_id: number }) {
 
-    // TODO: FALTA CAMBIAR QUE EN VEZ DE COGER LAS STATS DE TODOS LOS PACIENTES, SOLO LAS DE LOS PACIENTES CON ID PATIENT
     // Y PEDIRLE A CHATGPT QUE ME HAGA ALGO PARECIDO A LO OTRO PERO CON LOS DATOS DE ESE PACIENTE
 
     const theme = useGlobalState(state => state.theme)
@@ -45,10 +44,10 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
         porcentualData: [],
         timeData: [],
         repsData: [],
-        titleChart: "Estadísticas de Ejercicios",
-        yaxisTitle: "Tiempo Total (segundos)",
-        yaxisTitleOpposite: "Tiempo Promedio por Serie (segundos)",
-        yaxisTitleReps: "Media de repeticiones por serie"
+        titleChart: "Estadísticas de Ejercicios del Paciente",
+        yaxisTitle: "Total Time (s)",
+        yaxisTitleOpposite: "Average Time per Set (s)",
+        yaxisTitleReps: "Average Reps per Set"
     });
 
     useEffect(() => {
@@ -95,7 +94,7 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
         title: {
             text: data.titleChart,
             style: {
-                color: '#749c74' // Color del texto del título
+                color: '#749c74' // Title text color
             }
         },
         dataLabels: {
@@ -104,6 +103,10 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
             style: {
                 colors: ['#7a098a', '#c33206'],
                 fontSize: '14px',
+            },
+            background: {
+                enabled: true,
+                foreColor: '#000', // Set text color to black
             }
         },
         labels: data.labels,
@@ -111,7 +114,7 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
             type: 'category',
             labels: {
                 style: {
-                    colors: colors.textColor // Color del texto en el eje x
+                    colors: colors.textColor // X-axis text color
                 }
             }
         },
@@ -119,7 +122,7 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
             title: {
                 text: data.yaxisTitle,
                 style: {
-                    color: colors.azulChart // Color del texto en el eje y
+                    color: colors.azulChart // Y-axis text color
                 }
             },
             labels: {
@@ -127,20 +130,20 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
                     return Math.round(val).toFixed(0) + " s";
                 },
                 style: {
-                    colors: colors.textColor // Color del texto en las etiquetas del eje y
+                    colors: colors.textColor // Y-axis label color
                 }
             }
         }, {
             opposite: true,
             title: {
-                text: data.yaxisTitleOpposite,  // Texto del eje Y opuesto (e.g., "Tiempo promedio por serie (segundos)")
+                text: data.yaxisTitleOpposite,  // Opposite Y-axis text (e.g., "Average Time per Set (s)")
                 style: {
                     color: colors.naranjaOscuroChart
                 }
             },
             labels: {
                 formatter: function (val) {
-                    return Math.round(val).toFixed(0) + "s";  // Formato para mostrar valores redondeados en segundos
+                    return Math.round(val).toFixed(0) + "s";  // Round values to show seconds
                 },
                 style: {
                     colors: colors.textColor
@@ -151,7 +154,7 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
             title: {
                 text: data.yaxisTitleReps,
                 style: {
-                    color: colors.moradoChart // Color del texto en el eje y (opuesto)
+                    color: colors.moradoChart // Y-axis opposite text color
                 }
             },
             labels: {
@@ -159,7 +162,7 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
                     return Math.round(val).toFixed(0) + " reps";
                 },
                 style: {
-                    colors: colors.textColor // Color del texto en las etiquetas del eje y (opuesto)
+                    colors: colors.textColor // Y-axis opposite label color
                 }
             }
         }],
@@ -170,29 +173,28 @@ function CustomStatsChart(patient_id: { patient_id: number }) {
             }
         },
         grid: {
-            borderColor: theme === 'light' ? '#222322' : '#e7e7e7', // Color de las líneas de borde de la cuadrícula
-            position: 'back', // Posición de la cuadrícula (frente o detrás del gráfico)
-            strokeDashArray: 0, // Tipo de línea (discontinua, continua, etc.)
+            borderColor: theme === 'light' ? '#222322' : '#e7e7e7', // Grid border color
+            position: 'back', // Position grid behind the chart
+            strokeDashArray: 0, // Grid line type (solid, dashed, etc.)
             yaxis: {
                 lines: {
-                    show: true // Mostrar u ocultar líneas en el eje Y
+                    show: true // Show or hide Y-axis grid lines
                 }
             },
             xaxis: {
                 lines: {
-                    show: false // Mostrar u ocultar líneas en el eje X
+                    show: false // Show or hide X-axis grid lines
                 }
             }
         },
-        colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart], // Color del texto para otros elementos si es necesario
+        colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart], // Other element colors
         legend: {
             offsetY: 6,
             labels: {
-                colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart] // Color del texto en la leyenda
+                colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart] // Legend text color
             }
         }
     };
-
 
     const series = [
         {

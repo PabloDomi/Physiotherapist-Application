@@ -17,13 +17,6 @@ const SearchCard: React.FC<SearchCardProps> = ({ chartTitle, person, onRemove, s
   // Función para actualizar el valor de custom data y recarga automatica de los datos en estadisticas
   const changeCustomStatsData = useGlobalState(state => state.changeCustomStatsData)
 
-  /* 
-      TODO: Aquí habría que coger los datos de person, y transformarlos en un array/objeto tipo mockStats
-      const mockStatsTypeOfDataFromPerson = person => {...} 
-
-      Esto se hará cuando sepa que datos me llegan de la aplicación de google Mediapipe
-  */
-
 
 
   function handleClick() {

@@ -16,7 +16,7 @@ function ListExpandExercises({ rutina }: { rutina: RoutineData }) {
         >
             {rutina.exercises !== undefined &&
                 rutina.exercises.map((exercise, index) =>
-                    <ListItemButton key={index} sx={{ pl: 10 }}>
+                    <ListItemButton key={index} sx={{ pl: 10 }} className={theme === 'dark' ? 'desplegable-lista' : 'desplegable-lista-light'}>
                         <ListItemIcon className="circle-container-exercise">
                             <Circle
                                 className="circle-icon-exercise"
@@ -33,8 +33,12 @@ function ListExpandExercises({ rutina }: { rutina: RoutineData }) {
                                         sx={{ marginRight: '1rem' }} />
                                 </>
                             }
-                            secondary={exercise.description}
-                            sx={theme === 'dark' ? { color: '#C8d3ef' } : { color: '#127e12' }} />
+                            secondary={
+                                <span style={{ fontWeight: 'bold' }}>
+                                    {exercise.description}
+                                </span>
+                            }
+                            sx={theme === 'dark' ? { color: '#C8d3ef' } : { color: '#464545' }} />
                     </ListItemButton>
                 )
             }

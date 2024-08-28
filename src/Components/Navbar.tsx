@@ -77,6 +77,7 @@ export const NavBar = ({ styledClassName, brandName, imageSrcPath }: NavbarProps
         try {
             const res = await GetDataService.getPatients()
             setPatients(res)
+            toast.success('Paciente registrado con éxito')
         } catch (error) {
             console.error(error)
             throw new Error("Error al obtener los pacientes")

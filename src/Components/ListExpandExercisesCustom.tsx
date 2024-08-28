@@ -28,7 +28,7 @@ function ListExpandExercisesCustom(props: ListExpandExercisesCustomProps) {
                     disableTypography={true}
                     primary={
                         <>
-                            <span className="primary-text-exercise">
+                            <span className={theme === 'dark' ? 'primary-text-exercise' : 'primary-text-exercise-light'}>
                                 {exercise.name}
                             </span>
                             <KeyboardDoubleArrowRightOutlinedIcon sx={{ marginRight: '1rem' }} />

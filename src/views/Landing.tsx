@@ -10,7 +10,7 @@ import LoginFormField from '../components/LoginFormField';
 import LoginService from '../services/LoginService';
 import RegisterService from '../services/RegisterService';
 import { useGlobalState } from '../store/useGlobalState';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type ErrorMessage = {
     message: string
@@ -25,6 +25,8 @@ const Landing = () => {
     // Cogiendo estado global de user
     const setUser = useGlobalState(state => state.setUser)
 
+    // hook para navegar
+    const navigate = useNavigate();
 
     // Estado para controlar el contenedor de los formularios
     const [container, setContainer] = useState<HTMLElement | null>(null);
@@ -113,15 +115,18 @@ const Landing = () => {
     // Submit del formulario de inicio de sesión
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (values: LoginSchema) => {
         try {
-            const data = await LoginService.LoginService(values)
-            const dataFormatted = JSON.stringify(data)
-            await localStorage.setItem('user', dataFormatted)
-            await setUser(data)
-            setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' })
+            const data = await LoginService.LoginService(values);
+            const dataFormatted = JSON.stringify(data);
+            localStorage.setItem('user', dataFormatted);
+            setUser(data);
+            setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' });
 
+            // Aquí podrías redirigir explícitamente a /home si es necesario.
+            // Ejemplo:
+            navigate('/home');
         } catch (error) {
-            setErrorMessage({ message: 'Email o contraseña incorrectos', severity: 'error' })
-            throw new Error("Error en el login de usuario")
+            setErrorMessage({ message: 'Email o contraseña incorrectos', severity: 'error' });
+            throw new Error("Error en el login de usuario");
         }
     }
 

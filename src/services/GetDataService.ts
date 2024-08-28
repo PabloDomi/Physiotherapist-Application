@@ -187,6 +187,7 @@ const GetPatientStats = async (patient_id: number) => {
     }
 }
 
+
 export default { 
     refreshJWToken: RefreshJWToken, getExerciseById: GetExerciseById, getAllExercises: GetAllExercises, 
     getRoutineById: GetRoutineById, getPatients: GetPatients, checkEmailExists: CheckEmailExists, getUsers: GetUsers, 

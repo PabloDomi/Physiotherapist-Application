@@ -12,3 +12,21 @@ ul {
     margin-top: 0.5rem !important;
     width: 33.7vw;
 }
+
+.desplegable-lista:hover {
+    background-color: #464545 !important;
+    transition: background-color 1s ease;
+}
+
+.desplegable-lista-light:hover {
+    background-color: #7bda7b !important;
+    transition: background-color 1s ease;
+}
+
+.primary-text-exercise-light {
+    color: #464545;
+}
+
+.primary-text-exercise {
+    color: #8faef5;
+}
