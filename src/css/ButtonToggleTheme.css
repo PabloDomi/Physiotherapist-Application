@@ -1,0 +1,54 @@
+/* ================ CSS PARA EL BOTÓN DE TOGGLE THEME ================ */
+
+.btn-light {
+    background: #ffffff;
+    border-color: #ABE8AB;
+    border-radius: 35px;
+}
+
+.btn-dark {
+    background: #000000;
+    border-color: #333;
+    border-radius: 35px;
+}
+
+.btn-dark, .btn-light {
+    font-size: 1.1rem;
+}
+
+.toggle-button-light-to-dark, .toggle-button-dark-to-light {
+    position: fixed;
+    bottom: 6px;
+    right: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.moon, .sunny {
+    transition: opacity 0.3s;
+}
+
+.icon-hidden {
+    opacity: 0;
+}
+
+.icon-visible {
+    opacity: 1;
+}
+
+.toggle-button-dark-to-light:hover {
+    background-color: #ccc;
+    color: #555;
+}
+
+.toggle-button-light-to-dark:hover {
+    background-color: #555;
+    color: #ccc;
+}
+
+.toggle-button-dark-to-light:hover .icon-hidden, .toggle-button-light-to-dark:hover .icon-hidden {
+    opacity: 1;
+}
+
+.toggle-button-dark-to-light:hover .icon-visible, .toggle-button-light-to-dark:hover .icon-visible {
+    opacity: 0;
+}

@@ -1,0 +1,168 @@
+.rutinas-section {
+    display: flex;
+    height: 90dvh;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    overflow-x: hidden;
+
+    & h1{
+        color: #27ab28;
+        padding-right: 15px;
+    }
+}
+
+.rutinas-section-dark {
+    display: flex;
+    height: 90dvh;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    overflow-x: hidden;
+
+    & h1{
+        color: #8faef5;
+        padding-right: 15px;
+    }
+}
+
+.rutinas-background-dark {
+    background: linear-gradient(270deg,#444444, #333);
+}
+
+.rutinas-background-light {
+    background: linear-gradient(270deg, #ABE8AB, #fff);
+}
+
+.rutinas-aside {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+    justify-content: center;
+    align-items: first baseline;
+}
+
+.rutinas-container {
+    display: flex;
+    width: 70vw;
+    height: 100%;
+    max-height: 700px;
+    justify-content: center;
+    padding: 10px 0;
+    min-width: none;
+}
+
+#rutinas-list {
+    max-height: 700px;
+    overflow: auto;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 900;
+    box-shadow: 0px 4px 6px #4368bc;
+}
+
+.primary-text-exercise {
+    margin-right: 1rem;
+    color: #8faef5;
+}
+
+.primary-text-exercise-light {
+    margin-right: 1rem;
+    color: #464545;
+}
+
+.btn-agregar-rutina-light, .btn-agregar-rutina {
+    width: 17%;
+    max-width: 325px;
+}
+
+.btn-agregar-rutina {
+    background-color: #4570d6 !important;
+    color: #8faef5;
+}
+
+.btn-agregar-rutina-light {
+    background-color: #127e12 !important;
+}
+
+.circle-icon-exercise {
+    font-size: 0.7rem !important;
+}
+
+.circle-container-exercise {
+    min-width: 35px !important;
+}
+
+.desplegable-lista:hover {
+    background-color: #464545 !important;
+    transition: background-color 1s ease;
+}
+
+.desplegable-lista-light:hover {
+    background-color: #7bda7b !important;
+    transition: background-color 1s ease;
+}
+
+#btn-agregar-ej {
+    background-color: #4570d6 !important;
+}
+
+#btn-agregar-ej-light {
+    background-color: #127e12 !important;
+}
+
+#btn-agregar-ej, #btn-agregar-ej-light {
+    margin-left: 1rem;
+}
+
+#btn-lista-dark {
+    max-width: 325px;
+    margin-left: 1rem;
+    background-color: #4570d6;
+}
+
+#btn-lista-light {
+    max-width: 325px;
+    margin-left: 1rem;
+    background-color: #127e12;
+}
+
+.iconos-rutinas {
+    margin-left: 0.5rem;
+}
+
+#icono-lista-light, #icono-lista-dark {
+    min-width: 38px;
+}
+
+#icono-lista-light {
+    color: #444444;
+}
+
+#icono-lista-dark {
+    color: #D0daf1;
+}
+
+#texto-lista-light {
+    color: #464545;
+}
+
+#texto-lista-dark {
+    color: #8faef5;
+}
+
+#no-exercises-light {
+    color: #127e12;
+}
+
+#no-exercises-dark {
+    color: #a5bdf7;
+}
+
+#no-exercises-light, #no-exercises-dark {
+    margin-left: 3.4rem;
+    font-size: 1rem;
+}
