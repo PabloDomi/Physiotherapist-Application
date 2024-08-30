@@ -172,6 +172,8 @@ interface GlobalState {
     toggleEditExerciseModal: () => void
     showManageTabletsModal: ModalType
     toggleManageTabletsModal: () => void
+    isLoadingUser: boolean
+    setIsLoadingUser: (newState: boolean) => void
   }
 
 export interface CustomStatsData {

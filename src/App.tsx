@@ -13,6 +13,7 @@ import { theresUser, noUser } from './utils/Constants'
 import GetDataService from './services/GetDataService'
 import useRefreshJWToken from './hooks/useRefreshJWToken'
 import PasswordRecovery from './views/PasswordRecovery'
+import Loader from './components/Loader'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
   const changeView = useGlobalState(state => state.changeView)
   const setGlobalRoutines = useGlobalState(state => state.setRoutines)
   const setGlobalExercises = useGlobalState(state => state.setExercises)
+  const isLoadingUser = useGlobalState(state => state.isLoadingUser)
 
   console.log("Usuario: ", user)
 
@@ -55,26 +57,31 @@ function App() {
     }
   }, [setGlobalRoutines, setGlobalExercises, user])
 
+  if (isLoadingUser) {
+    return <Loader />;
+  }
+
+  if (!user && !isLoadingUser) {
+    return (
+      < Routes >
+        <Route path='/' element={<Landing />} />
+        <Route path='/activateAccount/:commingFromEmail' element={<PasswordRecovery />} />
+        <Route path='*' element={<NotFound type={noUser} />} />
+      </Routes>
+    )
+  }
+
   return (
     <>
-      {user
-        ?
-        <Routes>
-          <Route element={<OutletWithNavBarAndFooter />} >
-            {/*<Route path='/' element={<Navigate to={'/home'} replace={true} />} />*/}
-            <Route path='home' element={<Estadisticas theme={theme} />} />
-            <Route path='rutinas' element={<Rutinas theme={theme} />} />
-            <Route path='ejercicios' element={<Ejercicios theme={theme} />} />
-          </Route>
-          <Route path='*' element={<NotFound type={theresUser} />} />
-        </Routes>
-        :
-        <Routes>
-          <Route path='/' element={<Landing />} />
-          <Route path='/activateAccount/:commingFromEmail' element={<PasswordRecovery />} />
-          <Route path='*' element={<NotFound type={noUser} />} />
-        </Routes>
-      }
+      <Routes>
+        <Route element={<OutletWithNavBarAndFooter />} >
+          {/*<Route path='/' element={<Navigate to={'/home'} replace={true} />} />*/}
+          <Route path='home' element={<Estadisticas theme={theme} />} />
+          <Route path='rutinas' element={<Rutinas theme={theme} />} />
+          <Route path='ejercicios' element={<Ejercicios theme={theme} />} />
+        </Route>
+        <Route path='*' element={<NotFound type={theresUser} />} />
+      </Routes>
     </>
   )
 }

@@ -25,7 +25,10 @@ const Landing = () => {
     // Cogiendo estado global de user
     const setUser = useGlobalState(state => state.setUser)
 
-    // hook para navegar
+    // Estado para mostrar el loader
+    const setLoading = useGlobalState(state => state.setIsLoadingUser)
+
+    // Hook para navegar
     const navigate = useNavigate();
 
     // Estado para controlar el contenedor de los formularios
@@ -112,23 +115,33 @@ const Landing = () => {
         }
     }
 
+    const navigateToHome = () => {
+        navigate('/home')
+    }
+
     // Submit del formulario de inicio de sesión
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (values: LoginSchema) => {
         try {
+            await setLoading(true);  // Muestra el loader
             const data = await LoginService.LoginService(values);
             const dataFormatted = JSON.stringify(data);
             localStorage.setItem('user', dataFormatted);
             setUser(data);
             setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' });
 
-            // Aquí podrías redirigir explícitamente a /home si es necesario.
-            // Ejemplo:
-            navigate('/home');
+            // Espera un breve momento para asegurar que el estado global se actualice
+            setTimeout(() => {
+                setLoading(false);  // Oculta el loader
+                navigateToHome();  // Navega a /home
+            }, 2000);  // Ajusta el tiempo si es necesario
+
         } catch (error) {
+            setLoading(false);  // Oculta el loader si hay un error
             setErrorMessage({ message: 'Email o contraseña incorrectos', severity: 'error' });
             throw new Error("Error en el login de usuario");
         }
     }
+
 
 
     return (

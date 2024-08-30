@@ -59,5 +59,8 @@ export const useGlobalState = create<GlobalState>((set) => {
 
     showManageTabletsModal: false,
     toggleManageTabletsModal: () => set((state) => ({ showManageTabletsModal: !state.showManageTabletsModal })),
+
+    isLoadingUser: false,
+    setIsLoadingUser: (newState: boolean) => set({ isLoadingUser: newState }),
   }
 });
