@@ -10,7 +10,8 @@ import LoginFormField from '../components/LoginFormField';
 import LoginService from '../services/LoginService';
 import RegisterService from '../services/RegisterService';
 import { useGlobalState } from '../store/useGlobalState';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { userLocalStorageTypes } from '../utils/types';
 
 type ErrorMessage = {
     message: string
@@ -29,7 +30,7 @@ const Landing = () => {
     const setLoading = useGlobalState(state => state.setIsLoadingUser)
 
     // Hook para navegar
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     // Estado para controlar el contenedor de los formularios
     const [container, setContainer] = useState<HTMLElement | null>(null);
@@ -115,32 +116,44 @@ const Landing = () => {
         }
     }
 
-    const navigateToHome = () => {
-        navigate('/home')
+    // const navigateToHome = () => {
+    //     navigate('/home')
+    // }
+
+    const updateLocalData = (data: userLocalStorageTypes) => {
+        setUser(data);
+        const dataFormatted = JSON.stringify(data);
+        localStorage.setItem('user', dataFormatted);
+
     }
 
     // Submit del formulario de inicio de sesión
     const handleLoginSubmit: SubmitHandler<LoginSchema> = async (values: LoginSchema) => {
         try {
-            await setLoading(true);  // Muestra el loader
+            setLoading(true);  // Muestra el loader
             const data = await LoginService.LoginService(values);
-            const dataFormatted = JSON.stringify(data);
-            localStorage.setItem('user', dataFormatted);
-            setUser(data);
-            setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' });
 
-            // Espera un breve momento para asegurar que el estado global se actualice
-            setTimeout(() => {
-                setLoading(false);  // Oculta el loader
-                navigateToHome();  // Navega a /home
-            }, 2000);  // Ajusta el tiempo si es necesario
+            if (data) {
+                updateLocalData(data);
+
+                setErrorMessage({ message: 'Inicio de sesión exitoso', severity: 'success' });
+
+                // Espera un breve momento para asegurar que el estado global se actualice
+                setTimeout(() => {
+                    setLoading(false);  // Oculta el loader
+                }, 1000);  // Ajusta el tiempo si es necesario (1 segundo podría ser suficiente)
+
+            } else {
+                throw new Error("Datos de usuario no recibidos");
+            }
 
         } catch (error) {
             setLoading(false);  // Oculta el loader si hay un error
             setErrorMessage({ message: 'Email o contraseña incorrectos', severity: 'error' });
-            throw new Error("Error en el login de usuario");
+            console.error((error as Error).message);
         }
     }
+
 
 
 

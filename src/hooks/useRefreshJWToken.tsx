@@ -15,7 +15,9 @@ const useRefreshJWToken = (user: UserAdmin | null) => {
             const data = await GetDataService.getAccessToken(user.email);
             if (data) {
                 AuthorizationService.setToken(data.access_token);
-                localStorage.setItem('lastActivity', Date.now().toString());
+                const currentTime = Date.now();
+                localStorage.setItem('lastActivity', currentTime.toString());
+                lastSavedActivity.current = currentTime;
             }
         };
 
@@ -23,22 +25,22 @@ const useRefreshJWToken = (user: UserAdmin | null) => {
             const lastActivity = parseInt(localStorage.getItem('lastActivity') || '0', 10);
             if (Date.now() - lastActivity > inactivityLimit) {
                 AuthorizationService.removeToken();
-                localStorage.removeItem('user'); // Assuming 'userSession' is where the user is stored
+                localStorage.removeItem('user');
                 window.location.reload(); // Optionally, force a reload to clear any user-specific data in memory
             }
         };
 
         if (user !== undefined && user !== null) {
             if (isInitialRender.current) {
-                updateToken();
+                updateToken().then(() => {
+                    setTimeout(checkInactivity, 100); // Small delay to ensure lastActivity is updated
+                });
                 isInitialRender.current = false;
             }
 
             const interval = setInterval(() => {
                 updateToken();
             }, 1000 * 60 * 3); // Update token every 3 minutes
-
-            checkInactivity();
 
             return () => clearInterval(interval);
         }
