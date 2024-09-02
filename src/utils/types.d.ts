@@ -360,10 +360,3 @@ interface UpdateTabletServiceProps {
     treatment_time: number | undefined;
     treatment_cadence: number | undefined;
 }
-
-interface userLocalStorageTypes {
-    id: number;
-    name: string;
-    email: string;
-    access_token: string;
-}
