@@ -7,9 +7,8 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterPatientDataTypes } from "../utils/types"
 import '../css/Estadisticas.css'
+import { toast, Toaster } from "sonner"
 
-// TODO -> Las validaciones de este hook no funcionan porque el boton de submit no está aqui,
-// sino en el componente "Modal", y no, poniendo el boton del modal con tipo submit tampoco funciona
 
 type ErrorMessage = {
     message: string
@@ -59,8 +58,8 @@ export function useRegisterPatient() {
         }
     }, [errors])
 
-    const handleRegisterPatientSubmit = (data: RegisterPatientSchema) => {
-        console.log(data)
+    const handleRegisterPatientSubmit = () => {
+        toast.success('Paciente registrado correctamente')
     }
 
     const [registerPatientData, setRegisterPatientData] = useState<RegisterPatientDataTypes | undefined>(undefined)
@@ -73,98 +72,100 @@ export function useRegisterPatient() {
     const modalTitleRegisterPatient = 'Registro de Paciente'
 
     const modalContentRegisterPatient =
-        <Form onSubmit={handleSubmit(handleRegisterPatientSubmit)}>
-            <Form.Group
-                className="mb-3"
-                controlId="registerPatientForm.ControlInput1"
-            >
-                <Form.Label>Nombre</Form.Label>
-                <Form.Control
-                    onChange={(event) => setRegisterPatientData(
-                        {
-                            name: event.target.value,
-                            surname: registerPatientData?.surname,
-                            age: registerPatientData?.age,
-                            gender: registerPatientData?.gender,
-                            routine_id: registerPatientData?.routine_id
-                        }
-                    )}
-                    type="text"
-                    placeholder="Nombre del paciente"
-                    autoFocus
-                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                /* {...control.register('name')} */
-                />
-            </Form.Group>
-            <Form.Group
-                className="mb-3"
-                controlId="registerPatientForm.ControlInput2"
-            >
-                <Form.Label>Apellidos</Form.Label>
-                <Form.Control
-                    onChange={(event) => setRegisterPatientData(
-                        {
-                            name: registerPatientData?.name,
-                            surname: event.target.value,
-                            age: registerPatientData?.age,
-                            gender: registerPatientData?.gender,
-                            routine_id: registerPatientData?.routine_id
-                        }
-                    )}
-                    type="text"
-                    placeholder="Apellidos del paciente"
-                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                /* {...control.register('surname')} */
-                />
-            </Form.Group>
-            <Form.Group
-                className="mb-3"
-                controlId="registerPatientForm.ControlInput3"
-            >
-                <Form.Label>Edad</Form.Label>
-                <Form.Control
-                    onChange={(event) => setRegisterPatientData(
-                        {
-                            name: registerPatientData?.name,
-                            surname: registerPatientData?.surname,
-                            age: Number(event.target.value),
-                            gender: registerPatientData?.gender,
-                            routine_id: registerPatientData?.routine_id
-                        }
-                    )}
-                    type="number"
-                    placeholder="Edad del paciente"
-                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                /* {...control.register('age')} */
-                />
-            </Form.Group>
-            <Form.Group
-                className="mb-3"
-                controlId="registerPatientForm.SelectCustom1"
-            >
-                <Form.Label>Género</Form.Label>
-                <Form.Select
-                    onChange={(event) => setRegisterPatientData(
-                        {
-                            name: registerPatientData?.name,
-                            surname: registerPatientData?.surname,
-                            age: registerPatientData?.age,
-                            gender: event.target.value,
-                            routine_id: registerPatientData?.routine_id
-                        }
-                    )}
-                    aria-label="Default select"
-                    className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
-                /* {...control.register("gender")} */
+        <>
+            <Form onSubmit={handleSubmit(handleRegisterPatientSubmit)}>
+                <Form.Group
+                    className="mb-3"
+                    controlId="registerPatientForm.ControlInput1"
                 >
-                    <option>Seleccionar entre...</option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>
-                    <option value="Otro">Otro</option>
-                </Form.Select>
-            </Form.Group>
-        </Form>
-
+                    <Form.Label>Nombre</Form.Label>
+                    <Form.Control
+                        onChange={(event) => setRegisterPatientData(
+                            {
+                                name: event.target.value,
+                                surname: registerPatientData?.surname,
+                                age: registerPatientData?.age,
+                                gender: registerPatientData?.gender,
+                                routine_id: registerPatientData?.routine_id
+                            }
+                        )}
+                        type="text"
+                        placeholder="Nombre del paciente"
+                        autoFocus
+                        className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
+                    /* {...control.register('name')} */
+                    />
+                </Form.Group>
+                <Form.Group
+                    className="mb-3"
+                    controlId="registerPatientForm.ControlInput2"
+                >
+                    <Form.Label>Apellidos</Form.Label>
+                    <Form.Control
+                        onChange={(event) => setRegisterPatientData(
+                            {
+                                name: registerPatientData?.name,
+                                surname: event.target.value,
+                                age: registerPatientData?.age,
+                                gender: registerPatientData?.gender,
+                                routine_id: registerPatientData?.routine_id
+                            }
+                        )}
+                        type="text"
+                        placeholder="Apellidos del paciente"
+                        className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
+                    /* {...control.register('surname')} */
+                    />
+                </Form.Group>
+                <Form.Group
+                    className="mb-3"
+                    controlId="registerPatientForm.ControlInput3"
+                >
+                    <Form.Label>Edad</Form.Label>
+                    <Form.Control
+                        onChange={(event) => setRegisterPatientData(
+                            {
+                                name: registerPatientData?.name,
+                                surname: registerPatientData?.surname,
+                                age: Number(event.target.value),
+                                gender: registerPatientData?.gender,
+                                routine_id: registerPatientData?.routine_id
+                            }
+                        )}
+                        type="number"
+                        placeholder="Edad del paciente"
+                        className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
+                    /* {...control.register('age')} */
+                    />
+                </Form.Group>
+                <Form.Group
+                    className="mb-3"
+                    controlId="registerPatientForm.SelectCustom1"
+                >
+                    <Form.Label>Género</Form.Label>
+                    <Form.Select
+                        onChange={(event) => setRegisterPatientData(
+                            {
+                                name: registerPatientData?.name,
+                                surname: registerPatientData?.surname,
+                                age: registerPatientData?.age,
+                                gender: event.target.value,
+                                routine_id: registerPatientData?.routine_id
+                            }
+                        )}
+                        aria-label="Default select"
+                        className={theme === 'dark' ? 'dark-input' : 'dark-input2'}
+                    /* {...control.register("gender")} */
+                    >
+                        <option>Seleccionar entre...</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </Form.Select>
+                </Form.Group>
+            </Form>
+            <Toaster />
+        </>
     return { errorMessage, showModalRegisterPatient, toggleModalRegisterPatient, modalTitleRegisterPatient, modalContentRegisterPatient, theme, registerPatientData }
 }
 

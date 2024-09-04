@@ -29,9 +29,6 @@ const Landing = () => {
     // Estado para mostrar el loader
     const setLoading = useGlobalState(state => state.setIsLoadingUser)
 
-    // Hook para navegar
-    // const navigate = useNavigate();
-
     // Estado para controlar el contenedor de los formularios
     const [container, setContainer] = useState<HTMLElement | null>(null);
 
@@ -116,9 +113,6 @@ const Landing = () => {
         }
     }
 
-    // const navigateToHome = () => {
-    //     navigate('/home')
-    // }
 
     const updateLocalData = (data: userLocalStorageTypes) => {
         setUser(data);

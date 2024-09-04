@@ -1,14 +1,12 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts'
 import '../css/Estadisticas.css'
-// import { mockStats } from "../utils/MockData"
 import { useEffect, useRef, useState } from 'react';
 import useDownloadPDF from '../hooks/useDownloadPDF';
 import { Button } from '@mui/material';
 import GetDataService from '../services/GetDataService';
 import { useGlobalState } from '../store/useGlobalState';
 import { DataTypes, DefaultStatsChartProps } from '../utils/types';
-// import { StatsTypes } from '../utils/types';
 
 
 

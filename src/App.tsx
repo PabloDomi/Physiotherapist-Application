@@ -26,7 +26,6 @@ function App() {
   const setGlobalExercises = useGlobalState(state => state.setExercises)
   const isLoadingUser = useGlobalState(state => state.isLoadingUser)
 
-  // console.log("Usuario: ", user)
 
 
   useRefreshJWToken(user)
@@ -37,9 +36,6 @@ function App() {
   }, [changeView, location.pathname])
 
   useEffect(() => {
-
-    // console.log('Se actualizó user: ', user)
-
     const fetchData = async () => {
       try {
         const res = await GetDataService.getRoutines()

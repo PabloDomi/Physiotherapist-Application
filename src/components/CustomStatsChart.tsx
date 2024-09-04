@@ -8,10 +8,7 @@ import { useGlobalState } from "../store/useGlobalState";
 import GetDataService from '../services/GetDataService';
 import { CustomStatsChartProps, DataTypes } from '../utils/types';
 
-// Hacer mockData opcional
 function CustomStatsChart(props: CustomStatsChartProps) {
-
-    // Y PEDIRLE A CHATGPT QUE ME HAGA ALGO PARECIDO A LO OTRO PERO CON LOS DATOS DE ESE PACIENTE
 
     const theme = useGlobalState(state => state.theme)
     const [colors, setColors] = useState({
