@@ -8,39 +8,39 @@ import GetDataService from '../services/GetDataService';
 import { useGlobalState } from '../store/useGlobalState';
 import { DataTypes, DefaultStatsChartProps } from '../utils/types';
 
-
+interface ExtendedDataTypes extends DataTypes {
+    tooltipsData: string[];
+}
 
 const DefaultStatsChart = (props: DefaultStatsChartProps) => {
 
-    const theme = useGlobalState(state => state.theme)
+    const theme = useGlobalState(state => state.theme);
     const [colors, setColors] = useState({
         textColor: '',
         azulChart: '',
         naranjaOscuroChart: '',
         moradoChart: '',
-    })
+    });
 
     useEffect(() => {
         if (theme === 'light') {
-            setColors(prevColors => ({
-                ...prevColors,
+            setColors({
                 textColor: '#105a08',
                 azulChart: '#05138e',
                 naranjaOscuroChart: '#c33206',
                 moradoChart: '#7a098a',
-            }));
+            });
         } else {
-            setColors(prevColors => ({
-                ...prevColors,
+            setColors({
                 textColor: '#7ce489',
                 azulChart: '#777ef9',
                 naranjaOscuroChart: '#fd8f6d',
                 moradoChart: '#e38def',
-            }));
+            });
         }
     }, [theme]);
 
-    const [data, setData] = useState<DataTypes>({
+    const [data, setData] = useState<ExtendedDataTypes>({
         labels: [],
         porcentualData: [],
         timeData: [],
@@ -48,19 +48,28 @@ const DefaultStatsChart = (props: DefaultStatsChartProps) => {
         titleChart: "Estadísticas de Ejercicios",
         yaxisTitle: "Tiempo Total (segundos)",
         yaxisTitleOpposite: "Tiempo Promedio por Serie (segundos)",
-        yaxisTitleReps: "Media de repeticiones por serie"
+        yaxisTitleReps: "Media de repeticiones por serie",
+        tooltipsData: []  // Agregamos tooltipsData
     });
 
     useEffect(() => {
         if (props.data) {
-            setData(props.data);
+            setData(props.data as ExtendedDataTypes);
         }
+
         GetDataService.getStats().then((res) => {
-            const labels = res.map((item: { exercise_name: string; }) => item.exercise_name);
+
+            // Ordenar los datos por fecha (de más antigua a más reciente)
+            const sortedData = res.sort((a: { date: string }, b: { date: string }) => {
+                return new Date(a.date).getTime() - new Date(b.date).getTime();
+            });
+
+            const sortedDatesToString = sortedData.map((item: { date: string }) => `${new Date(item.date).toLocaleDateString()}`);
+
+            const labels = res.map((item: number) => `${sortedDatesToString[res.indexOf(item)]}`);
             const porcentualData = res.map((item: { total_time: number; }) => item.total_time);
             const timeData = res.map((item: { average_series_time: number; }) => item.average_series_time);
 
-            // Para las repeticiones, se aplanan los arrays y se calculan las sumas
             const repsData = res.map((item: { reps_per_series: number[]; }) => {
                 const totalReps = item.reps_per_series.reduce((a, b) => a + b, 0);
                 return Math.round(totalReps / item.reps_per_series.length);
@@ -71,7 +80,8 @@ const DefaultStatsChart = (props: DefaultStatsChartProps) => {
                 labels: labels,
                 porcentualData: porcentualData,
                 timeData: timeData,
-                repsData: repsData
+                repsData: repsData,
+                tooltipsData: res.map((item: { exercise_name: string, patient: string }) => (`${item.exercise_name} - ${item.patient}`))  // Añadimos tooltipsData
             }));
         });
     }, [props.data]);
@@ -98,7 +108,7 @@ const DefaultStatsChart = (props: DefaultStatsChartProps) => {
         title: {
             text: data.titleChart,
             style: {
-                color: '#749c74' // Color del texto del título
+                color: '#749c74'
             }
         },
         dataLabels: {
@@ -109,63 +119,67 @@ const DefaultStatsChart = (props: DefaultStatsChartProps) => {
                 fontSize: '14px',
             }
         },
-        labels: data.labels,
+        labels: data.labels,  // Las fechas debajo de las barras
         xaxis: {
             type: 'category',
             labels: {
                 style: {
-                    colors: colors.textColor // Color del texto en el eje x
-                }
-            }
-        },
-        yaxis: [{
-            title: {
-                text: data.yaxisTitle,
-                style: {
-                    color: colors.azulChart // Color del texto en el eje y
-                }
-            },
-            labels: {
-                formatter: function (val) {
-                    return Math.round(val).toFixed(0) + " s";
-                },
-                style: {
-                    colors: colors.textColor // Color del texto en las etiquetas del eje y
-                }
-            }
-        }, {
-            opposite: true,
-            title: {
-                text: data.yaxisTitleOpposite,  // Texto del eje Y opuesto (e.g., "Tiempo promedio por serie (segundos)")
-                style: {
-                    color: colors.naranjaOscuroChart
-                }
-            },
-            labels: {
-                formatter: function (val) {
-                    return Math.round(val).toFixed(0) + "s";  // Formato para mostrar valores redondeados en segundos
-                },
-                style: {
                     colors: colors.textColor
                 }
             }
-        }, {
-            opposite: true,
-            title: {
-                text: data.yaxisTitleReps,
-                style: {
-                    color: colors.moradoChart // Color del texto en el eje y (opuesto)
+        },
+        yaxis: [
+            {
+                title: {
+                    text: data.yaxisTitle,
+                    style: {
+                        color: colors.azulChart
+                    }
+                },
+                labels: {
+                    formatter: function (val) {
+                        return Math.round(val).toFixed(0) + " s";
+                    },
+                    style: {
+                        colors: colors.textColor
+                    }
                 }
             },
-            labels: {
-                formatter: function (val) {
-                    return Math.round(val).toFixed(0) + " reps";
+            {
+                opposite: true,
+                title: {
+                    text: data.yaxisTitleOpposite,
+                    style: {
+                        color: colors.naranjaOscuroChart
+                    }
                 },
-                style: {
-                    colors: colors.textColor // Color del texto en las etiquetas del eje y (opuesto)
+                labels: {
+                    formatter: function (val) {
+                        return Math.round(val).toFixed(0) + " s";
+                    },
+                    style: {
+                        colors: colors.textColor
+                    }
+                }
+            },
+            {
+                opposite: true,
+                title: {
+                    text: data.yaxisTitleReps,
+                    style: {
+                        color: colors.moradoChart
+                    }
+                },
+                labels: {
+                    formatter: function (val) {
+                        return Math.round(val).toFixed(0) + " reps";
+                    },
+                    style: {
+                        colors: colors.textColor
+                    }
                 }
             }
-        }],
+        ],
         plotOptions: {
             bar: {
                 horizontal: false,
@@ -173,25 +187,43 @@ const DefaultStatsChart = (props: DefaultStatsChartProps) => {
             }
         },
         grid: {
-            borderColor: theme === 'light' ? '#222322' : '#e7e7e7', // Color de las líneas de borde de la cuadrícula
-            position: 'back', // Posición de la cuadrícula (frente o detrás del gráfico)
-            strokeDashArray: 0, // Tipo de línea (discontinua, continua, etc.)
+            borderColor: theme === 'light' ? '#222322' : '#e7e7e7',
+            position: 'back',
+            strokeDashArray: 0,
             yaxis: {
                 lines: {
-                    show: true // Mostrar u ocultar líneas en el eje Y
+                    show: true
                 }
             },
             xaxis: {
                 lines: {
-                    show: false // Mostrar u ocultar líneas en el eje X
+                    show: false
                 }
             }
         },
-        colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart], // Color del texto para otros elementos si es necesario
+        tooltip: {
+            custom: function ({ series, dataPointIndex }) {
+                const ejercicio = data.tooltipsData[dataPointIndex].split(' - ')[0];
+                const paciente = data.tooltipsData[dataPointIndex].split(' - ')[1];  // Nombre del ejercicio
+                const totalTime = series[0][dataPointIndex];  // Tiempo total del ejercicio
+
+                return `
+                    <div style="padding: 10px; text-align: center;">
+                        <strong>Paciente:</strong> ${paciente}<br />
+                        <br />
+                        <strong>Ejercicio:</strong> ${ejercicio}<br />
+                        <strong>Tiempo Total:</strong> ${totalTime} s<br />
+                        <strong>Tiempo Promedio por Serie:</strong> ${series[1][dataPointIndex]} s<br />
+                        <strong>Media de repeticiones por serie:</strong> ${series[2][dataPointIndex]} reps
+                    </div>
+                `;
+            }
+        },
+        colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart],
         legend: {
             offsetY: 6,
             labels: {
-                colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart] // Color del texto en la leyenda
+                colors: [colors.azulChart, colors.naranjaOscuroChart, colors.moradoChart]
             }
         }
     };
@@ -213,12 +245,12 @@ const DefaultStatsChart = (props: DefaultStatsChartProps) => {
         }
     ];
 
-    const chartRef = useRef<HTMLElement>(null)
-    const { downloadPDF } = useDownloadPDF()
+    const chartRef = useRef<HTMLElement>(null);
+    const { downloadPDF } = useDownloadPDF();
 
     const handleDownloadPDF = () => {
-        downloadPDF(chartRef)
-    }
+        downloadPDF(chartRef);
+    };
 
     return (
         <>
@@ -229,8 +261,7 @@ const DefaultStatsChart = (props: DefaultStatsChartProps) => {
                 <Button sx={{ backgroundColor: "#527cdd" }} variant='contained' onClick={handleDownloadPDF}>Descargar PDF</Button>
             </div>
         </>
-    )
+    );
+};
 
-}
-
-export default DefaultStatsChart
+export default DefaultStatsChart;

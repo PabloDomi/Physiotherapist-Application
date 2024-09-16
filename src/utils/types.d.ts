@@ -132,6 +132,7 @@ interface StatsTypes {
     average_series_time: number;
     average_time_between_reps: number;
     reps_per_series: [number];
+    date: string;
 }
 
 interface GlobalState {
